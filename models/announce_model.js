@@ -1,5 +1,10 @@
 const connect = require("./connection_db.js");
 
+/**
+ * To add a announcement by system manager
+ * @param {*} announcement 
+ * @returns 
+ */
 module.exports = function announce(announcement) {
     let result = {};
     return new Promise((resolve, reject) => {

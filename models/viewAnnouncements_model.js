@@ -1,5 +1,9 @@
 const connect = require("./connection.js");
 
+/**
+ * To view all the announcement by anyone
+ * @returns 
+ */
 module.exports = function viewAnnouncements() {
     let result = {};
     return new Promise((resolve, reject) => {

@@ -1,5 +1,10 @@
 const connect = require("./connection_db.js");
 
+/**
+ * To leave a comment by student
+ * @param {*} message 
+ * @returns 
+ */
 module.exports = function comment(message) {
     let result = {};
     return new Promise((resolve, reject) => {

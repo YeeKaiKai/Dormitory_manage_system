@@ -1,4 +1,4 @@
-//tested
+//Tested
 
 const connect = require("./connection_db.js");
 

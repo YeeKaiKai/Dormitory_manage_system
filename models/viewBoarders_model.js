@@ -1,5 +1,9 @@
 const connect = require("./connection_db.js");
 
+/**
+ * To view all the boarders by housemaster
+ * @returns 
+ */
 module.exports = function viewBoarders() {
     let result = {};
     return new Promise((resolve, reject) =>
