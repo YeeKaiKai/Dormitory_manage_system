@@ -1,12 +1,11 @@
 require("dotenv").config();
 
 let config = {
-  connectionLimit: 5,
-  host: "192.168.1.10",
-  port: "8866",
-  user: "root",
-  password: "kyle0204",
-  database: "TEST",
+  host: process.env.HOST,
+  port: process.env.PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 };
-
+console.log(config);
 module.exports = config
