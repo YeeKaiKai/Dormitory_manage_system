@@ -1,7 +1,7 @@
-const connect = require("./connection.js");
+const connect = require("../connection_db.js");
 
 /**
- * To view all the announcement by anyone
+ * View all the announcement by anyone
  * @returns 
  */
 module.exports = function viewAnnouncements() {

@@ -1,14 +1,14 @@
-const connect = require("./connection_db.js");
+const connect = require("../connection_db.js");
 
 /**
- * To leave a comment by student
- * @param {*} message 
- * @returns 
+ * Leave a comment by student
+ * @param {{MContent: string, StuID: string}} message 
+ * @returns comment result for resolve() or reject()
  */
 module.exports = function comment(message) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`INSERT INTO MESSAGE(MContent, StuID) VALUES SET ?`, message.content, (err) => {
+        connect.query(`INSERT INTO MESSAGE(MContent, StuID) VALUES (?, ?)`, message.MContent, message.StuID, (err) => {
             if(err) {
                 result.status = "Failed!";
                 result.message = "留言失敗！";

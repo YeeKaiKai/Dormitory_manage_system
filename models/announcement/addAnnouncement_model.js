@@ -1,14 +1,14 @@
-const connect = require("./connection_db.js");
+const connect = require("../connection_db.js");
 
 /**
- * To add a announcement by system manager
- * @param {*} announcement 
+ * Add a announcement by system manager
+ * @param {{AnnounceContent: string}} announcement 
  * @returns 
  */
-module.exports = function announce(announcement) {
+module.exports = function addAnnouncement(announcement) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`INSERT INTO ANNOUNCEMENT(AnnounceContent) VALUES ?`, announcement.content, (err) => {
+        connect.query(`INSERT INTO ANNOUNCEMENT(AnnounceContent) VALUES ?`, announcement.AnnounceContent, (err) => {
             if(err) {
                 result.status = "Failed";
                 result.message = "發布公告失敗！";

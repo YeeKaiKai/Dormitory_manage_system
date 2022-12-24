@@ -1,11 +1,11 @@
 //Tested
 
-const connect = require("./connection_db.js");
+const connect = require("../connection_db.js");
 
 /**
- * To add a violation by housemaster
- * @param {*} violation 
- * @returns 
+ * Add a violation by housemaster
+ * @param {{VContent:string, VNumber:string, StuID:string}} violation 
+ * @returns add result for reject() or resolve()
  */
 module.exports = function addViolation(violation) {
     let result = {};

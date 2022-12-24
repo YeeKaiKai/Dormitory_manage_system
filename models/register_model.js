@@ -17,13 +17,13 @@ module.exports = function regist(studentData) {
       result.status = "Failed!";
       result.Message = "註冊失敗！";
       reject(result);
-      return result;
+      return;
     }
     console.log("REGISTER OK");
     result.stauts = "Success!";
     result.message = "註冊成功！";
     resolve(result);
-    return result;
+    return;
     })
   })
 }

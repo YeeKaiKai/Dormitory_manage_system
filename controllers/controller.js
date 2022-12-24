@@ -3,7 +3,7 @@ const regist = require("../models/register_model.js");
 /**
  *  receive post method to regist
  */
-export function postRegist(req, res) {
+exports.postRegist = function(req, res) {
     studentData = {
         StuID: "111", 
         SAccount: "222",
