@@ -2,7 +2,7 @@ const connect = require("./connection_db.js");
 
 /**
  * 
- * @param {SAccount, SPassword} studentData 
+ * @param {{SAccount: string, SPassword: string}} studentData 
  * @returns 
  */
 module.exports = function login(studentData) {
