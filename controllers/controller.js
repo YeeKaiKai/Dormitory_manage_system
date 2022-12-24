@@ -1,4 +1,5 @@
 const regist = require("../models/register_model.js");
+const login = require("../models/login_model.js");
 
 /**
  *  receive post method to regist
@@ -23,10 +24,20 @@ exports.postRegist = function(req, res) {
     });
 }
 
-export function postLogin(req, res) {
+exports.postLogin = function(req, res) {
     studentData = {
         SAccount: "%%%",
         SPassword: "%%%"
     };
-    
+    login(studentData).then((result) => {
+        res.json({
+            result: result
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
 }
+
+ex
