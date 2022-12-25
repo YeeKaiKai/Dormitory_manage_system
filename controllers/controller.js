@@ -1,6 +1,9 @@
 const regist = require("../models/register_model.js");
 const login = require("../models/login_model.js");
 
+const jwt = require('jsonwebtoken');
+const config = require('../config/config.js');
+
 /**
  *  receive post method to regist
  */
@@ -24,20 +27,28 @@ exports.postRegist = function(req, res) {
     });
 }
 
-exports.postLogin = function(req, res) {
+exports.postStudentLogin = function(req, res) {
     studentData = {
         SAccount: "%%%",
         SPassword: "%%%"
     };
+    
     login(studentData).then((result) => {
+        // make token that is set expired after an hour, and let StuID be the token data
+        let token = jwt.sign({
+            algorithm: 'HS256',
+            exp: Math.floor(Date.now() / 1000, (60 * 60)),
+            data: result[0].StuID
+        }, config.secret);
+        // set token at header
+        res.setHeader('token', token);
         res.json({
-            result: result
+            result: result,
         })
     }).catch((err) => {
-        res.json({
+        res.json({ 
             err: err
         })
     })
 }
 
-ex

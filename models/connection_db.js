@@ -6,7 +6,15 @@ const config = require("../config/config.js");
 /**
  * Create a Connection
  */
-const connection = mysql.createConnection(config);
+const connection = mysql.createConnection(
+  {
+    host: config.host,
+    port: config.port,
+    user: config.user,
+    password: config.password,
+    database: config.database
+  }
+);
 
 /**
  * Get connect
