@@ -1,11 +1,13 @@
 const regist = require("../models/register_model.js");
 const login = require("../models/login_model.js");
+const verify = require("../models/verification.js");
+const addComment = require("../models/messageBoard/addComment_model.js");
 
 const jwt = require('jsonwebtoken');
 const config = require('../config/config.js');
 
 /**
- *  receive post method to regist
+ *  Receive post method to regist
  */
 exports.postRegist = function(req, res) {
     studentData = {
@@ -27,12 +29,15 @@ exports.postRegist = function(req, res) {
     });
 }
 
+/**
+ * Login for student
+ */
 exports.postStudentLogin = function(req, res) {
     studentData = {
-        SAccount: "%%%",
-        SPassword: "%%%"
+        SAccount: req.body.SAccount,
+        SPassword: req.body.SPassword
     };
-    
+    console.log(req);
     login(studentData).then((result) => {
         // make token that is set expired after an hour, and let StuID be the token data
         let token = jwt.sign({
@@ -47,6 +52,29 @@ exports.postStudentLogin = function(req, res) {
         })
     }).catch((err) => {
         res.json({ 
+            err: err
+        })
+    })
+}
+
+exports.postComment = function(req, res) {
+    let token = req.headers['token'];
+    verify(token).then((data) => {
+        let message = {
+            StuID: data,
+            MContent: "%%%",
+        }
+        addComment(message).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
             err: err
         })
     })
