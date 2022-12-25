@@ -1,5 +1,5 @@
 # dotenv environment variables file
 .env
 
-# Dependency library
+# dependency libraries
 node_modules/
