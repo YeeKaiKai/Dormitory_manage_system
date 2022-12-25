@@ -37,7 +37,6 @@ exports.postStudentLogin = function(req, res) {
         SAccount: req.body.SAccount,
         SPassword: req.body.SPassword
     };
-    console.log(req);
     login(studentData).then((result) => {
         // make token that is set expired after an hour, and let StuID be the token data
         let token = jwt.sign({
