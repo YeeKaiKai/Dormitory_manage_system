@@ -7,6 +7,8 @@ const removeMessage = require("../models/messageBoard/removeMessage_model.js");
 const viewMessage = require("../models/messageBoard/viewMessage_model.js");
 const updateMessage = require("../models/messageBoard/updateMessage_model.js");
 
+const check = require("../service/check.js");
+
 const jwt = require('jsonwebtoken');
 const config = require('../config/config.js');
 
@@ -26,12 +28,10 @@ exports.postRegist = function(req, res, next) {
         res.json({
             result: result
         }) 
-        return;
     }).catch((err) => {
         res.json({
             err: err
         })
-        return;
     });
 }
 
@@ -43,25 +43,29 @@ exports.postStudentLogin = function(req, res, next) {
         SAccount: req.body.SAccount,
         SPassword: req.body.SPassword
     };
-    login(studentData).then((result) => {
-        // make token that is set expired after an hour, and let StuID be the token data
-        let token = jwt.sign({
-            algorithm: 'HS256',
-            // token expired after an hour 
-            exp: Math.floor(Date.now() / 1000, (60 * 60)),
-            data: result[0].StuID
-        }, config.secret);
-        // set token at header
-        res.cookie('token', token, {httpOnly: true});
-        res.json({
-            result: result,
-        })
-        return;
+    login(studentData).then((rows) => {
+        if(check.checkNull(rows) === true) {
+            res.json({
+                result: "請輸入正確的帳號密碼！"
+            })
+        } else {
+            // make token that is set expired after an hour, and let StuID be the token data
+            let token = jwt.sign({
+                algorithm: 'HS256',
+                // token expired after an hour 
+                exp: Math.floor(Date.now() / 1000, (60 * 60)),
+                data: rows[0].StuID
+            }, config.secret);
+            // set token at cookie
+            res.cookie('token', token, {httpOnly: true});
+            res.json({
+                result: rows,
+            })
+        }
     }).catch((err) => {
         res.json({ 
             err: err
         })
-        return;
     })
 }
 
@@ -76,23 +80,20 @@ exports.postMessage = function(req, res, next) {
             res.json({
                 result: result
             })
-            return;
         }).catch((err) => {
             res.json({
                 err: err
             })
-            return;
         })
     }).catch((err) => {
         res.json({
             err: err
         })
-        return;
     })
 }
 
 exports.deleteMessage = function(req, res, next) {
-    let token = req.headers['token'];
+    let token = req.cookies.token;
     verify(token).then((data) => {
         let message = {
             StuID: data,
@@ -102,18 +103,15 @@ exports.deleteMessage = function(req, res, next) {
             res.json({
                 result: result
             })
-            return;
         }).catch((err) => {
             res.json({
                 err: err
             })
-            return;
         })
     }).catch((err) => {
         res.json({
             err: err
         })
-        return;
     })
 }
 
@@ -122,17 +120,15 @@ exports.getMessage = function(req, res, next) {
         res.json({
             result: rows
         })
-        return;
     }).catch((err) => {
         res.json({
             result: err
         })
-        return;
     })
 }
 
 exports.putMessage = function(req, res, next) {
-    let token = req.headers['token'];
+    let token = req.cookies.token;
     verify(token).then((data) => {
         let message = {
             StuID: data,
@@ -144,11 +140,9 @@ exports.putMessage = function(req, res, next) {
         res.json({
             result: result
         })
-        return;
     }).catch((err) => {
         res.json({
             err: err
         })
-        return;
     })
 }
