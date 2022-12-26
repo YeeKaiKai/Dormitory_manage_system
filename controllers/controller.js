@@ -52,7 +52,7 @@ exports.postStudentLogin = function(req, res, next) {
             data: result[0].StuID
         }, config.secret);
         // set token at header
-        res.setHeader('token', token);
+        res.cookie('token', token, {httpOnly: true});
         res.json({
             result: result,
         })
@@ -66,7 +66,7 @@ exports.postStudentLogin = function(req, res, next) {
 }
 
 exports.postMessage = function(req, res, next) {
-    let token = req.headers['token'];
+    let token = req.cookies.token;
     verify(token).then((data) => {
         let message = {
             StuID: data,
