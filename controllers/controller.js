@@ -50,12 +50,7 @@ exports.postStudentLogin = function(req, res, next) {
             })
         } else {
             // make token that is set expired after an hour, and let StuID be the token data
-            let token = jwt.sign({
-                algorithm: 'HS256',
-                // token expired after an hour 
-                exp: Math.floor(Date.now() / 1000, (60 * 60)),
-                data: rows[0].StuID
-            }, config.secret);
+            let token = jwt.sign({ data: rows[0].StuID }, config.secret, { expiresIn: '10m' });
             // set token at cookie
             res.cookie('token', token, {httpOnly: true});
             res.json({

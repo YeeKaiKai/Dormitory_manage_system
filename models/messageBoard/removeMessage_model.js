@@ -8,7 +8,7 @@ const connect = require("../connection_db.js");
 module.exports = function(message) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`DELETE FROM MESSAGE WHERE MNumber = ? AND StuID = ?`, message.MNumber, message.StuID, (err) => {
+        connect.query(`DELETE FROM MESSAGE WHERE MNumber = ? AND StuID = ?`, [message.MNumber, message.StuID], (err) => {
             if(err) {
                 result.status = "Failed!";
                 result.message = "刪除留言失敗！";
