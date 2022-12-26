@@ -5,7 +5,7 @@ const connect = require("../connection_db.js");
  * @param {{Approved: boolean, StuID: string, ApplyNumber: string}} application 
  * @returns 
  */
-module.exports = function updateApplication(application) {
+module.exports = function(application) {
     let result = {};
     return new Promise((resolve, reject) => {
         connect.query(`UPDATE APPLICATION SET Approved = ? WHERE StuID = ? AND ApplyNumber = ?`, [application.Approved, application.StuID, application.ApplyNumber], (err) => {

@@ -1,14 +1,14 @@
 const connect = require("../connection_db.js");
 
 /**
- * Delete the comment by house master
+ * Delete the comment by student itself
  * @param {{MNumber: string}} comment 
  * @returns 
  */
-module.exports = function deleteComment(comment) {
+module.exports = function(comment) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`DELETE FROM MESSAGE WHERE MNumber = ?`, comment.MNumber, (err) => {
+        connect.query(`DELETE FROM MESSAGE WHERE MNumber = ? AND StuID = ?`, comment.MNumber, comment.StuID, (err) => {
             if(err) {
                 result.status = "Failed!";
                 result.message = "刪除留言失敗！";

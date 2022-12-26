@@ -8,7 +8,7 @@ const connect = require("./connection_db.js");
  * @returns 
  */
 
-module.exports = function regist(studentData) { 
+module.exports = function(studentData) { 
   let result = {};
   return new Promise((resolve, reject) => {
     connect.query(`INSERT INTO STUDENT SET ?`, studentData, (err) => {

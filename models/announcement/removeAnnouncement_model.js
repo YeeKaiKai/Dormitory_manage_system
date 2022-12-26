@@ -5,7 +5,7 @@ const connect = require("../connection_db.js");
  * @param {{ANumber: string}} announcement 
  * @returns 
  */
-module.exports = function deleteAnnouncement(announcement) {
+module.exports = function(announcement) {
     result = {};
     return Promise((resolve, reject) => {
         connect.query(`DELETE FROM ANNOUNCEMENT WHERE ANumber = ?`, announcement.ANumber, (err) => {

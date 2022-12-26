@@ -5,7 +5,7 @@ const connect = require("../connection_db.js");
  * @param {{StuID: string, DName: string, ApplyAcademicYear: int, ApplySemester: char}} application 
  * @returns 
  */
-module.exports = function makeapplication(application) {
+module.exports = function(application) {
     let result = {};
     return new Promise((resolve, reject) => {
         connect.query(`INSERT INTO APPLICATION(StuID, DName, ApplyAcademicYear, ApplySemester) VALUES(?, ?, ?, ?)`, [application.StuID, application.DName, application.ApplyAcademicYear, application.ApplySemester], (err) => {

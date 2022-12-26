@@ -5,7 +5,7 @@ const connect = require("../connection_db.js");
  * @param {{StuID: string}} inquiry 
  * @returns 
  */
-module.exports = function inquireApplication(inquiry) {
+module.exports = function(inquiry) {
     let result = {};
     return new Promise((resolve, reject) => {
         connect.query(`SELECT * FROM APPLICATION WHERE StuID = ?`, inquiry.StuID, (err, rows) => {

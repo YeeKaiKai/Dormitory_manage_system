@@ -5,7 +5,7 @@ const connect = require("../connection_db.js");
  * @param {{AnnounceContent: string}} announcement 
  * @returns 
  */
-module.exports = function addAnnouncement(announcement) {
+module.exports = function(announcement) {
     let result = {};
     return new Promise((resolve, reject) => {
         connect.query(`INSERT INTO ANNOUNCEMENT(AnnounceContent) VALUES ?`, announcement.AnnounceContent, (err) => {

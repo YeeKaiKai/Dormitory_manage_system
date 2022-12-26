@@ -4,7 +4,7 @@ const connect = require("../connection_db.js");
  * View all the announcement by anyone
  * @returns 
  */
-module.exports = function viewAnnouncements() {
+module.exports = function() {
     let result = {};
     return new Promise((resolve, reject) => {
         connect.query(`SELECT * FROM ANNOUNCEMENT`, (err, rows) => {

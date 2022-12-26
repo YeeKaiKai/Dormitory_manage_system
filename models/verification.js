@@ -6,7 +6,7 @@ const config = require('../config/config.js');
  * @param {*} token 
  * @returns reject(result{status: string, message: string}), resolve(decoded.data)
  */
-module.exports = function verify(token) {
+module.exports = function(token) {
     let result = {};
     let time = Math.floor(Date.now() / 1000);
     return new Promise((resolve, reject) => {

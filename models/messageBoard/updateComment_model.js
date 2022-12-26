@@ -5,7 +5,7 @@ const connect = require("../connection_db.js");
  * @param {{MContent: string, StuID: string, MNumber: int}} comment 
  * @returns 
  */
-module.exports = function updateComment(comment) {
+module.exports = function(comment) {
     let result = {};
     return new Promise((resolve, reject) => {
         connect.query(`UPDATE MESSAGE SET MContent = ? WHERE StuID = ? AND MNumber = ?`, [comment.MContent, comment.StuID, comment.MNumber], (err) => {
