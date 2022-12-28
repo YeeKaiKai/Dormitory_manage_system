@@ -9,4 +9,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/login', controller.postStudentLogin);
 
+router.post('/messageBoard', controller.postMessage);
+router.delete('/messageBoard', controller.deleteMessage);
+
 module.exports = router;
