@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/login', controller.postStudentLogin);
+router.post('/login', controller.postLogin);
 
 router.post('/messageBoard', controller.postMessage);
 router.delete('/messageBoard', controller.deleteMessage);

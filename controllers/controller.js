@@ -1,6 +1,5 @@
 const regist = require("../models/register_model.js");
-const studentLogin = require("../models/studentLogin_model.js");
-const housemasterLogin = require("../models/housemasterLogin_model.js");
+const login = require("../models/login_model.js");
 const verify = require("../models/verification.js");
 
 const addMessage = require("../models/messageBoard/addMessage_model.js");
@@ -44,12 +43,12 @@ exports.postRegist = function(req, res, next) {
 /**
  * Login for student
  */
-exports.postStudentLogin = function(req, res, next) {
-    let studentData = {
-        SAccount: req.body.SAccount,
-        SPassword: req.body.SPassword
+exports.postLogin = function(req, res, next) {
+    let userData = {
+        UID: req.body.UID,
+        UPassword: req.body.UPassword
     };
-    studentLogin(studentData).then((rows) => {
+    login(userData).then((rows) => {
         // if login imformation is wrong, rows will return null
         if(check.checkNull(rows) === true) {
             res.json({
@@ -58,33 +57,6 @@ exports.postStudentLogin = function(req, res, next) {
         } else {
             // make token that is set expired after an hour, and let StuID be the token data
             let token = jwt.sign({ data: rows[0].StuID }, config.secret, { expiresIn: '10m' });
-            // set token at cookie
-            res.cookie('token', token, {httpOnly: true});
-            res.json({
-                result: rows,
-            })
-        }
-    }).catch((err) => {
-        res.json({ 
-            err: err
-        })
-    })
-}
-
-exports.postHousemasterLogin = function(req, res, next) {
-    housemasterData = {
-        HAccount: req.body.HAccount,
-        HPassword: req.body.HPassword
-    };
-    housemasterLogin(housemasterData).then((rows) => {
-        // if login imformation is wrong, rows will return null
-        if(check.checkNull(rows) === true) {
-            res.json({
-                result: "請輸入正確的帳號密碼！"
-            })
-        } else {
-            // make token that is set expired after an hour, and let StuID be the token data
-            let token = jwt.sign({ data: rows[0].HName }, config.secret, { expiresIn: '10m' });
             // set token at cookie
             res.cookie('token', token, {httpOnly: true});
             res.json({
