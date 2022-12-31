@@ -156,7 +156,9 @@ exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let announcement = {
-            AnnouncementContent: req.body.AnnounceContent
+            AnnouncementContent: req.body.AnnounceContent,
+            SSN: req.body.SSN,
+            UType: req.body.UType
         }
         addAnnouncement(announcement).then((result) => {
             res.json({
