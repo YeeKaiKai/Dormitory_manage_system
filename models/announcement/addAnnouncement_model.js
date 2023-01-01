@@ -15,13 +15,13 @@ module.exports = function(announcement) {
                 INSERT INTO ANNOUNCEMENT(AnnounceContent) 
                 VALUES("${announcement.AnnounceContent}");
                 INSERT INTO ANN_Manage(AnnounceNumber, ASSN)
-                VALUES((SELECT MAX(AnnounceNumber) FROM ANNOUNCEMENT), "${announcement.SSN}")`
+                VALUES((SELECT MAX(AnnounceNumber) FROM ANNOUNCEMENT), "${announcement.SSN}")`;
             case 'HOUSEMASTER':
                 sql = `
                 INSERT INTO ANNOUNCEMENT(AnnounceContent) 
                 VALUES("${announcement.AnnounceContent}");
                 INSERT INTO HAN_Manage(AnnounceNumber, HSSN)
-                VALUES((SELECT MAX(AnnounceNumber) FROM ANNOUNCEMENT), "${announcement.SSN}")`
+                VALUES((SELECT MAX(AnnounceNumber) FROM ANNOUNCEMENT), "${announcement.SSN}")`;
         }
         connect.query(sql, (err) => {
             if(err) {

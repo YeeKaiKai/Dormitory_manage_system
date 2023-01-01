@@ -5,7 +5,7 @@ const connect = require("../connection_db.js");
  * @param {{VContent: string, StuID: string, VNumber: int}} violation 
  * @returns 
  */
-module.exports = function updateViolation(violation) {
+module.exports = function(violation) {
     let result = {};
     return new Promise((resolve, reject) => {
         connect.query(`UPDATE VIOLATION SET VContent = ? WHERE StuID = ? AND VNumber = ?`, [violation.VContent, violation.StuID, violation.VNumber], (err) => {

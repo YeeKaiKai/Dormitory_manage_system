@@ -5,7 +5,7 @@ const connect = require("../connection_db.js");
  * @param {{StuID: string, VNumber: string}} violation 
  * @returns delete result for reject() or resolve()
  */
-module.exports = function deleteViolation(violation) {
+module.exports = function(violation) {
     let result = {};
     return new Promise((resolve, reject) => {
         connect.query(`DELETE FROM VIOLATION WHERE StuID = ? AND VNumber = ?`, [violation.StuID, violation.VNumber], (err) => {
