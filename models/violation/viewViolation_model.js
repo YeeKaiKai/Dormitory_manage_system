@@ -1,7 +1,7 @@
 const connect = require("../connection_db.js");
 
 /**
- * 
+ * View all violation depending on StuID by housemaster 
  * @param {{StuID: string, VNumber: string}} violation 
  * @returns 
  */

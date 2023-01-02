@@ -1,5 +1,9 @@
 const connect = require("../connection_db.js");
 
+/**
+ * View all messages on message board
+ * @returns 
+ */
 module.exports = function() {
     result = {};
     return new Promise((resolve, reject) => {
