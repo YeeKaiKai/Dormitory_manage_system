@@ -3,15 +3,15 @@
 const connect = require("./connection_db.js");
 
 /**
- * 
- * @param {StuID, SName, SPhoneNumber, SEmail, SDepartment, SSex} studentData 
+ * User Regist
+ * @param {{UName: string, UID: string, UPassword: string, UType: string}} UserData 
  * @returns 
  */
 
-module.exports = function(studentData) { 
+module.exports = function(UserData) { 
   let result = {};
   return new Promise((resolve, reject) => {
-    connect.query(`INSERT INTO STUDENT SET ?`, studentData, (err) => {
+    connect.query(`INSERT INTO USER SET ?`, UserData, (err) => {
     if(err) {
       console.log(err);
       result.status = "Failed!";

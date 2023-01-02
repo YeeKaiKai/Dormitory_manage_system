@@ -14,6 +14,7 @@ const updateAnnouncement = require("../models/announcement/updateAnnouncement_mo
 
 const check = require("../service/check.js");
 
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config.js');
 
@@ -21,15 +22,15 @@ const config = require('../config/config.js');
  *  Receive post method to regist
  */
 exports.postRegist = function(req, res, next) {
-    studentData = {
-        StuID: "111", 
-        SAccount: "222",
-        SPassWord: "333", 
-        SName: "444",
-        SEmail: "555",
-        SPhoneNumber: "666"
+    // encrypt password 
+    const enPassword = bcrypt.hashSync(req.body.UPassword, 10);
+    userData = {
+        UID: req.body.UID,
+        UPassword: enPassword,
+        UName: req.body.UName,
+        UType: req.body.UType
     }; // need to communicate with front end, and the name should be the same with db column name
-    regist(studentData).then((result) => {
+    regist(userData).then((result) => {
         res.json({
             result: result
         }) 
@@ -56,7 +57,7 @@ exports.postLogin = function(req, res, next) {
             })
         } else {
             // make token that is set expired after an hour, and let StuID be the token data
-            let token = jwt.sign({ data: rows[0].StuID }, config.secret, { expiresIn: '10m' });
+            let token = jwt.sign({ data: rows.UID }, config.secret, { expiresIn: '10m' });
             // set token at cookie
             res.cookie('token', token, {httpOnly: true});
             res.json({
@@ -64,6 +65,7 @@ exports.postLogin = function(req, res, next) {
             })
         }
     }).catch((err) => {
+        console.log(err);
         res.json({ 
             err: err
         })
@@ -97,7 +99,6 @@ exports.deleteMessage = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let message = {
-            StuID: data,
             MNumber: req.body.MNumber
         }
         removeMessage(message).then((result) => {
@@ -132,7 +133,6 @@ exports.putMessage = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let message = {
-            StuID: data,
             MContent: req.body.MContent,
             MNumber: req.body.MNumber
         }
