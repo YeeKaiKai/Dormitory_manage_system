@@ -19,7 +19,6 @@ module.exports = function(UserData) {
       reject(result);
       return;
     }
-    console.log("REGISTER OK");
     result.stauts = "Success!";
     result.message = "註冊成功！";
     resolve(result);

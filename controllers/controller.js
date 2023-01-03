@@ -51,19 +51,13 @@ exports.postLogin = function(req, res, next) {
     };
     login(userData).then((rows) => {
         // if login imformation is wrong, rows will return null
-        if(check.checkNull(rows) === true) {
-            res.json({
-                result: "請輸入正確的帳號密碼！"
-            })
-        } else {
-            // make token that is set expired after an hour, and let StuID be the token data
-            let token = jwt.sign({ data: rows.UID }, config.secret, { expiresIn: '10m' });
-            // set token at cookie
-            res.cookie('token', token, {httpOnly: true});
-            res.json({
-                result: rows,
-            })
-        }
+        // make token that is set expired after an hour, and let StuID be the token data
+        let token = jwt.sign({ data: rows.UID }, config.secret, { expiresIn: '10m' });
+        // set token at cookie
+        res.cookie('token', token, {httpOnly: true});
+        res.json({
+            result: rows,
+        })
     }).catch((err) => {
         console.log(err);
         res.json({ 
