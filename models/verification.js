@@ -16,7 +16,7 @@ module.exports = function(token) {
                 reject(result);
                 return;
             } else {
-                resolve(decoded.data);
+                resolve(decoded);
                 return;
             }
         })

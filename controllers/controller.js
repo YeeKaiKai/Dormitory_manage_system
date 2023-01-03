@@ -52,7 +52,7 @@ exports.postLogin = function(req, res, next) {
     login(userData).then((rows) => {
         // if login imformation is wrong, rows will return null
         // make token that is set expired after an hour, and let StuID be the token data
-        let token = jwt.sign({ data: rows.UID }, config.secret, { expiresIn: '10m' });
+        let token = jwt.sign({ UID: rows.UID, UType: rows.UType }, config.secret, { expiresIn: '10m' });
         // set token at cookie
         res.cookie('token', token, {httpOnly: true});
         res.json({
@@ -70,7 +70,7 @@ exports.postMessage = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let message = {
-            StuID: data,
+            StuID: data.UID,
             MContent: req.body.MContent,
         }
         addMessage(message).then((result) => {
@@ -150,9 +150,9 @@ exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let announcement = {
-            AnnouncementContent: req.body.AnnounceContent,
-            SSN: req.body.SSN,
-            UType: req.body.UType
+            AnnounceContent: req.body.AnnounceContent,
+            SSN: data.UID,
+            UType: data.UType
         }
         addAnnouncement(announcement).then((result) => {
             res.json({
