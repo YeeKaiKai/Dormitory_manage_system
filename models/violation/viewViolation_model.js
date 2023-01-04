@@ -2,25 +2,24 @@ const connect = require("../connection_db.js");
 
 /**
  * View all violation depending on StuID by housemaster 
- * @param {{StuID: string, VNumber: string}} violation 
+ * @param {{StuID: string}} violation 
  * @returns 
  */
 module.exports = function(violation) {
     let result = {};
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         let sql = `
-        DELETE FROM VIOLATION
-        WHERE StuID = "${violation.StuID} AND VNumber = "${violation.VNumber}"`;
-        connect.query(sql, (err) => {
+        SELECT *
+        FROM VIOLATION
+        WHERE StuID = "${violation.StuID}"`;
+        connect.query(sql, (err, rows) => {
             if(err) {
                 result.status = "Failed!";
-                result.message = "刪除違規紀錄失敗！";
+                result.message = "瀏覽違規紀錄失敗！";
                 reject(result);
                 return;
             }
-            result.status = "Success!";
-            result.message = "刪除違規紀錄成功！";
-            resolve(result);
+            resolve(rows);
             return;
         })
     })
