@@ -28,6 +28,11 @@ const updateDormitory = require("../models/dormitory/updateDormitory_model.js");
 const updateRoom = require("../models/dormitory/updateRoom_model.js");
 const updateFacility = require("../models/dormitory/updateFacility_model.js");
 
+const addBoarder = require("../models/boarder/addBoarder_model.js");
+const removeBoarder = require("../models/boarder/removeBoarder_model.js");
+const viewBoarder = require("../models/boarder/viewBoarder_model.js");
+const updateBoarder = require("../models/boarder/updateBoarder_model.js");
+
 const check = require("../service/check.js");
 
 const bcrypt = require('bcrypt');
@@ -561,6 +566,95 @@ exports.putFacility = function(req, res, next) {
         updateFacility(facility).then((result) => {
             res.json({
                 result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.postBoarder = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let boarder = {
+            StuID: req.body.StuID,
+            DName: req.body.DName,
+            RoomNumber: req.body.RoomNumber
+        }
+        addBoarder(boarder).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.deleteBoarder = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let boarder = {
+            StuID: req.body.StuID
+        }
+        removeBoarder(boarder).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getBoarder = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        viewBoarder().then((rows) => {
+            res.json({
+                rows: rows
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.putBoarder = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let boarder = {
+            DName: req.body.DName,
+            RoomNumber: req.body.RoomNumber,
+            StuID: req.body.StuID
+        }
+        updateBoarder(boarder).then((rows) => {
+            res.json({
+                rows: rows
             })
         }).catch((err) => {
             console.log(err);

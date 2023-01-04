@@ -29,4 +29,9 @@ router.put('/dormitory', controller.putDormitory);
 router.put('/dormitory/room', controller.putRoom);
 router.put('/dormitory/room/facility', controller.putFacility);
 
+router.post('/boarder', controller.postBoarder);
+router.delete('/boarder', controller.deleteBoarder);
+router.get('/boarder', controller.getBoarder);
+router.put('/boarder', controller.putBoarder);
+
 module.exports = router;
