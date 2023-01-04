@@ -10,8 +10,8 @@ module.exports = function(boarder) {
     return new Promise((resolve, reject) => {
         let sql = `
         INSERT INTO BOARDER(StuID, DName, RoomNumber)
-        VALUES ?`
-        connect.query(sql, boarder, (err) => {
+        VALUES (?, ?, ?)`
+        connect.query(sql, [boarder.StuID, boarder.DName, boarder.RoomNumber], (err) => {
             if(err) {
                 result.status = "Failed!";
                 result.message = "新增住宿生資料失敗，伺服器錯誤！";
