@@ -2,7 +2,7 @@ const connect = require("../connection_db.js");
 
 /**
  * 
- * @param {{DName: string, RoomNumber: string, RCapacity: string}} room 
+ * @param {{DName: string, RoomNumber: string, RCapacity: integer}} room 
  * @returns 
  */
 module.exports = function(room) {
@@ -10,8 +10,9 @@ module.exports = function(room) {
     return new Promise((resolve, reject) => {
         let sql = `
         INSERT ROOM(DName, RoomNumber, RCapacity)
-        VALUES ?`;
-        connect.query(sql, room, (err) => {
+        VALUES (?, ?, ?)`;
+        connect.query(sql, [room.DName, room.RoomNumber, room.RCapacity], (err) => {
+            console.log(err);
             if(err) {
                 result.status = "Failed!";
                 result.message = "新增房間失敗，伺服器錯誤！";
