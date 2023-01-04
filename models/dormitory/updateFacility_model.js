@@ -8,15 +8,15 @@ const check = require("../../service/check.js");
 module.exports = function(facility) {
     let result = {};
     return new Promise((resolve, reject) => {
-        let sql = `UPDATE ROOM SET FQuantity = ${FQuantity}`;
+        let sql = `UPDATE FACILITY SET`;
         // judge if there's a need to add a comma between sets
         let status = false;
-        if(check.checkNull(newFName) === false) {
+        if(check.checkNull(facility.newFName) === false) {
             let _sql = ` FName = "${facility.newFName}"`;
             sql = sql + _sql;
             status = true;
         }
-        if(check.checkNull(FQuantity) === false) {
+        if(check.checkNull(facility.FQuantity) === false) {
             if(status) {
                 let comma = `,`;
                 sql = sql + comma;
