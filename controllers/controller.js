@@ -33,6 +33,11 @@ const removeBoarder = require("../models/boarder/removeBoarder_model.js");
 const viewBoarder = require("../models/boarder/viewBoarder_model.js");
 const updateBoarder = require("../models/boarder/updateBoarder_model.js");
 
+const addViolation = require("../models/violation/addViolation_model.js");
+const removeViolation = require("../models/violation/removeViolation_model.js");
+const viewViolation = require("../models/violation/viewViolation_model.js");
+const updateViolation = require("../models/violation/updateViolation_model.js");
+
 const check = require("../service/check.js");
 
 const bcrypt = require('bcrypt');
@@ -652,12 +657,104 @@ exports.putBoarder = function(req, res, next) {
             RoomNumber: req.body.RoomNumber,
             StuID: req.body.StuID
         }
-        updateBoarder(boarder).then((rows) => {
+        updateBoarder(boarder).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.postViolation = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let violation = {
+            StuID: req.body.StuID,
+            VContent: req.body.VContent
+        }
+        addViolation(violation).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.deleteViolation = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data)=> {
+        let violation = {
+            StuID: req.body.StuID,
+            VNumber: req.body.VNumber
+        }
+        removeViolation(violation).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getViolation = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let violation = {
+            StuID: req.query.StuID
+        }
+        viewViolation(violation).then((rows) => {
             res.json({
                 rows: rows
             })
         }).catch((err) => {
-            console.log(err);
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        console.log(err);            
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.putViolation = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let violation = {
+            StuID: req.body.StuID,
+            VNumber: req.body.VNumber,
+            VContent: req.body.VContent
+        }
+        updateViolation(violation).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
             res.json({
                 err: err
             })

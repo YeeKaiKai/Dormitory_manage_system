@@ -17,5 +17,9 @@ router.put('/announcement', controller.putAnnouncement);
 
 router.get('/boarder', controller.getBoarder);
 
+router.post('/violation', controller.postViolation);
+router.delete('/violation', controller.deleteViolation);
+router.get('/violation', controller.getViolation);
+router.put('/violation', controller.putViolation);
 
 module.exports = router;
