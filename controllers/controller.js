@@ -20,6 +20,10 @@ const updateApplication = require("../models/application/updateApplication_model
 const addDormitory = require("../models/dormitory/addDormitory_model.js");
 const addRoom = require("../models/dormitory/addRoom_model.js");
 const addFacility = require("../models/dormitory/addFacility_model.js");
+const deleteDormitory = require("../models/dormitory/removeDormitory_model.js");
+const deleteRoom = require("../models/dormitory/removeRoom_model.js");
+const deleteFacility = require("../models/dormitory/removeFacility_model.js");
+const viewDormitory = require("../models/dormitory/viewDormitory_model.js");
 
 const check = require("../service/check.js");
 
@@ -385,6 +389,99 @@ exports.postFacility = function(req, res, next) {
         addFacility(facility).then((result) => {
             res.json({
                 result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.deleteDormitory = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let dormitory = {
+            DName: req.body.DName
+        }
+        deleteDormitory(dormitory).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.deleteRoom = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let room = {
+            DName: req.body.DName,
+            RoomNumber: req.body.RoomNumber
+        }
+        deleteRoom(room).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.deleteFacility = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let facility = {
+            DName: req.body.DName,
+            RoomNumber: req.body.RoomNumber,
+            FName: req.body.FName
+        }
+        deleteFacility(facility).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getDormitory = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let dormitory = {
+            DName: req.query.DName,
+            RoomNumber: req.query.RoomNumber,
+            FName: req.query.FName
+        }
+        viewDormitory(dormitory).then((rows) => {
+            res.json({
+                rows: rows
             })
         }).catch((err) => {
             res.json({

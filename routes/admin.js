@@ -21,5 +21,9 @@ router.put('/application', controller.putApplication);
 router.post('/dormitory', controller.postDormitory);
 router.post('/dormitory/room', controller.postRoom);
 router.post('/dormitory/room/facility', controller.postFacility);
+router.delete('/dormitory', controller.deleteDormitory);
+router.delete('/dormitory/room', controller.deleteRoom);
+router.delete('/dormitory/room/facility', controller.deleteFacility);
+router.get('/dormitory', controller.getDormitory);
 
 module.exports = router;
