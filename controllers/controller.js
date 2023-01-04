@@ -12,6 +12,11 @@ const removeAnnouncement = require("../models/announcement/removeAnnouncement_mo
 const viewAnnouncement = require("../models/announcement/viewAnnouncements_model.js");
 const updateAnnouncement = require("../models/announcement/updateAnnouncement_model.js");
 
+const makeApplication = require("../models/application/makeApplication_model.js");
+const inquiryApplication = require("../models/application/inquireApplication_model.js");
+const viewApplication = require("../models/application/viewApplication_model.js");
+const updateApplication = require("../models/application/updateApplication_model.js");
+
 const check = require("../service/check.js");
 
 const bcrypt = require('bcrypt');
@@ -221,6 +226,94 @@ exports.putAnnouncement = function(req, res, next) {
             })
         })
 
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.postApplication = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let application = {
+            StuID: data.UID,
+            DName: req.body.DName,
+        }
+        makeApplication(application).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getApplicationByStudent = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let inquiry = {
+            StuID: data.UID
+        };
+        inquiryApplication(inquiry).then((rows) => {
+            res.json({
+                rows: rows
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getApplicationByAdmin = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        viewApplication().then((rows) => {
+            res.json({
+                rows: rows
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.putApplication = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let application = {
+            Approved: req.body.Approved,
+            StuID: req.body.StuID,
+            ApplyNumber: req.body.ApplyNumber
+        }
+        updateApplication(application).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
     }).catch((err) => {
         res.json({
             err: err
