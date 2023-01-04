@@ -24,6 +24,9 @@ const deleteDormitory = require("../models/dormitory/removeDormitory_model.js");
 const deleteRoom = require("../models/dormitory/removeRoom_model.js");
 const deleteFacility = require("../models/dormitory/removeFacility_model.js");
 const viewDormitory = require("../models/dormitory/viewDormitory_model.js");
+const updateDormitory = require("../models/dormitory/updateDormitory_model.js");
+const updateRoom = require("../models/dormitory/updateRoom_model.js");
+const updateFacility = require("../models/dormitory/updateFacility_model.js");
 
 const check = require("../service/check.js");
 
@@ -484,6 +487,83 @@ exports.getDormitory = function(req, res, next) {
                 rows: rows
             })
         }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.putDormitory = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let dormitory = {
+            DName: req.body.DName,
+            newDName: req.body.newDName,
+            Fee: req.body.Fee,
+            DCapacity: req.body.DCapacity
+        }
+        updateDormitory(dormitory).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.putRoom = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let room = {
+            DName: req.body.DName,
+            RoomNumber: req.body.RoomNumber,
+            newRoomNumber: req.body.newRoomNumber,
+            RCapacity: req.body.RCapacity
+        }
+        updateRoom(room).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.putFacility = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let facility = {
+            DName: req.body.DName,
+            RoomNumber: req.body.RoomNumber,
+            FName: req.body.FName,
+            newFName: req.body.newFName,
+            FQuantity: req.body.FQuantity
+        }
+        updateFacility(facility).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            console.log(err);
             res.json({
                 err: err
             })
