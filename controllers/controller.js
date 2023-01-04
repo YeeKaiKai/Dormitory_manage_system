@@ -169,3 +169,61 @@ exports.postAnnouncement = function(req, res, next) {
         })
     })
 }
+
+exports.deleteAnnouncement = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let announcement = {
+            AnnounceNumber: req.body.AnnounceNumber
+        }
+        removeAnnouncement(announcement).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getAnnouncement = function(req, res, next) {
+    // viewAnnouncement().then((rows) => {
+    //     res.json({
+    //         rows: rows
+    //     })
+    // }).catch((err) => {
+    //     res.json({
+    //         err: err
+    //     })
+    // })
+}
+
+exports.putAnnouncement = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let announcement = {
+            AnnounceContent: req.body.AnnounceContent,
+            AnnounceNumber: req.body.AnnounceNumber
+        }
+        updateAnnouncement(announcement).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
