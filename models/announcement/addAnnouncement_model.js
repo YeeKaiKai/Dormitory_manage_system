@@ -14,17 +14,20 @@ module.exports = function(announcement) {
                 sql = `
                 INSERT INTO ANNOUNCEMENT(AnnounceContent) 
                 VALUES("${announcement.AnnounceContent}");
-                INSERT INTO ANN_Manage(AnnounceNumber, ASSN)
+                INSERT INTO AAN_Manage(AnnounceNumber, ASSN)
                 VALUES((SELECT MAX(AnnounceNumber) FROM ANNOUNCEMENT), "${announcement.SSN}")`;
+                break;
             case 'HOUSEMASTER':
                 sql = `
                 INSERT INTO ANNOUNCEMENT(AnnounceContent) 
                 VALUES("${announcement.AnnounceContent}");
                 INSERT INTO HAN_Manage(AnnounceNumber, HSSN)
                 VALUES((SELECT MAX(AnnounceNumber) FROM ANNOUNCEMENT), "${announcement.SSN}")`;
+                break;
         }
         connect.query(sql, (err) => {
             if(err) {
+                console.log(err);
                 result.status = "Failed";
                 result.message = "發布公告失敗！";
                 reject(result);
