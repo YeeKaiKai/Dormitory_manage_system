@@ -8,7 +8,7 @@ const connect = require("../connection_db.js");
 module.exports = function(application) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`INSERT INTO APPLICATION(StuID, DName, ApplyAcademicYear, ApplySemester) VALUES(?, ?, ?, ?)`, [application.StuID, application.DName, application.ApplyAcademicYear, application.ApplySemester], (err) => {
+        connect.query(`INSERT INTO APPLICATION(StuID, DName) VALUES(?, ?)`, [application.StuID, application.DName], (err) => {
             if(err) {
                 result.status = "Failed!";
                 result.message = "申請失敗！";
