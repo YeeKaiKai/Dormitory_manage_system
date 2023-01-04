@@ -11,23 +11,23 @@ module.exports = function(dormitory) {
     return new Promise((resolve, reject) => {
         let sql;
         // check if the inquiry has input
-        if(check.checkNull(dormitory.DName) == false) { // check all dormitory
+        if(check.checkNull(dormitory.DName) === true) { // check all dormitory
             sql = `
             SELECT * 
-            FROM DORMITORY 
+            FROM DORMITORY
             NATURAL JOIN ROOM
             NATURAL JOIN FACILITY`;
-        } else if (check.checkNull(dormitory.RoomNumber) == false) { // check all rooms in a dormitory
+        } else if (check.checkNull(dormitory.RoomNumber) === true) { // check all rooms in a dormitory
             sql = `
             SELECT * 
-            FROM DORMITORY 
+            FROM DORMITORY
             NATURAL JOIN ROOM
             NATURAL JOIN FACILITY
             WHERE DName = "${dormitory.DName}"`;
-        } else if (check.checkNull(dormitory.FName) == false){ // check all facilities in a room
+        } else if (check.checkNull(dormitory.FName) === true){ // check all facilities in a room
 
             sql = `
-            SELECT *
+            SELECT * 
             FROM ROOM
             NATURAL JOIN FACILITY
             WHERE DName = "${dormitory.DName}" AND RoomNumber = "${dormitory.RoomNumber}"`;
