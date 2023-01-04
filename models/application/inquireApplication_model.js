@@ -8,7 +8,7 @@ const connect = require("../connection_db.js");
 module.exports = function(inquiry) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`SELECT * FROM APPLICATION WHERE StuID = ?`, inquiry.StuID, (err, rows) => {
+        connect.query(`SELECT * FROM APPLICATION WHERE StuID = ? AND ApplyNumber = 1`, inquiry.StuID, (err, rows) => {
             if(err) {
                 result.status = "Failed!";
                 result.message = "查詢申請紀錄失敗！";
