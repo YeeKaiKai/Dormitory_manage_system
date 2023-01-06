@@ -22,9 +22,11 @@
       <div class="mb-3">
         <input type="password" class="form-control" name="UPassword" placeholder="密碼">
       </div>
-      <!-- for wrong message
-      <p class="setWrongMessage">帳號或密碼有誤</p> -->
-      <input type="submit" class="submitButton" value="登入">
+      <%= %>
+        <% if(result) { %>
+          <p class="setWrongMessage"><%= result.message %></p>
+        <% } %>      
+        <input type="submit" class="submitButton" value="登入">
     </form>
   </div>
 
