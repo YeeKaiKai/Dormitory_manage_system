@@ -1,0 +1,44 @@
+body {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* background-position: center; */
+  background-size: cover;
+  background-image: url("../images/login_background.jpg");
+  /* background-image: url("../images/login_background.jpg"); */
+}
+
+.inputContainer {
+  text-align: center;
+  height: 40vh;
+  width: 530px;
+  margin: 0 auto;
+  padding: 16px;
+  /*和邊框的距離*/
+  border-width: 5px;
+  border-radius: 5px;
+  /*邊框變為圓弧*/
+  border-style: solid;
+  border-color: #f5aa93;
+  box-shadow: 5px 5px 5px #FFAB40;
+  background: #FFF3E0;
+}
+
+.setHeadling {
+  margin-top: 15px;
+}
+
+.submitButton {
+  color: white;
+  border-radius: 5px;
+  /*邊框變為圓弧*/
+  border-color: #FF8A65;
+  height: 38px;
+  width: 64px;
+  background: #e88e44;
+}
+
+.setWrongMessage{
+  font-size: 18px;
+  color:red;
+  font-weight: bold;
+}
