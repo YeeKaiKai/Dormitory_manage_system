@@ -7,6 +7,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/login', function(req, res, next) {
+  res.render('login', {result: null});
+});
+
 router.post('/register', controller.postRegist);
 router.post('/login', controller.postLogin);
 
