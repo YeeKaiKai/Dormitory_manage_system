@@ -10,12 +10,12 @@ module.exports = function(message) {
     return new Promise((resolve, reject) => {
         connect.query(`INSERT INTO MESSAGE(MContent, StuID) VALUES (?, ?)`, [message.MContent, message.StuID], (err) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "留言失敗！";
                 reject(result);
                 return;
             }
-            result.status = "Success!";
+            result.status = true;
             result.message = "留言成功！";
             resolve(result);
             return;

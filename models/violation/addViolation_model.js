@@ -12,12 +12,12 @@ module.exports = function(violation) {
     return new Promise((resolve, reject) => {
         connect.query(`INSERT INTO VIOLATION(VContent, VNumber, StuID) VALUES (?, ?, ?)`, [violation.VContent, violation.VNumber, violation.StuID], (err) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "新增違規紀錄失敗！";
                 reject(result);
                 return;
             }
-            result.status = "Success!";
+            result.status = true;
             result.message = "新增違規紀錄成功！";
             resolve(result);
             return;

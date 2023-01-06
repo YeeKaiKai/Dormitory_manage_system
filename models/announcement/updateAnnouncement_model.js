@@ -10,12 +10,12 @@ module.exports = function(announcement) {
     return new Promise((resolve, reject) => {
         connect.query(`UPDATE ANNOUNCEMENT SET AnnounceContent = ? WHERE AnnounceNumber = ?`, [announcement.AnnounceContent, announcement.AnnounceNumber], (err) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "更改公告內容失敗！";
                 reject(result);
                 return;
             }
-            result.status = "Success!";
+            result.status = true;
             result.message = "更改公告內容成功！";
             resolve(result);
             return;

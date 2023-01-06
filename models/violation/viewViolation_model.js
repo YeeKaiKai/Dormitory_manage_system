@@ -14,7 +14,7 @@ module.exports = function(violation) {
         WHERE StuID = "${violation.StuID}"`;
         connect.query(sql, (err, rows) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "瀏覽違規紀錄失敗！";
                 reject(result);
                 return;

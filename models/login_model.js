@@ -19,19 +19,19 @@ module.exports = function(userData) {
         WHERE UID = "${userData.UID}"`;
         connect.query(sql, (err, rows) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "伺服器錯誤！";
                 reject(result);
                 return;
             } else if (check.checkNull(rows)) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "此用戶不存在！請確認帳號是否輸入正確。";
                 reject(result);
                 return;
             }
             bcrypt.compare(userData.UPassword, rows[0].UPassword).then((res) => {
                 if(res === false) {
-                    result.status = "Failed!";
+                    result.status = false;
                     result.message = "帳號密碼錯誤！";
                     reject(result);
                     return;

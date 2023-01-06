@@ -11,7 +11,7 @@ module.exports = function() {
         FROM APPLICATION`;
         connect.query(sql, (err, rows) => {
             if(err) {
-                result.status = "Failed!"
+                result.status = false
                 result.message = "查看申請紀錄失敗，伺服器錯誤！";
                 reject(result);
                 return;

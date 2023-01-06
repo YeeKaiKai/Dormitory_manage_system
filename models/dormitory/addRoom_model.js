@@ -14,12 +14,12 @@ module.exports = function(room) {
         connect.query(sql, [room.DName, room.RoomNumber, room.RCapacity], (err) => {
             console.log(err);
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "新增房間失敗，伺服器錯誤！";
                 reject(result);
                 return;
             }
-            result.status = "Success!";
+            result.status = true;
             result.message = "新增房間成功！";
             resolve(result);
             return;

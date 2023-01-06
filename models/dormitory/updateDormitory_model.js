@@ -42,12 +42,12 @@ module.exports = function(dormitory) {
         sql = sql + where;
         connect.query(sql, (err) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "更新宿舍資料失敗，伺服器錯誤！";
                 reject(result);
                 return;
             }
-            result.status = "Success!";
+            result.status = true;
             result.message = "更新宿舍資料成功！";
             resolve(result);
             return;

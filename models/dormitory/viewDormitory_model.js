@@ -39,7 +39,7 @@ module.exports = function(dormitory) {
         }
         connect.query(sql , (err, rows) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "瀏覽宿舍資料失敗！";
                 reject(result);
                 return;

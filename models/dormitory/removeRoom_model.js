@@ -10,12 +10,12 @@ module.exports = function(room) {
         let sql = `DELETE FROM ROOM WHERE DName = "${room.DName}" AND RoomNumber = "${room.RoomNumber}"`;
         connect.query(sql, (err) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "刪除房間資料失敗，伺服器錯誤！";
                 reject(result);
                 return;
             }
-            result.status = "Success!";
+            result.status = true;
             result.message = "刪除房間資料成功！";
             resolve(result);
             return;

@@ -28,12 +28,12 @@ module.exports = function(announcement) {
         connect.query(sql, (err) => {
             if(err) {
                 console.log(err);
-                result.status = "Failed";
+                result.status = false;
                 result.message = "發布公告失敗！";
                 reject(result);
                 return;
             }
-            result.status = "Success";
+            result.status = true;
             result.message = "發布公告成功！";
             resolve(result);
             return;

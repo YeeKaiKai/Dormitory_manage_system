@@ -12,7 +12,7 @@ module.exports = function() {
         FROM BOARDER`;
         connect.query(sql, (err, rows) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "瀏覽住宿生資料失敗！";
                 reject(result);
                 return;
