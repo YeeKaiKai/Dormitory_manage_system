@@ -40,7 +40,7 @@ exports.postLogin = function(req, res, next) {
     login(userData).then((rows) => {
         // if login imformation is wrong, rows will return null
         // make token that is set expired after an hour, and let StuID be the token data
-        let token = jwt.sign({ UID: rows.UID, UType: rows.UType }, config.secret, { expiresIn: '10m' });
+        let token = jwt.sign({ UID: rows.UID, UType: rows.UType }, config.secret, { expiresIn: '1d' });
         // set token at cookie
         res.cookie('token', token, {httpOnly: true});
         res.redirect(`${rows.UType}?UName=${rows.UName}`);
