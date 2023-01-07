@@ -43,13 +43,9 @@ exports.postLogin = function(req, res, next) {
         let token = jwt.sign({ UID: rows.UID, UType: rows.UType }, config.secret, { expiresIn: '10m' });
         // set token at cookie
         res.cookie('token', token, {httpOnly: true});
-        res.json({
-            result: rows,
-        })
+        res.redirect(`${rows.UType}?UName=${rows.UName}`);
+        // res.render(`${rows.UType}`, {result: rows});
     }).catch((err) => {
-        console.log(err);
-        res.json({ 
-            err: err
-        })
+        res.render('login', {err: err});
     })
 }

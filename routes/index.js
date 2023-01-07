@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
-  res.render('login', {result: null});
+  res.render('login', {err: null});
 });
 
 router.post('/register', controller.postRegist);
