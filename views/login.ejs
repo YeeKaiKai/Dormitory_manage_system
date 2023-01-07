@@ -23,9 +23,11 @@
         <input type="password" class="form-control" name="UPassword" placeholder="密碼">
       </div>
       <%= %>
-        <% if(result) { %>
-          <p class="setWrongMessage"><%= result.message %></p>
-        <% } %>      
+        <% if(err) { %>
+          <p class="setWrongMessage"><%= err.message %></p>
+        <% } else { %>    
+          <p class="setWrongMessage">&nbsp;</p>
+        <% } %>
         <input type="submit" class="submitButton" value="登入">
     </form>
   </div>
