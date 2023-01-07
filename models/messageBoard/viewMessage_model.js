@@ -7,7 +7,7 @@ const connect = require("../connection_db.js");
 module.exports = function() {
     result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`SELECT MContent, MNumber, UName FROM MESSAGE LEFT JOIN STUDENT USING(StuID) INNER JOIN USER ON STUDENT.StuID = USER.UID`, (err, rows) => {
+        connect.query(`SELECT MTitle, MContent, MNumber, UName FROM MESSAGE LEFT JOIN STUDENT USING(StuID) INNER JOIN USER ON STUDENT.StuID = USER.UID`, (err, rows) => {
             if(err) {
                 console.log(err);
                 result.status = false;

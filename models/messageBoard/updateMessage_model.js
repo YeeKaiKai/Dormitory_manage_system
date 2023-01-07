@@ -8,8 +8,9 @@ const connect = require("../connection_db.js");
 module.exports = function(message) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`UPDATE MESSAGE SET MContent = ? WHERE MNumber = ?`, [message.MTitle, message.MContent, message.MNumber], (err) => {
+        connect.query(`UPDATE MESSAGE SET MContent = ? WHERE MNumber = ?`, [message.MContent, message.MNumber], (err) => {
             if(err) {
+                console.log(err);
                 result.status = false;
                 result.message = "更改留言內容失敗！";
                 reject(result);
