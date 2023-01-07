@@ -8,17 +8,21 @@ const updateMessage = require("../models/messageBoard/updateMessage_model.js");
 const makeApplication = require("../models/application/makeApplication_model.js");
 const inquiryApplication = require("../models/application/inquireApplication_model.js");
 
+const viewAnnouncement = require("../models/announcement/viewAnnouncements_model.js");
+
 exports.postMessage = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let message = {
             StuID: data.UID,
+            MTitle: req.body.MTitle,
             MContent: req.body.MContent,
         }
         addMessage(message).then((result) => {
-            res.json({
-                result: result
-            })
+            // res.json({
+            //     result: result
+            // })
+            res.redirect('/STUDENT/messageBoard');
         }).catch((err) => {
             res.json({
                 err: err
@@ -41,6 +45,11 @@ exports.deleteMessage = function(req, res, next) {
             res.json({
                 result: result
             })
+            // res.set({
+            // 'Authorization': auth
+            // })
+            // res.redirect('/login');
+            // res.end();
         }).catch((err) => {
             res.json({
                 err: err
@@ -55,9 +64,10 @@ exports.deleteMessage = function(req, res, next) {
 
 exports.getMessage = function(req, res, next) {
     viewMessage().then((rows) => {
-        res.json({
-            result: rows
-        })
+        // res.json({
+        //     result: rows
+        // })
+        res.render('student_message_board', {rows: rows});
     }).catch((err) => {
         res.json({
             result: err
@@ -125,6 +135,18 @@ exports.getApplicationByStudent = function(req, res, next) {
             res.json({
                 err: err
             })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getAnnouncement = function(req, res, next) {
+    viewAnnouncement().then((rows) => {
+        res.json({
+            rows: rows
         })
     }).catch((err) => {
         res.json({

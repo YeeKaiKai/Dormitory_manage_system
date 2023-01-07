@@ -62,15 +62,15 @@ exports.deleteAnnouncement = function(req, res, next) {
 }
 
 exports.getAnnouncement = function(req, res, next) {
-    // viewAnnouncement().then((rows) => {
-    //     res.json({
-    //         rows: rows
-    //     })
-    // }).catch((err) => {
-    //     res.json({
-    //         err: err
-    //     })
-    // })
+    viewAnnouncement().then((rows) => {
+        res.json({
+            rows: rows
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
 }
 
 exports.putAnnouncement = function(req, res, next) {
