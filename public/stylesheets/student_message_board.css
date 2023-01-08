@@ -1,0 +1,44 @@
+.setTitleBlock {
+    font-size: 32px;
+    font-weight: bold;
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    /* 水平置中 */
+    justify-content: center;
+    /* 垂直置中 */
+    align-items: center;
+    background: #FFD4A5;
+}
+
+.setNav {
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
+.setContentBlock {
+    font-size: 20px;
+    width: 70vw;
+    margin: 0 auto;
+    margin-top: 5vh;
+}
+
+.submitButton {
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    border-color: #FF8A65;
+    height: 38px;
+    width: 100px;
+    margin-top: 3vh;
+    background: #e88e44;
+}
+
+.setMessageTitle {
+    font-weight: bold;
+}
+
+.setMessageFrom {
+    font-size: 17px;
+    float: right;
+}
