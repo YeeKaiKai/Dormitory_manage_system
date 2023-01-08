@@ -17,4 +17,6 @@ router.get('/announcement', controller.getAnnouncement);
 router.post('/application', controller.postApplication);
 router.get('/application', controller.getApplicationByStudent);
 
+router.get('/violation', controller.getViolation);
+
 module.exports = router;
