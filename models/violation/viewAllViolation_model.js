@@ -1,17 +1,15 @@
 const connect = require("../connection_db.js");
 
 /**
- * View all violation depending on StuID by student 
- * @param {{StuID: string}} violation 
+ * View all violation by housemaster 
  * @returns 
  */
-module.exports = function(violation) {
+module.exports = function() {
     let result = {};
     return new Promise((resolve, reject) => {
         let sql = `
         SELECT *
-        FROM VIOLATION
-        WHERE StuID = "${violation.StuID}"`;
+        FROM VIOLATION`;
         connect.query(sql, (err, rows) => {
             if(err) {
                 result.status = false;
