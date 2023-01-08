@@ -63,14 +63,23 @@ exports.deleteMessage = function(req, res, next) {
 }
 
 exports.getMessage = function(req, res, next) {
-    viewMessage().then((rows) => {
-        // res.json({
-        //     result: rows
-        // })
-        res.render('student_message_board', {rows: rows});
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let UID = data.UID;
+        console.log(UID);
+        viewMessage().then((rows) => {
+            // res.json({
+            //     result: rows
+            // })
+            res.render('student_message_board', {rows: rows, UID: UID});
+        }).catch((err) => {
+            res.json({
+                result: err
+            })
+        })
     }).catch((err) => {
         res.json({
-            result: err
+            err: err
         })
     })
 }
@@ -145,9 +154,7 @@ exports.getApplicationByStudent = function(req, res, next) {
 
 exports.getAnnouncement = function(req, res, next) {
     viewAnnouncement().then((rows) => {
-        res.json({
-            rows: rows
-        })
+        res.render('student_announce', {data: rows});
     }).catch((err) => {
         res.json({
             err: err
