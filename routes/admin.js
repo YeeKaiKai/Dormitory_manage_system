@@ -4,7 +4,7 @@ const controller = require("../controllers/admin.js");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.render('admin', {UName: req.query.UName});
 });
 
 router.post('/announcement', controller.postAnnouncement);

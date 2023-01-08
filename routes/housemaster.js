@@ -4,7 +4,7 @@ const controller = require("../controllers/housemaster.js");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.render('housemaster', {UName: req.query.UName});
 });
 
 router.delete('/messageBoard', controller.deleteMessage);
