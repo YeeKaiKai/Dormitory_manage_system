@@ -12,9 +12,8 @@ const viewBoarder = require("../models/boarder/viewBoarder_model.js");
 
 const addViolation = require("../models/violation/addViolation_model.js");
 const removeViolation = require("../models/violation/removeViolation_model.js");
-const viewViolation = require("../models/violation/viewViolation_model.js");
+const viewAllViolation = require("../models/violation/viewAllViolation_model.js");
 const updateViolation = require("../models/violation/updateViolation_model.js");
-const { render } = require("../app.js");
 
 exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
@@ -196,10 +195,7 @@ exports.deleteViolation = function(req, res, next) {
 exports.getViolation = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
-        let violation = {
-            StuID: req.query.StuID
-        }
-        viewViolation(violation).then((rows) => {
+        viewAllViolation().then((rows) => {
             res.json({
                 rows: rows
             })

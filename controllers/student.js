@@ -10,6 +10,8 @@ const inquiryApplication = require("../models/application/inquireApplication_mod
 
 const viewAnnouncement = require("../models/announcement/viewAnnouncements_model.js");
 
+const viewViolation = require("../models/violation/viewViolation_model.js");
+
 exports.postMessage = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
@@ -155,6 +157,26 @@ exports.getApplicationByStudent = function(req, res, next) {
 exports.getAnnouncement = function(req, res, next) {
     viewAnnouncement().then((rows) => {
         res.render('student_announce', {data: rows});
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getViolation = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let violation = {
+            StuID: data.UID
+        }
+        viewViolation(violation).then((rows) => {
+            res.render('student_violation', {data: rows});
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
     }).catch((err) => {
         res.json({
             err: err
