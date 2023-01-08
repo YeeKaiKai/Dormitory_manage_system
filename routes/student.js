@@ -4,7 +4,7 @@ const controller = require("../controllers/student.js");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.render('student', {UName: req.query.UName});
 });
 
 router.post('/messageBoard', controller.postMessage);
@@ -12,7 +12,7 @@ router.delete('/messageBoard', controller.deleteMessage);
 router.get('/messageBoard', controller.getMessage);
 router.put('/messageBoard', controller.putMessage);
 
-// router.get('/announcement', controller.getAnnouncement);
+router.get('/announcement', controller.getAnnouncement);
 
 router.post('/application', controller.postApplication);
 router.get('/application', controller.getApplicationByStudent);
