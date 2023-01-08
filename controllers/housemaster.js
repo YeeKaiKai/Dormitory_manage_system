@@ -14,6 +14,7 @@ const addViolation = require("../models/violation/addViolation_model.js");
 const removeViolation = require("../models/violation/removeViolation_model.js");
 const viewViolation = require("../models/violation/viewViolation_model.js");
 const updateViolation = require("../models/violation/updateViolation_model.js");
+const { render } = require("../app.js");
 
 exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
@@ -25,9 +26,7 @@ exports.postAnnouncement = function(req, res, next) {
             UType: data.UType
         }
         addAnnouncement(announcement).then((result) => {
-            res.json({
-                result: result
-            })
+            res.redirect('/housemaster/announcement');
         }).catch((err) => {
             res.json({
                 err: err
@@ -121,9 +120,7 @@ exports.deleteMessage = function(req, res, next) {
 
 exports.getMessage = function(req, res, next) {
     viewMessage().then((rows) => {
-        res.json({
-            result: rows
-        })
+        res.render('housemaster_message_board', {data: rows});
     }).catch((err) => {
         res.json({
             result: err
