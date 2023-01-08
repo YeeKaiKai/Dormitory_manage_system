@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/announcement', controller.postAnnouncement);
 router.delete('/announcement', controller.deleteAnnouncement);
-// router.get('/announcement', controller.getAnnouncement);
+router.get('/announcement', controller.getAnnouncement);
 router.put('/announcement', controller.putAnnouncement);
 
 router.get('/application', controller.getApplicationByAdmin);
