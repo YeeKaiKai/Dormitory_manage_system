@@ -2,13 +2,13 @@ const connect = require("../connection_db.js");
 
 /**
  * Update the announcement content by house master
- * @param {{AnnounceContent: string, AnnounceNumber: string}} announcement 
+ * @param {{AnnounceTitle: string, AnnounceContent: string, AnnounceNumber: string}} announcement 
  * @returns 
  */
 module.exports = function(announcement) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`UPDATE ANNOUNCEMENT SET AnnounceContent = ? WHERE AnnounceNumber = ?`, [announcement.AnnounceContent, announcement.AnnounceNumber], (err) => {
+        connect.query(`UPDATE ANNOUNCEMENT SET AnnounceTitle = ?, AnnounceContent = ? WHERE AnnounceNumber = ?`, [announcement.AnnounceTitle, announcement.AnnounceContent, announcement.AnnounceNumber], (err) => {
             if(err) {
                 result.status = false;
                 result.message = "更改公告內容失敗！";

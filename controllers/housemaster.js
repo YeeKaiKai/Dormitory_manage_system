@@ -19,6 +19,7 @@ exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let announcement = {
+            AnnounceTitle: req.body.AnnounceTitle,
             AnnounceContent: req.body.AnnounceContent,
             SSN: data.UID,
             UType: data.UType
@@ -63,9 +64,7 @@ exports.deleteAnnouncement = function(req, res, next) {
 
 exports.getAnnouncement = function(req, res, next) {
     viewAnnouncement().then((rows) => {
-        res.json({
-            rows: rows
-        })
+        res.render('housemaster_announce', {data: rows});
     }).catch((err) => {
         res.json({
             err: err
@@ -77,6 +76,7 @@ exports.putAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let announcement = {
+            AnnounceTitle: req.body.AnnounceTitle,
             AnnounceContent: req.body.AnnounceContent,
             AnnounceNumber: req.body.AnnounceNumber
         }
