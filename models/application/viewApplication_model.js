@@ -6,9 +6,11 @@ const connect = require("../connection_db.js");
 module.exports = function() {
     let result = {};
     return new Promise((resolve, reject) => {
-        let sql = `
-        SELECT *
-        FROM APPLICATION`;
+        let sql = '\
+        SELECT A.StuID, ApplyNumber, ApplyAcademicYear, ApplySemester, `DATE`, Approved, Paid, UName\
+        FROM APPLICATION AS A\
+        LEFT JOIN STUDENT AS S ON A.StuID = S.StuID\
+        LEFT JOIN USER AS U ON S.StuID = U.UID';
         connect.query(sql, (err, rows) => {
             if(err) {
                 result.status = false
@@ -16,7 +18,8 @@ module.exports = function() {
                 reject(result);
                 return;
             }
-            resolve(rows);
+            data = JSON.stringify(rows);
+            resolve(data);
             return;
         })
     }) 
