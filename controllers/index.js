@@ -5,6 +5,8 @@ const verify = require("../models/verification.js");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config.js');
+const viewAnnouncement = require('../models/announcement/viewAnnouncements_model.js');
+const viewDetailAnnouncement = require("../models/announcement/viewDetailAnnouncement_model.js");
 
 /**
  *  Receive post method to regist
@@ -48,4 +50,41 @@ exports.postLogin = function(req, res, next) {
     }).catch((err) => {
         res.render('login', {err: err});
     })
+}
+
+exports.getIndex = function(req, res, next) {
+    viewAnnouncement().then((rows) => {
+        res.render('index', {data: rows});
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getAnnouncement = function(req, res, next) {
+    viewAnnouncement().then((rows) => {
+        res.render('announcement', {data: rows});
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getDetailAnnouncement = function(req, res, next) {
+    let announcement = {
+        AnnounceNumber: req.query.AnnounceNumber
+    }
+    viewDetailAnnouncement(announcement).then((rows) => {
+        res.render('announce_detail', {data: rows});
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getIntroduction = function(req, res, next) {
+    res.render('dorm_introduction');
 }

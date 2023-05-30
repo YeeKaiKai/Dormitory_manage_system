@@ -23,6 +23,7 @@ module.exports = function(boarder) {
         }
         connect.query(sql, (err) => {
             if(err) {
+                console.log(err);
                 result.status = false;
                 result.message = "更新住宿生資料失敗，伺服器錯誤！";
                 reject(result);

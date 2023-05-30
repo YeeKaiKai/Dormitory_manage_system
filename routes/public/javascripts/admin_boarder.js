@@ -1,32 +1,28 @@
-global_url = "http://192.168.1.112:3000/housemaster/messageBoard/"
+global_url = "http://localhost:3000/admin/boarder/"
 
-
-// delete
+//delete 
 function deleteItem(pk) {
   const url = global_url
   let headers = {
     "Content-Type": "application/json",
-    "Accept": "application/json"
+    "Accept": "application/json",
+    credentials: 'include'
   }
+
   let body = {
-    "MNumber": pk,
+    "StuID": pk,   //primarykey
   }
-  console.log(body)
 
   fetch(url, {
-      method: "DELETE",
-      headers: headers,
-      body: JSON.stringify(body)
-  }).then((response) => {console.log(response)})
-  .catch(json => {
-    console.log(json)
-
-  });
+    method: "DELETE",
+    headers: headers,
+    body: JSON.stringify(body)
+  }).then(response => response.json())
+  .then(json => console.log(json));
 
   window.location.reload();
+
 }
-
-
 
 // update
 function updateItem(pk) {
@@ -36,19 +32,20 @@ function updateItem(pk) {
     "Accept": "application/json"
   }
   let body = {
-    "MNumber": pk,
-    "MContent": document.getElementById("MContent").value,
+    "StuID": pk,
+    "DName": document.getElementById("dorm-name"+pk).value,
+    "RoomNumber": document.getElementById("room-number"+pk).value
   }
-  console.log(body)
 
   fetch(url, {
       method: "PUT",
       headers: headers,
       body: JSON.stringify(body)
   }).then(response => response.json())
-  .catch(json => console.log(json));
+  .then(json => console.log(json));
 
   window.location.reload();
 }
+
 
 

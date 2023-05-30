@@ -22,4 +22,6 @@ router.delete('/violation', controller.deleteViolation);
 router.get('/violation', controller.getViolation);
 router.put('/violation', controller.putViolation);
 
+router.get('/dormitory', controller.getDormitory);
+
 module.exports = router;

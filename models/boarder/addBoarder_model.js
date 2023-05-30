@@ -13,6 +13,7 @@ module.exports = function(boarder) {
         VALUES (?, ?, ?)`
         connect.query(sql, [boarder.StuID, boarder.DName, boarder.RoomNumber], (err) => {
             if(err) {
+                console.log(err);
                 result.status = false;
                 result.message = "新增住宿生資料失敗，伺服器錯誤！";
                 reject(result);

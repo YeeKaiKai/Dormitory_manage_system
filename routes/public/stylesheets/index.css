@@ -1,0 +1,37 @@
+.setNav{
+  max-width: 70vw;
+  margin: 0 auto;
+}
+
+#setTitleBlock {
+  height: 7vh;
+  width: 55vw;
+  margin: 0 auto;
+  margin-top: 5vh;
+}
+
+.setTitleWord {
+  font-size: 32px;
+  font-weight: bold;
+  display: flex;
+  /* 水平置中 */
+  justify-content: center;
+  /* 垂直置中 */
+  align-items: center;
+  background: #FFD4A5;
+}
+
+.setAnnList:hover{
+  background-color: #FFF3E0;
+}
+
+footer {
+    margin-top: 50vh;
+    font-size: 16px;
+    height: 20vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFF3E0;
+}

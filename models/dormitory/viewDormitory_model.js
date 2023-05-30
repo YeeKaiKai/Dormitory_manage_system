@@ -44,7 +44,8 @@ module.exports = function(dormitory) {
                 reject(result);
                 return;
             }
-            data = JSON.stringify(rows);
+            console.log(sql);
+            let data = JSON.stringify(rows);
             resolve(data);
             return;
         })

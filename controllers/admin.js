@@ -111,9 +111,10 @@ exports.getApplicationByAdmin = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         viewApplication().then((rows) => {
-            res.json({
-                rows: rows
-            })
+            // res.json({
+            //     rows: rows
+            // })
+            res.render('admin_apply', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err
@@ -301,9 +302,10 @@ exports.getDormitory = function(req, res, next) {
             FName: req.query.FName
         }
         viewDormitory(dormitory).then((rows) => {
-            res.json({
-                rows: rows
-            })
+            // res.json({
+            //     rows: rows
+            // })
+            res.render('admin_dormitory', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err
@@ -377,9 +379,9 @@ exports.putFacility = function(req, res, next) {
             FQuantity: req.body.FQuantity
         }
         updateFacility(facility).then((result) => {
-            res.json({
-                result: result
-            })
+            // res.json({
+            //     result: result
+            // })
         }).catch((err) => {
             res.json({
                 err: err
@@ -401,9 +403,10 @@ exports.postBoarder = function(req, res, next) {
             RoomNumber: req.body.RoomNumber
         }
         addBoarder(boarder).then((result) => {
-            res.json({
-                result: result
-            })
+            // res.json({
+            //     result: result
+            // })
+            res.redirect('/admin/boarder');
         }).catch((err) => {
             res.json({
                 err: err
@@ -442,8 +445,7 @@ exports.getBoarder = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         viewBoarder().then((rows) => {
-            let data = JSON.stringify(rows);
-            res.render('boarder', {result: data});
+            res.render('admin_boarder', {data: rows});
             // res.json({
             //     rows: rows
             // })

@@ -1,4 +1,4 @@
-global_url = "http://192.168.1.112:3000/housemaster/announcement/"
+global_url = "http://localhost:3000/housemaster/announcement/"
 
 
 // delete
@@ -35,8 +35,8 @@ function updateItem(pk) {
     }
     let body = {
       "AnnounceNumber": pk,
-      "AnnounceTitle": document.getElementById("post-title").value,
-      "AnnounceContent": document.getElementById("post-content").value,
+      "AnnounceTitle": document.getElementById("post-title" + pk).value,
+      "AnnounceContent": document.getElementById("post-content" + pk).value,
     }
     console.log(body)
   

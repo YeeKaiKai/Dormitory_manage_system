@@ -1,4 +1,4 @@
-global_url = "http://192.168.1.112:3000/student/messageBoard/"
+global_url = "http://localhost:3000/housemaster/messageBoard/"
 
 
 // delete

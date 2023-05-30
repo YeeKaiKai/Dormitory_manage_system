@@ -1,3 +1,8 @@
+.setNav {
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
 .setTitleBlock {
     font-size: 32px;
     font-weight: bold;
@@ -9,11 +14,6 @@
     /* 垂直置中 */
     align-items: center;
     background: #FFD4A5;
-}
-
-.setNav {
-    max-width: 70vw;
-    margin: 0 auto;
 }
 
 .setContentBlock {
@@ -34,11 +34,7 @@
     background: #e88e44;
 }
 
-.setMessageTitle {
-    font-weight: bold;
-}
-
-.setMessageFrom {
-    font-size: 17px;
-    float: right;
+.setEditButton {
+    background-color: transparent;
+    border: 0;
 }

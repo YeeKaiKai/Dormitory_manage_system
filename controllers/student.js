@@ -117,15 +117,18 @@ exports.postApplication = function(req, res, next) {
             DName: req.body.DName,
         }
         makeApplication(application).then((result) => {
-            res.json({
-                result: result
-            })
+            // res.json({
+            //     result: result
+            // })
+            res.redirect('/student/application');
         }).catch((err) => {
+            console.log(err);
             res.json({
                 err: err
             })
         })
     }).catch((err) => {
+        console.log(err);
         res.json({
             err: err
         })
@@ -138,10 +141,10 @@ exports.getApplicationByStudent = function(req, res, next) {
         let inquiry = {
             StuID: data.UID
         };
+        // console.log(inquiry);
         inquiryApplication(inquiry).then((rows) => {
-            res.json({
-                rows: rows
-            })
+            console.log(rows);
+            res.render('student_apply', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err

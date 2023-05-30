@@ -15,6 +15,8 @@ const removeViolation = require("../models/violation/removeViolation_model.js");
 const viewAllViolation = require("../models/violation/viewAllViolation_model.js");
 const updateViolation = require("../models/violation/updateViolation_model.js");
 
+const viewDormitory = require("../models/dormitory/viewDormitory_model.js");
+
 exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
@@ -131,9 +133,10 @@ exports.getBoarder = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         viewBoarder().then((rows) => {
-            res.json({
-                rows: rows
-            })
+            // res.json({
+            //     rows: rows
+            // })
+            res.render('housemaster_boarder', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err
@@ -151,12 +154,14 @@ exports.postViolation = function(req, res, next) {
     verify(token).then((data) => {
         let violation = {
             StuID: req.body.StuID,
-            VContent: req.body.VContent
+            VContent: req.body.VContent,
+            DATE: req.body.DATE
         }
         addViolation(violation).then((result) => {
-            res.json({
-                result: result
-            })
+            // res.json({
+            //     result: result
+            // })
+            res.redirect('/housemaster/violation');
         }).catch((err) => {
             res.json({
                 err: err
@@ -196,9 +201,10 @@ exports.getViolation = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         viewAllViolation().then((rows) => {
-            res.json({
-                rows: rows
-            })
+            // res.json({
+            //     rows: rows
+            // })
+            res.render('housemaster_violation', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err
@@ -224,6 +230,31 @@ exports.putViolation = function(req, res, next) {
             res.json({
                 result: result
             })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getDormitory = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let dormitory = {
+            DName: req.query.DName,
+            RoomNumber: req.query.RoomNumber,
+            FName: req.query.FName
+        }
+        viewDormitory(dormitory).then((rows) => {
+            // res.json({
+            //     rows: rows
+            // })
+            res.render('housemaster_dormitory', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err

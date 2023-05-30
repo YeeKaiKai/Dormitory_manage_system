@@ -19,7 +19,8 @@ module.exports = function(violation) {
                 reject(result);
                 return;
             }
-            data = JSON.stringify(rows);
+            console.log(rows);
+            let data = JSON.stringify(rows);
             resolve(data);
             return;
         })

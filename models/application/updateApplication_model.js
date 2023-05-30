@@ -1,4 +1,5 @@
 const connect = require("../connection_db.js");
+const addBoarder = require("../boarder/addBoarder_model.js");
 
 /**
  * update the status of application by house master
@@ -14,6 +15,9 @@ module.exports = function(application) {
                 result.message = "更改申請審核失敗！";
                 reject(result);
                 return;
+            }
+            if(application.Approved === "已通過") {
+                addBoarder(application);
             }
             result.status = true;
             result.message = "更改申請審核成功！";

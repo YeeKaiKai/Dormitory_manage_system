@@ -17,6 +17,7 @@ module.exports = function() {
                 reject(result);
                 return;
             }
+            console.log(rows);
             data = JSON.stringify(rows);
             resolve(data);
             return;
