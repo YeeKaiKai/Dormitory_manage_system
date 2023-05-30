@@ -10,14 +10,15 @@ const connect = require("../connection_db.js");
 module.exports = function(violation) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`INSERT INTO VIOLATION(VContent, VNumber, StuID) VALUES (?, ?, ?)`, [violation.VContent, violation.VNumber, violation.StuID], (err) => {
+        connect.query('INSERT INTO VIOLATION(VContent, VNumber, StuID,  `DATE`) VALUES (?, ?, ?, ?)', [violation.VContent, violation.VNumber, violation.StuID, violation.DATE], (err) => {
             if(err) {
-                result.status = "Failed!";
+                console.log(err);
+                result.status = false;
                 result.message = "新增違規紀錄失敗！";
                 reject(result);
                 return;
             }
-            result.status = "Success!";
+            result.status = true;
             result.message = "新增違規紀錄成功！";
             resolve(result);
             return;

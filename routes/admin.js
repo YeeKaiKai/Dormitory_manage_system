@@ -4,12 +4,12 @@ const controller = require("../controllers/admin.js");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.render('admin', {UName: req.query.UName});
 });
 
 router.post('/announcement', controller.postAnnouncement);
 router.delete('/announcement', controller.deleteAnnouncement);
-// router.get('/announcement', controller.getAnnouncement);
+router.get('/announcement', controller.getAnnouncement);
 router.put('/announcement', controller.putAnnouncement);
 
 router.get('/application', controller.getApplicationByAdmin);

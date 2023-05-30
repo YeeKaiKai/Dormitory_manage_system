@@ -1,0 +1,43 @@
+.setNav{
+    max-width: 70vw;
+    margin: 0 auto;
+}
+.title{
+    font-size: 32px;
+    font-weight: bold;
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    /* 水平置中 */
+    justify-content: center;
+    /* 垂直置中 */
+    align-items: center;
+    background: #FFD4A5;
+}
+.container{
+    display: flex;
+    flex-wrap:wrap;
+    flex-direction: row;
+    height: 700px;
+    background-color: #ffffff;
+    justify-content:space-around; 
+    align-items: center;
+}
+.container div{
+    width: 150px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: #ffd4a5;
+}
+.function{
+    font-size:20px;
+    text-decoration:none;
+    display: flex;
+    justify-content:center; 
+}
+.icon{
+    width: 110px;
+    display:block; 
+    margin:auto;
+    padding: 10px;
+}

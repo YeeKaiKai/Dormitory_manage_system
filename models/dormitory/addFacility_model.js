@@ -13,12 +13,12 @@ module.exports = function(facility) {
         VALUES ("${facility.DName}", "${facility.RoomNumber}", "${facility.FName}", ${facility.FQuantity})`;
         connect.query(sql, (err) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "新增設備失敗，伺服器錯誤！";
                 reject(result);
                 return;
             }
-            result.status = "Success!";
+            result.status = true;
             result.message = "新增設備成功！";
             resolve(result);
             return;

@@ -28,12 +28,12 @@ module.exports = function(facility) {
         sql = sql + where
         connect.query(sql, (err) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "更改設備資料失敗，伺服器錯誤！";
                 reject(result);
                 return;
             }
-            result.status = "Failed!";
+            result.status = true;
             result.message = "更新設備資料成功！";
             resolve(result);
             return;

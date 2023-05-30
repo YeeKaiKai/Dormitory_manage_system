@@ -1,7 +1,7 @@
 const connect = require("../connection_db.js");
 
 /**
- * View all violation depending on StuID by housemaster 
+ * View all violation depending on StuID by student 
  * @param {{StuID: string}} violation 
  * @returns 
  */
@@ -14,12 +14,14 @@ module.exports = function(violation) {
         WHERE StuID = "${violation.StuID}"`;
         connect.query(sql, (err, rows) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "瀏覽違規紀錄失敗！";
                 reject(result);
                 return;
             }
-            resolve(rows);
+            console.log(rows);
+            let data = JSON.stringify(rows);
+            resolve(data);
             return;
         })
     })

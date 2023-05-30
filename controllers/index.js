@@ -5,6 +5,8 @@ const verify = require("../models/verification.js");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config.js');
+const viewAnnouncement = require('../models/announcement/viewAnnouncements_model.js');
+const viewDetailAnnouncement = require("../models/announcement/viewDetailAnnouncement_model.js");
 
 /**
  *  Receive post method to regist
@@ -40,16 +42,49 @@ exports.postLogin = function(req, res, next) {
     login(userData).then((rows) => {
         // if login imformation is wrong, rows will return null
         // make token that is set expired after an hour, and let StuID be the token data
-        let token = jwt.sign({ UID: rows.UID, UType: rows.UType }, config.secret, { expiresIn: '10m' });
+        let token = jwt.sign({ UID: rows.UID, UType: rows.UType }, config.secret, { expiresIn: '1d' });
         // set token at cookie
         res.cookie('token', token, {httpOnly: true});
-        res.json({
-            result: rows,
-        })
+        res.redirect(`${rows.UType}?UName=${rows.UName}`);
+        // res.render(`${rows.UType}`, {result: rows});
     }).catch((err) => {
-        console.log(err);
-        res.json({ 
+        res.render('login', {err: err});
+    })
+}
+
+exports.getIndex = function(req, res, next) {
+    viewAnnouncement().then((rows) => {
+        res.render('index', {data: rows});
+    }).catch((err) => {
+        res.json({
             err: err
         })
     })
+}
+
+exports.getAnnouncement = function(req, res, next) {
+    viewAnnouncement().then((rows) => {
+        res.render('announcement', {data: rows});
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getDetailAnnouncement = function(req, res, next) {
+    let announcement = {
+        AnnounceNumber: req.query.AnnounceNumber
+    }
+    viewDetailAnnouncement(announcement).then((rows) => {
+        res.render('announce_detail', {data: rows});
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getIntroduction = function(req, res, next) {
+    res.render('dorm_introduction');
 }

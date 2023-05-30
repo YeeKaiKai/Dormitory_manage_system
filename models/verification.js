@@ -11,7 +11,7 @@ module.exports = function(token) {
     return new Promise((resolve, reject) => {
         jwt.verify(token, config.secret, (err, decoded) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "Token驗證失敗！";
                 reject(result);
                 return;

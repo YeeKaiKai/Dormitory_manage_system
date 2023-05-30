@@ -10,12 +10,12 @@ module.exports = function(violation) {
     return new Promise((resolve, reject) => {
         connect.query(`UPDATE VIOLATION SET VContent = ? WHERE StuID = ? AND VNumber = ?`, [violation.VContent, violation.StuID, violation.VNumber], (err) => {
             if(err) {
-                result.status = "Failed!";
+                result.status = false;
                 result.message = "更新違規紀錄失敗！";
                 reject(result);
                 return;
             }
-            result.status = "Success!";
+            result.status = true;
             result.message = "更新違規紀錄成功！";
             resolve(result);
             return;

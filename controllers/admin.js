@@ -28,14 +28,16 @@ exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let announcement = {
+            AnnounceTitle: req.body.AnnounceTitle,
             AnnounceContent: req.body.AnnounceContent,
             SSN: data.UID,
             UType: data.UType
         }
         addAnnouncement(announcement).then((result) => {
-            res.json({
-                result: result
-            })
+            // res.json({
+            //     result: result
+            // })
+            res.redirect('/ADMIN/announcement');
         }).catch((err) => {
             res.json({
                 err: err
@@ -71,21 +73,20 @@ exports.deleteAnnouncement = function(req, res, next) {
 }
 
 exports.getAnnouncement = function(req, res, next) {
-    // viewAnnouncement().then((rows) => {
-    //     res.json({
-    //         rows: rows
-    //     })
-    // }).catch((err) => {
-    //     res.json({
-    //         err: err
-    //     })
-    // })
+    viewAnnouncement().then((rows) => {
+        res.render('admin_announce', {data: rows});
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
 }
 
 exports.putAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let announcement = {
+            AnnounceTitle: req.body.AnnounceTitle,
             AnnounceContent: req.body.AnnounceContent,
             AnnounceNumber: req.body.AnnounceNumber
         }
@@ -110,9 +111,10 @@ exports.getApplicationByAdmin = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         viewApplication().then((rows) => {
-            res.json({
-                rows: rows
-            })
+            // res.json({
+            //     rows: rows
+            // })
+            res.render('admin_apply', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err
@@ -300,9 +302,10 @@ exports.getDormitory = function(req, res, next) {
             FName: req.query.FName
         }
         viewDormitory(dormitory).then((rows) => {
-            res.json({
-                rows: rows
-            })
+            // res.json({
+            //     rows: rows
+            // })
+            res.render('admin_dormitory', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err
@@ -376,9 +379,9 @@ exports.putFacility = function(req, res, next) {
             FQuantity: req.body.FQuantity
         }
         updateFacility(facility).then((result) => {
-            res.json({
-                result: result
-            })
+            // res.json({
+            //     result: result
+            // })
         }).catch((err) => {
             res.json({
                 err: err
@@ -400,9 +403,10 @@ exports.postBoarder = function(req, res, next) {
             RoomNumber: req.body.RoomNumber
         }
         addBoarder(boarder).then((result) => {
-            res.json({
-                result: result
-            })
+            // res.json({
+            //     result: result
+            // })
+            res.redirect('/admin/boarder');
         }).catch((err) => {
             res.json({
                 err: err
@@ -441,9 +445,10 @@ exports.getBoarder = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         viewBoarder().then((rows) => {
-            res.json({
-                rows: rows
-            })
+            res.render('admin_boarder', {data: rows});
+            // res.json({
+            //     rows: rows
+            // })
         }).catch((err) => {
             res.json({
                 err: err

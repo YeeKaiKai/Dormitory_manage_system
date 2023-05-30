@@ -1,0 +1,22 @@
+.setNav{
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
+.setTitleBlock {
+    font-size: 32px;
+    font-weight: bold;
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFD4A5;
+}
+
+.setContentBlock {
+    font-size: 20px;
+    width: 70vw;
+    margin: 0 auto;
+    margin-top: 5vh;
+}

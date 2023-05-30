@@ -34,12 +34,12 @@ module.exports = function(room) {
         sql = sql + where;
         connect.query(sql, (err) => {
             if(err) {
-                result.status = "Falied!";
+                result.status = false;
                 result.message = "更新房間資料失敗，伺服器錯誤！";
                 reject(result);
                 return;
             }
-            result.status = "Failed!";
+            result.status = true;
             result.message = "更新房間資料成功！";
             resolve(result);
             return;
