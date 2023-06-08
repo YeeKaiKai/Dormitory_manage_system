@@ -19,7 +19,6 @@ module.exports = function(facility) {
                 reject(result);
                 return;
             }
-            console.log(sql);
             let data = JSON.stringify(rows);
             resolve(data);
             return;
