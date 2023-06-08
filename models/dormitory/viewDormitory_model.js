@@ -3,7 +3,7 @@ const check = require("../../service/check.js");
 
 /**
  * 
- * @param {{DName: string, RoomNumber: string, FName: string}} dormitory 
+ * @param {{}} dormitory 
  * @returns 
  */
 module.exports = function(dormitory) {
