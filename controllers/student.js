@@ -12,6 +12,8 @@ const viewAnnouncement = require("../models/announcement/viewAnnouncements_model
 
 const viewViolation = require("../models/violation/viewViolation_model.js");
 
+const makeRepairForm = require("../models/repairForm/makeRepairForm.js");
+
 exports.postMessage = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
@@ -190,14 +192,21 @@ exports.getViolation = function(req, res, next) {
 exports.postRepairForm = function(req, res, next){
     let token = req.cookies.token;
     verify(token).then((data) => {
-        let inquiry = {
-            StuID: data.UID,
-            /** 
-             * ? what data to be passed
-            */
-            FName: req.body.FName
-        };
+        let repairForm= {
+            UID: data.UID,
+            FName: req.body.FName,
+            RoomNumber: req.body.RoomNumber,
+            DName: req.body.DName
+        }
+        makeRepairForm(repairForm).then((result) => {
+            
+            console.log(result);
+            res.json({
+                result: result
+            })
 
+            //! redirect to be done
+        })
 
     }).catch((err) => {
         console.log(err);
