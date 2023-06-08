@@ -186,3 +186,23 @@ exports.getViolation = function(req, res, next) {
         })
     })
 }
+
+exports.postRepairForm = function(req, res, next){
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let inquiry = {
+            StuID: data.UID,
+            /** 
+             * ? what data to be passed
+            */
+            FName: req.body.FName
+        };
+
+
+    }).catch((err) => {
+        console.log(err);
+        res.json({
+            err: err
+        })
+    })
+}

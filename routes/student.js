@@ -19,4 +19,6 @@ router.get('/application', controller.getApplicationByStudent);
 
 router.get('/violation', controller.getViolation);
 
+router.post('/repairForm', controller.postRepairForm);
+
 module.exports = router;
