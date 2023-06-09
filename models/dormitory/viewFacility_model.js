@@ -11,7 +11,7 @@ module.exports = function(facility) {
     return new Promise((resolve, reject) => {
         let sql = `SELECT *
                    FROM FACILITY
-                   WHERE DName="${facility.DName} AND RoomNumber="${facility.RoomNumber}"`;
+                   WHERE DName="${facility.DName}" AND RoomNumber="${facility.RoomNumber}"`;
         connect.query(sql , (err, rows) => {
             if(err) {
                 result.status = false;
