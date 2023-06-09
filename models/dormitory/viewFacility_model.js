@@ -3,18 +3,19 @@ const check = require("../../service/check.js");
 
 /**
  * 
- * @param {{}} dormitory 
+ * @param {{DName: string, RoomNumber: string}} facility 
  * @returns 
  */
-module.exports = function(dormitory) {
+module.exports = function(facility) {
     let result = {};
     return new Promise((resolve, reject) => {
         let sql = `SELECT *
-                   FROM DORMITORY`;
+                   FROM FACILITY
+                   WHERE DName="${facility.DName}" AND RoomNumber="${facility.RoomNumber}"`;
         connect.query(sql , (err, rows) => {
             if(err) {
                 result.status = false;
-                result.message = "瀏覽宿舍資料失敗！";
+                result.message = "瀏覽設備資料失敗！";
                 reject(result);
                 return;
             }

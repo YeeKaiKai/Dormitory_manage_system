@@ -15,6 +15,8 @@ const deleteDormitory = require("../models/dormitory/removeDormitory_model.js");
 const deleteRoom = require("../models/dormitory/removeRoom_model.js");
 const deleteFacility = require("../models/dormitory/removeFacility_model.js");
 const viewDormitory = require("../models/dormitory/viewDormitory_model.js");
+const viewRoom = require("../models/dormitory/viewRoom_model.js");
+const viewFacility = require("../models/dormitory/viewFacility_model.js");
 const updateDormitory = require("../models/dormitory/updateDormitory_model.js");
 const updateRoom = require("../models/dormitory/updateRoom_model.js");
 const updateFacility = require("../models/dormitory/updateFacility_model.js");
@@ -306,6 +308,47 @@ exports.getDormitory = function(req, res, next) {
             //     rows: rows
             // })
             res.render('admin_dormitory', {data: rows});
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getRoom = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let room = {
+            DName: req.body.DName,
+        }
+        viewRoom(room).then((rows) => {
+            res.render('admin_dormitory_room', {data: rows});
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getFacility = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let facility = {
+            DName: req.body.DName,
+            RoomNumber: req.body.RoomNumber
+        }
+        viewFacility(facility).then((rows) => {
+            res.render('admin_dormitory_room_facility', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err

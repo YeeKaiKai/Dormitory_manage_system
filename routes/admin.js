@@ -22,6 +22,8 @@ router.delete('/dormitory', controller.deleteDormitory);
 router.delete('/dormitory/room', controller.deleteRoom);
 router.delete('/dormitory/room/facility', controller.deleteFacility);
 router.get('/dormitory', controller.getDormitory);
+router.get('/dormitory/room', controller.getRoom);
+router.get('/dormitory/room/facility', controller.getFacility);
 router.put('/dormitory', controller.putDormitory);
 router.put('/dormitory/room', controller.putRoom);
 router.put('/dormitory/room/facility', controller.putFacility);
