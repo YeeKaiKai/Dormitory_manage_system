@@ -14,6 +14,7 @@ const viewViolation = require("../models/violation/viewViolation_model.js");
 
 const makeRepairForm = require("../models/repairForm/makeRepairForm.js");
 const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
+const viewPersonalRepariForm = require("../models/repairForm/viewPersonalRepairForm.js");
 
 exports.postMessage = function(req, res, next) {
     let token = req.cookies.token;
@@ -201,12 +202,16 @@ exports.postRepairForm = function(req, res, next){
             RepairMsg: req.body.RepairMsg
         }
         makeRepairForm(repairForm).then((result) => {
-            
             console.log(result);
             res.json({
                 result: result
             })
 
+        }).catch((err) => {
+            console.log(err);
+            res.json({
+                err: err
+            })
         })
 
     }).catch((err) => {
@@ -226,12 +231,32 @@ exports.getAllRepairForm = function(req, res, next){
             })
 
             // ! need to render back to frontend
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
         })
 
     }).catch((err) => {
         res.json({
             err: err
         })
+    })
+}
+
+exports.getPersonalRepairForm = function(req, res, next){
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let UID = data.UID;
+        viewPersonalRepariForm(UID).then((rows) => {
+            res.json({
+                data: rows
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        }) 
     }).catch((err) => {
         res.json({
             err: err

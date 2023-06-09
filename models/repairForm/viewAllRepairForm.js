@@ -9,7 +9,7 @@ module.exports = function() {
     return new Promise((resolve, reject) => {
         let sql = `SELECT * FROM REPAIR_FORM`;
         connect.query(sql, (err, rows) => {
-            if(err){
+            if(err) {
                 console.log(err);
                 result.status = false;
                 result.message = "所有維修資料查詢失敗!";
