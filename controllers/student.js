@@ -13,6 +13,7 @@ const viewAnnouncement = require("../models/announcement/viewAnnouncements_model
 const viewViolation = require("../models/violation/viewViolation_model.js");
 
 const makeRepairForm = require("../models/repairForm/makeRepairForm.js");
+const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
 
 exports.postMessage = function(req, res, next) {
     let token = req.cookies.token;
@@ -196,7 +197,8 @@ exports.postRepairForm = function(req, res, next){
             UID: data.UID,
             FName: req.body.FName,
             RoomNumber: req.body.RoomNumber,
-            DName: req.body.DName
+            DName: req.body.DName,
+            RepairMsg: req.body.RepairMsg
         }
         makeRepairForm(repairForm).then((result) => {
             
@@ -209,6 +211,28 @@ exports.postRepairForm = function(req, res, next){
 
     }).catch((err) => {
         console.log(err);
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getAllRepairForm = function(req, res, next){
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        viewAllRepairForm().then((rows) => {
+            res.json({
+                data: rows
+            })
+
+            // ! need to render back to frontend
+        })
+
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    }).catch((err) => {
         res.json({
             err: err
         })
