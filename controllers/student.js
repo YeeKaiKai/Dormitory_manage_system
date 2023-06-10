@@ -194,7 +194,7 @@ exports.getViolation = function(req, res, next) {
 exports.postRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
-        let repairForm= {
+        let repairForm = {
             UID: data.UID,
             DName: req.body.DName,
             RoomNumber: req.body.RoomNumber,
