@@ -12,6 +12,8 @@ const viewAnnouncement = require("../models/announcement/viewAnnouncements_model
 
 const viewViolation = require("../models/violation/viewViolation_model.js");
 
+const viewAccommodateInformation = require("../models/accommodation/viewAccommodateInformation_model.js")
+
 exports.postMessage = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
@@ -175,6 +177,26 @@ exports.getViolation = function(req, res, next) {
         }
         viewViolation(violation).then((rows) => {
             res.render('student_violation', {data: rows});
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getAccommodateInformation = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let boarder = {
+            StuID: req.body.UID
+        }
+        viewAccommodateInformation(boarder).then((rows) => {
+            res.render('student_information.js', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err
