@@ -3,7 +3,7 @@ const addBoarder = require("../boarder/addBoarder_model.js");
 
 /**
  * update the status of application by house master
- * @param {{Approved: boolean, StuID: string, ApplyNumber: string, DName: string, RoomNumber: string}} application 
+ * @param {{Approved: boolean, StuID: string, ApplyNumber: string, DName: string}} application 
  * @returns 
  */
 module.exports = function(application) {
@@ -17,12 +17,16 @@ module.exports = function(application) {
                 return;
             }
             if(application.Approved === "已通過") {
-                addBoarder(application).then((re) => {
+                let boarder = {
+                    StuID: application.StuID,
+                    DName: application.DName
+                };
+                addBoarder(boarder).then((re) => {
                     result.status = true;
                     result.message = "自動新增住宿學生成功！";
                     resolve(result);
                     return;
-                }).reject((re) => {
+                }).catch((err) => {
                     result.status = false;
                     result.message = "自動新增住宿學生失敗！";
                     reject(result);
