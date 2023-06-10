@@ -31,4 +31,6 @@ router.delete('/boarder', controller.deleteBoarder);
 router.get('/boarder', controller.getBoarder);
 router.put('/boarder', controller.putBoarder);
 
+router.patch('/repairForm', controller.patchRepairForm);
+
 module.exports = router;

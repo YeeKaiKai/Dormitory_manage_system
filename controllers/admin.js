@@ -24,6 +24,9 @@ const removeBoarder = require("../models/boarder/removeBoarder_model.js");
 const viewBoarder = require("../models/boarder/viewBoarder_model.js");
 const updateBoarder = require("../models/boarder/updateBoarder_model.js");
 
+const updateRepairForm = require("../models/repairForm/updateRepariForm.js");
+const updateRepariForm = require("../models/repairForm/updateRepariForm.js");
+
 exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
@@ -481,6 +484,32 @@ exports.putBoarder = function(req, res, next) {
     }).catch((err) => {
         res.json({
             err: err
+        })
+    })
+}
+
+exports.patchRepairForm = function(req, res, next){
+    let token = req.cookies.token;
+
+    verify(token).then((data) => {
+        let identity = data;
+        let newRepairForm = req.body;
+
+        updateRepariForm(identity, newRepairForm).then((result) => {
+            console.log(result);
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            console.log(err);
+            res.json({
+                err: err,
+            })
+        })
+
+    }).catch((err) => {
+        res.json({
+            err: "token wrong"
         })
     })
 }
