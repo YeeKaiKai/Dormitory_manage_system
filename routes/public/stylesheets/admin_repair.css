@@ -23,12 +23,58 @@
     margin-top: 5vh;
 }
 
+.applyButton {
+    color: white;
+    font-size: large;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    border-color: #FF8A65;
+    height: 38px;
+    width: 100px;
+    margin-top: 3vh;
+    background: #e88e44;
+}
+
+.confirmButton {
+    font-size: large;
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    width: 60px;
+    height: 40px;
+    border: none;
+    background: #e88e44;
+    box-shadow: none;
+}
+
+.confirmButton:hover {
+    background-color: #e9802a;    
+}
+
+.cancelButton {
+    font-size: large;
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    width: 60px;
+    height: 40px;
+    border: none;
+    background: #908f8e;
+}
+
+.cancelButton:hover {
+    background-color: #7a7a79;
+}
+
 tr:hover {
     background-color: #FFF3E0;
 }
 
 .setEditButton {
     background-color: transparent;
-    border: 0;
+    border: none;
 }
 
+.modal-header {
+    background-color: #FFD4A5;
+}
