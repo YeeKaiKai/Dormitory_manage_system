@@ -26,5 +26,6 @@ router.get('/dormitory', controller.getDormitory);
 
 router.post('/repairForm', controller.postRepairForm);
 router.get('/repairForm/all', controller.getAllRepairForm);
+router.get('/repairForm/personal', controller.getPersonalRepairForm);
 
 module.exports = router;

@@ -245,7 +245,7 @@ exports.getAllRepairForm = function(req, res, next) {
     })
 }
 
-exports.getPersonalRepairForm = function(req, res, next){
+exports.getPersonalRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let UID = data.UID;

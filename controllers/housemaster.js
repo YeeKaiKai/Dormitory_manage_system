@@ -19,6 +19,7 @@ const viewDormitory = require("../models/dormitory/viewDormitory_model.js");
 const exp = require("constants");
 const makeRepairForm = require("../models/repairForm/makeRepairForm.js");
 const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
+const viewPersonalRepairForm = require("../models/repairForm/viewPersonalRepairForm.js");
 
 exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
@@ -303,12 +304,32 @@ exports.postRepairForm = function(req, res, next) {
 exports.getAllRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
-        viewAllRepairForm().then((result) => {
+        viewAllRepairForm().then((rows) => {
             res.json({
-                data: result
+                data: rows
             })
 
             // ! need to render back to frontend
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getPersonalRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let UID = data.UID;
+        viewPersonalRepairForm(UID).then((rows) => {
+            res.json({
+                data: rows     
+            })
         }).catch((err) => {
             res.json({
                 err: err
