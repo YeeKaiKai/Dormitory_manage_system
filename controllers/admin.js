@@ -26,6 +26,7 @@ const updateBoarder = require("../models/boarder/updateBoarder_model.js");
 
 const updateRepairForm = require("../models/repairForm/updateRepariForm.js");
 const updateRepariForm = require("../models/repairForm/updateRepariForm.js");
+const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
 
 exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
@@ -509,7 +510,30 @@ exports.patchRepairForm = function(req, res, next){
 
     }).catch((err) => {
         res.json({
-            err: "token wrong"
+            err: err
+        })
+    })
+}
+
+exports.getAllRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let UID = data.UID;
+        viewAllRepairForm().then((rows) => {
+            res.json({
+                data: rows
+            })
+
+            //! need to render back to frontend
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        }) 
+
+    }).catch((err) => {
+        res.json({
+            err: err
         })
     })
 }

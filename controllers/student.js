@@ -191,7 +191,7 @@ exports.getViolation = function(req, res, next) {
     })
 }
 
-exports.postRepairForm = function(req, res, next){
+exports.postRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let repairForm= {
@@ -223,7 +223,7 @@ exports.postRepairForm = function(req, res, next){
     })
 }
 
-exports.getAllRepairForm = function(req, res, next){
+exports.getAllRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         viewAllRepairForm().then((rows) => {
