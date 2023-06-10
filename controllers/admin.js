@@ -135,7 +135,8 @@ exports.putApplication = function(req, res, next) {
         let application = {
             Approved: req.body.Approved,
             StuID: req.body.StuID,
-            ApplyNumber: req.body.ApplyNumber
+            ApplyNumber: req.body.ApplyNumber,
+            DName: req.body.DName
         }
         updateApplication(application).then((result) => {
             res.json({
