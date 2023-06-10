@@ -2,7 +2,7 @@ const connect = require("../connection_db.js");
 
 /**
  * Make the RepairForm by student
- * @param {{UID: String, FName: CharacterData, RoomNumber: CharacterData, DName: CharacterData, RepairMsg: CharacterData}}
+ * @param {{UID: String, FName: String, RoomNumber: String, DName: String, RepairMsg: String}}
  * @returns
  */
 
