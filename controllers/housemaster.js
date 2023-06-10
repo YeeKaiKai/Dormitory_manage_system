@@ -18,6 +18,7 @@ const updateViolation = require("../models/violation/updateViolation_model.js");
 const viewDormitory = require("../models/dormitory/viewDormitory_model.js");
 const exp = require("constants");
 const makeRepairForm = require("../models/repairForm/makeRepairForm.js");
+const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
 
 exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
@@ -297,4 +298,25 @@ exports.postRepairForm = function(req, res, next) {
             err: err
         })
     }) 
+}
+
+exports.getAllRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        viewAllRepairForm().then((result) => {
+            res.json({
+                data: result
+            })
+
+            // ! need to render back to frontend
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
 }
