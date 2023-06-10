@@ -504,7 +504,7 @@ exports.patchRepairForm = function(req, res, next){
         }).catch((err) => {
             console.log(err);
             res.json({
-                err: err,
+                err: err
             })
         })
 

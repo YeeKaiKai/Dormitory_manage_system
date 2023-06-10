@@ -1,4 +1,3 @@
-const { resolveObjectURL } = require('buffer');
 const connect = require('../connection_db.js');
 
 /**
@@ -27,7 +26,8 @@ module.exports = function(identity, newRepairForm) {
         const RContent = newRepairForm.RContent;
         const Reply = newRepairForm.Reply;
         
-       if(RStatus) {
+
+        if(RStatus) {
             if(UType !== "ADMIN") {
                 result.status = "false";
                 result.message = "權限不符!";
@@ -68,7 +68,7 @@ module.exports = function(identity, newRepairForm) {
 
         if(DName) {
             let sql = `UPDATE REPAIR_FORM SET DName = ? WHERE RepairNumber = ?`;
-            connect.query(sql, [Reply, RepairNumber], (err, rows) => {
+            connect.query(sql, [DName, RepairNumber], (err, rows) => {
                 if(err) {
                     console.log(err);
                     result.status = "false";
@@ -80,7 +80,7 @@ module.exports = function(identity, newRepairForm) {
         }
 
         if(RoomNumber) {
-            let sql = `UPDATE REPAIR_FROM SET RoomNumber = ? WHERE RepairNumber = ?`
+            let sql = `UPDATE REPAIR_FORM SET RoomNumber = ? WHERE RepairNumber = ?`
             connect.query(sql, [RoomNumber, RepairNumber], (err, rows) => {
                 if(err) {
                    console.log(err) ;
@@ -93,7 +93,7 @@ module.exports = function(identity, newRepairForm) {
         }
 
         if(FName) {
-            let sql = `UPDATE REPAIR_FROM SET FName = ? WHERE RepairNumber = ?`
+            let sql = `UPDATE REPAIR_FORM SET FName = ? WHERE RepairNumber = ?`
             connect.query(sql, [FName, RepairNumber], (err, rows) => {
                 if(err) {
                    console.log(err) ;
