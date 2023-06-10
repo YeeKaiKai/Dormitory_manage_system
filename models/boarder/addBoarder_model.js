@@ -1,7 +1,7 @@
 const connect = require("../connection_db.js");
 
 /**
- * Add new boarder by admin
+ * Add new boarder by admin, this is called only when a application is approved
  * @param {{StuID: string, DName: string, RoomNumber: string}} boarder 
  * @returns 
  */
