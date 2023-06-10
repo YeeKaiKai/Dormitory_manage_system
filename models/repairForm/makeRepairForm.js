@@ -2,14 +2,14 @@ const connect = require("../connection_db.js");
 
 /**
  * Make the RepairForm by student
- * @param {{UID: String, FName: String, RoomNumber: String, DName: String, RepairMsg: String}}
+ * @param {{UID: String, DName: String, RoomNumber: String, FName: String, Freetime: String, RContent: String}}
  * @returns
  */
 
 module.exports = function(repairForm) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`INSERT INTO REPAIR_FORM(UID, FName, RoomNumber, DName, RepairMsg) VALUES(?, ?, ?, ?, ?)`, [repairForm.UID, repairForm.FName, repairForm.RoomNumber, repairForm.DName, repairForm.RepairMsg], (err) => {
+        connect.query(`INSERT INTO REPAIR_FORM(UID, DName, RoomNumber, FName, Freetime, RContent) VALUES(?, ?, ?, ?, ?, ?)`, [repairForm.UID, repairForm.DName, repairForm.RoomNumber, repairForm.FName, repairForm.Freetime,repairForm.RContent], (err) => {
             if(err){
                 console.log(err);
                 result.status = false;

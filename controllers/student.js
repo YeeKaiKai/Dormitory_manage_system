@@ -196,10 +196,11 @@ exports.postRepairForm = function(req, res, next){
     verify(token).then((data) => {
         let repairForm= {
             UID: data.UID,
-            FName: req.body.FName,
-            RoomNumber: req.body.RoomNumber,
             DName: req.body.DName,
-            RepairMsg: req.body.RepairMsg
+            RoomNumber: req.body.RoomNumber,
+            FName: req.body.FName,
+            Freetime: req.body.Freetime,
+            RContent: req.body.RContent
         }
         makeRepairForm(repairForm).then((result) => {
             console.log(result);
