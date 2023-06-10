@@ -1,8 +1,11 @@
 const connect = require("../connection_db.js");
 const addBoarder = require("../boarder/addBoarder_model.js");
+const approvalEmail = require("../approval_email.js");
 
 /**
- * update the status of application by house master
+ * update the status of application by house master.
+ * If approving a application of application, it will send approval email to student
+ * and assign a dormitory and room automatically
  * @param {{Approved: boolean, StuID: string, ApplyNumber: string, DName: string}} application 
  * @returns 
  */
@@ -21,11 +24,21 @@ module.exports = function(application) {
                     StuID: application.StuID,
                     DName: application.DName
                 };
-                addBoarder(boarder).then((re) => {
-                    result.status = true;
-                    result.message = "自動新增住宿學生成功！";
-                    resolve(result);
-                    return;
+                addBoarder(boarder).then((result) => {
+                    let student = {
+                        StuID: application.StuID
+                    }
+                    approvalEmail(student).then((result) => {
+                        result.status = true;
+                        result.message = "自動新增住宿學生成功！";
+                        resolve(result);
+                        return;
+                    }).catch((err) => {
+                        result.status = true;
+                        result.message = "寄送Email失敗！";
+                        resolve(result);
+                        return;
+                    }) 
                 }).catch((err) => {
                     result.status = false;
                     result.message = "自動新增住宿學生失敗！";
