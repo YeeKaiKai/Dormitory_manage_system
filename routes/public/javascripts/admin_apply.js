@@ -30,7 +30,7 @@ global_url = "http://localhost:3000/admin/application/"
 
 
 // update
-function updateItem(pk1, pk2) {
+function updateItem(pk1, pk2, pk3) {
   const url = global_url
   console.log(url);
   let headers = {
@@ -41,6 +41,7 @@ function updateItem(pk1, pk2) {
     "ApplyNumber": pk1,
     "StuID":pk2,
     "Approved":document.getElementById("Approved" + pk1 + pk2).value,
+    "DName":pk3,
     // "Paid":document.getElementById("Paid").value
   }
   console.log(body)
