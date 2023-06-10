@@ -1,0 +1,231 @@
+<!--for student and housemaster -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/schoolIcon.jpg" type="image/x-icon" />
+    <title>報修申請</title>
+
+    <link href="/stylesheets/student_repair.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <style>
+            @media screen and (min-width: 676px) {
+                .modal-dialog {
+                max-width: 880px; /* New width for default modal */
+                }
+            }
+        </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg setNav justify-content-between">
+            <a class="navbar-brand fs-4" href="/">
+                <img src="/images/schoolLogo.png" alt="" width="40" height="40" class="d-inline-block">
+                國立高雄大學學生住宿系統
+            </a>
+            <ul class="navbar-nav fs-5">
+                <li class="nav-item">
+                    <a class="nav-link" href="/student/application">申請住宿</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/student/information">住宿資訊</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/student/repairForm">報修申請</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/student/messageBoard">留言板</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/student/violation">違規紀錄</a>
+                </li>
+            </ul>
+        </nav>
+        <p class="setTitleBlock">報修申請</p>
+    </header>
+
+    <main>
+        <div class="d-flex justify-content-center">
+            <button class="applyButton" data-bs-toggle="modal" data-bs-target="#addRepairApply">我要報修</button>
+        </div>
+        <div class="setContentBlock">
+            <table class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col"><nobr>編號</nobr></th>
+                        <th scope="col"><nobr>棟別</nobr></th>
+                        <th scope="col"><nobr>房號</nobr></th>
+                        <th scope="col"><nobr>設備</nobr></th>
+                        <th scope="col"><nobr>維修內容</nobr></th>
+                        <th scope="col"><nobr>方便維修時段</nobr></th>
+                        <th scope="col"><nobr>維修情況</nobr></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% data=JSON.parse(data); for(var i=0; i < data.length; i++) { %>
+                    <tr>
+                            <td><nobr><%= data[i].RepairNumber %></nobr></td>
+                            <td><nobr><%= data[i].DName  %></nobr></td>
+                            <td><nobr><%= data[i].RoomNumber  %></nobr></td>
+                            <td><%= data[i].FName  %></td>
+                            <td><%= data[i].Rcontent  %></td>
+                            <td><%= data[i].Freetime  %></td>
+                            <td><nobr><%= data[i].RStatus  %></nobr></td>
+                            <% if(UID==data[i].StuID) { %>
+                                <td><button class="setEditButton"><img src="/images/iconEdit.png" alt="editIcon" data-bs-toggle="modal" data-bs-target="#editModal<%= data[i].RepairNumber %>"></button></td>
+                            <% } %>
+                    </tr>
+
+                    <div class="modal fade" id="addRepairApply" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">報修申請</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="" method='post' action='http://localhost:3000/student/repairForm/'>
+                                        <div class="mb-3 row">
+                                            <label for="inputDName" class="col-sm-2 col-form-label">棟別</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-select" required="required" aria-label="Default select example" name="DName" id="inputDName">
+                                                    <option value="學一宿舍OA">學一宿舍OA</option>
+                                                    <option value="學一宿舍OB">學一宿舍OB</option>
+                                                    <option value="學二宿舍OE">學二宿舍OE</option>
+                                                    <option value="學二宿舍OF">學二宿舍OF</option>
+                                                    <option value="綜合大樓">綜合大樓</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="inputRoomNumber" class="col-sm-2 col-form-label">房號</label>
+                                            <div class="col-sm-10">
+                                                <!-- /[^\d]/g,'' 為正規表達式-->
+                                                <input type="text" oninput="value=value.replace(/[^\d]/g,'')" class="form-control" id="inputRoomNumber" name="RoomNumber">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="inputFName" class="col-sm-2 col-form-label">設備</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputFName" name="FName">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="inputRContent" class="col-sm-2 col-form-label">維修內容</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputRContent" name="RContent">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="inputFreetime" class="col-sm-2 col-form-label">方便維修時段</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="inputFreetime" name="Freetime">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                            <input type="submit" class="confirmButton" value="確認">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Edit Modal -->
+                    <div class="modal fade" id="editModal<%= data[i].RepairNumber %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">報修申請</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3 row">
+                                        <label for="DName<%= data[i].RepairNumber %>" class="col-sm-2 col-form-label">棟別</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-select" required="required" aria-label="Default select example" id="DName<%= data[i].RepairNumber %>">
+                                                <% if(data[i].DName === "學一宿舍OA"){ %>
+                                                    <option value="學一宿舍OA" selected>學一宿舍OA</option>
+                                                    <option value="學一宿舍OB">學一宿舍OB</option>
+                                                    <option value="學二宿舍OE">學二宿舍OE</option>
+                                                    <option value="學二宿舍OF">學二宿舍OF</option>
+                                                    <option value="綜合大樓">綜合大樓</option>
+                                                <%} else if(data[i].DName === "學一宿舍OB"){%>
+                                                    <option value="學一宿舍OA">學一宿舍OA</option>
+                                                    <option value="學一宿舍OB" selected>學一宿舍OB</option>
+                                                    <option value="學二宿舍OE">學二宿舍OE</option>
+                                                    <option value="學二宿舍OF">學二宿舍OF</option>
+                                                    <option value="綜合大樓">綜合大樓</option>
+                                                <%} else if(data[i].DName === "學二宿舍OE"){%>
+                                                    <option value="學一宿舍OA">學一宿舍OA</option>
+                                                    <option value="學一宿舍OB">學一宿舍OB</option>
+                                                    <option value="學二宿舍OE" selected>學二宿舍OE</option>
+                                                    <option value="學二宿舍OF">學二宿舍OF</option>
+                                                    <option value="綜合大樓">綜合大樓</option>
+                                                <%} else if(data[i].DName === "學二宿舍OF"){%>
+                                                    <option value="學一宿舍OA">學一宿舍OA</option>
+                                                    <option value="學一宿舍OB">學一宿舍OB</option>
+                                                    <option value="學二宿舍OE">學二宿舍OE</option>
+                                                    <option value="學二宿舍OF" selected>學二宿舍OF</option>
+                                                    <option value="綜合大樓">綜合大樓</option>
+                                                <%} else{%>
+                                                    <option value="學一宿舍OA" >學一宿舍OA</option>
+                                                    <option value="學一宿舍OB">學一宿舍OB</option>
+                                                    <option value="學二宿舍OE">學二宿舍OE</option>
+                                                    <option value="學二宿舍OF">學二宿舍OF</option>
+                                                    <option value="綜合大樓" selected>綜合大樓</option>
+                                                <%}%>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="RoomNumber<%= data[i].RepairNumber %>" class="col-sm-2 col-form-label">房號</label>
+                                        <div class="col-sm-10">
+                                        <!-- /[^\d]/g,'' 為正規表達式-->
+                                        <input type="text" value='<%= data[i].RoomNumber %>' id="RoomNumber<%= data[i].RepairNumber %>" oninput="value=value.replace(/[^\d]/g,'')" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="FName<%= data[i].RepairNumber %>" class="col-sm-2 col-form-label">設備</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" value='<%= data[i].FName %>' class="form-control" id="FName<%= data[i].RepairNumber %>">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="RContent<%= data[i].RepairNumber %>" class="col-sm-2 col-form-label">維修內容</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" value='<%= data[i].RContent %>' class="form-control" id="RContent<%= data[i].RepairNumber %>">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="Freetime<%= data[i].RepairNumber %>" class="col-sm-2 col-form-label">方便維修時段</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" value='<%= data[i].Freetime %>' class="form-control" id="Freetime<%= data[i].RepairNumber %>">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                        <button type="submit" class="confirmButton" onclick= updateItem('<%= data[i].RepairNumber %>')>確認</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script src="/javascripts/admin_repair.js"></script>
+</body>
+
+</html>
