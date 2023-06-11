@@ -18,9 +18,11 @@ module.exports = function() {
                 reject(result);
                 return;
             }
-            let temp = JSON.stringify(rows[0]['DATE']);
-            rows[0]['DATE'] = temp.replace('T', ' ').replace('.000Z', '');
-            data = JSON.stringify(rows);
+            for(let i = 0; i < rows.length; i++) {
+                let temp = JSON.stringify(rows[i]['DateTime']);
+                rows[i]['DateTime'] = temp.replace('T', ' ').replace('.000Z', '');
+            }
+            let data = JSON.stringify(rows);
             resolve(data);
             return;
         })
