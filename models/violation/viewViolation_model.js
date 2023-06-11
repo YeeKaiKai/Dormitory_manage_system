@@ -19,7 +19,8 @@ module.exports = function(violation) {
                 reject(result);
                 return;
             }
-            console.log(rows);
+            let temp = JSON.stringify(rows[0]['DATE']);
+            rows[0]['DATE'] = temp.replace('T', ' ').replace('.000Z', '');
             let data = JSON.stringify(rows);
             resolve(data);
             return;

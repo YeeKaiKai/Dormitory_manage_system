@@ -22,6 +22,8 @@ module.exports = function(announcement) {
                 reject(result);
                 return;
             }
+            let temp = JSON.stringify(rows[0]['DateTime']);
+            rows[0]['DateTime'] = temp.replace('T', ' ').replace('.000Z', '');
             let data = JSON.stringify(rows)
             resolve(data);
             return;
