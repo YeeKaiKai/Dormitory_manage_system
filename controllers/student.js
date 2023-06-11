@@ -75,7 +75,7 @@ exports.getMessage = function(req, res, next) {
             // res.json({
             //     result: rows
             // })
-            res.render('student_message_board', {rows: rows, UID: UID});
+            res.render('student_message_board', {data: rows, UID: UID});
         }).catch((err) => {
             res.json({
                 result: err
