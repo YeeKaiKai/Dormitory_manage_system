@@ -26,7 +26,6 @@ const removeBoarder = require("../models/boarder/removeBoarder_model.js");
 const viewBoarder = require("../models/boarder/viewBoarder_model.js");
 const updateBoarder = require("../models/boarder/updateBoarder_model.js");
 
-const updateRepairForm = require("../models/repairForm/updateRepariForm.js");
 const updateRepariForm = require("../models/repairForm/updateRepariForm.js");
 const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
 
@@ -562,12 +561,11 @@ exports.getAllRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let UID = data.UID;
+        
         viewAllRepairForm().then((rows) => {
-            res.json({
-                data: rows
-            })
+            console.log(rows);
+            res.render('admin_repair', {data: rows, UID: UID});
 
-            //! need to render back to frontend
         }).catch((err) => {
             res.json({
                 err: err

@@ -227,12 +227,11 @@ exports.postRepairForm = function(req, res, next) {
 exports.getAllRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
+        let UID = data.UID;
+        
         viewAllRepairForm().then((rows) => {
-            res.json({
-                data: rows
-            })
-
-            // ! need to render back to frontend
+            console.log(rows);
+            res.render('student_repair', {data: rows, UID: UID});
         }).catch((err) => {
             res.json({
                 err: err

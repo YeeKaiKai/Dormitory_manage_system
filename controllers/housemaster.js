@@ -305,12 +305,12 @@ exports.postRepairForm = function(req, res, next) {
 exports.getAllRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
-        viewAllRepairForm().then((rows) => {
-            res.json({
-                data: rows
-            })
+        let UID = data.UID;
 
-            // ! need to render back to frontend
+        viewAllRepairForm().then((rows) => {
+            console.log(rows);
+            res.render('housemaster_repair', {data: rows, UID: UID});
+
         }).catch((err) => {
             res.json({
                 err: err
@@ -327,10 +327,11 @@ exports.getPersonalRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let UID = data.UID;
+        
         viewPersonalRepairForm(UID).then((rows) => {
-            res.json({
-                data: rows     
-            })
+            console.log(rows);
+            res.render('housemaster_repair', {data: rows, UID: UID});
+
         }).catch((err) => {
             res.json({
                 err: err
