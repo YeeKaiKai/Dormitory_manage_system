@@ -4,9 +4,12 @@ const verify = require("../models/verification.js");
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const config = require('../config/config.js');
+
 const viewAnnouncement = require('../models/announcement/viewAnnouncements_model.js');
 const viewDetailAnnouncement = require("../models/announcement/viewDetailAnnouncement_model.js");
+const resetPasswordEmail = require('../models/reset_password_email.js');
 
 /**
  *  Receive post method to regist
@@ -87,4 +90,31 @@ exports.getDetailAnnouncement = function(req, res, next) {
 
 exports.getIntroduction = function(req, res, next) {
     res.render('dorm_introduction');
+}
+
+exports.postForgotPassword = function(req, res, next) {
+
+    let user = {
+        UID: req.body.UID
+    };
+
+    // 建立 token
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    // 加密  token
+    const resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+    // 設定 token 過期時間
+    const resetPasswordExpire = Date.now() + 1000 * 60 * 10;
+
+    const resetUrl = `${req.protocol}://${req.get('host')}/resetPassword/${resetToken}`;
+
+    resetPasswordEmail(user, resetUrl).then((result) => {
+        console.log("123");
+    }).catch((result) => {
+        console.log("456");
+    })
 }
