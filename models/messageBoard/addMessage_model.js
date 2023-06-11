@@ -8,7 +8,7 @@ const connect = require("../connection_db.js");
 module.exports = function(message) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`INSERT INTO MESSAGE(MTitle, MContent, StuID) VALUES (?, ?, ?)`, [message.MTitle, message.MContent, message.StuID], (err) => {
+        connect.query(`INSERT INTO MESSAGE(DateTime, MTitle, MContent, StuID) VALUES ((SELECT CONVERT_TZ(CURRENT_TIME(),'+00:00','+08:00')), ?, ?, ?)`, [message.MTitle, message.MContent, message.StuID], (err) => {
             if(err) {
                 console.log(err);
                 result.status = false;
