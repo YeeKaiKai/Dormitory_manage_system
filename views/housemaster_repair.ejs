@@ -72,16 +72,18 @@
                 <tbody>
                     <% data=JSON.parse(data); for(var i=0; i < data.length; i++) { %>
                     <tr>
-                            <td><nobr><%= data[i].RepairNumber %></nobr></td>
-                            <td><nobr><%= data[i].DName  %></nobr></td>
-                            <td><nobr><%= data[i].RoomNumber  %></nobr></td>
-                            <td><%= data[i].FName  %></td>
-                            <td><%= data[i].RContent  %></td>
-                            <td><%= data[i].Freetime  %></td>
-                            <td><nobr><%= data[i].RStatus  %></nobr></td>
-                            <% if(UID==data[i].UID) { %>
-                                <td><button class="setEditButton"><img src="/images/iconEdit.png" alt="editIcon" data-bs-toggle="modal" data-bs-target="#editModal<%= data[i].RepairNumber %>"></button></td>
-                            <% } %>
+                        <td><nobr><%= data[i].RepairNumber %></nobr></td>
+                        <td><nobr><%= data[i].DName  %></nobr></td>
+                        <td><nobr><%= data[i].RoomNumber  %></nobr></td>
+                        <td><%= data[i].FName  %></td>
+                        <td><%= data[i].RContent  %></td>
+                        <td><%= data[i].Freetime  %></td>
+                        <td><nobr><%= data[i].RStatus  %></nobr></td>
+                        <td>
+                        <% if(UID==data[i].UID) { %>
+                            <button class="setEditButton"><img src="/images/iconEdit.png" alt="editIcon" data-bs-toggle="modal" data-bs-target="#editModal<%= data[i].RepairNumber %>"></button>
+                        <% } %>
+                        </td>
                     </tr>
 
                     <div class="modal fade" id="addRepairApply" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .setNav {
     max-width: 70vw;
     margin: 0 auto;
@@ -16,6 +20,10 @@
     background: #FFD4A5;
 }
 
+.modal-title {
+    font-weight: bold;
+}
+
 .setContentBlock {
     font-size: 20px;
     width: 70vw;
@@ -29,8 +37,7 @@
     border-radius: 5px;
     /*邊框變為圓弧*/
     border-color: #FF8A65;
-    height: 38px;
-    width: 100px;
+    padding: 5px 7px;
     margin-top: 3vh;
     background: #e88e44;
 }
@@ -41,8 +48,7 @@
     border-radius: 5px;
     /*邊框變為圓弧*/
     border-color: #FF8A65;
-    height: 38px;
-    width: 140px;
+    padding: 5px 7px;
     margin-top: 3vh;
     margin-left: 20px;
     background: #e88e44;
@@ -54,8 +60,7 @@
     color: white;
     border-radius: 5px;
     /*邊框變為圓弧*/
-    width: 60px;
-    height: 40px;
+    padding: 7px 13px;
     border: none;
     background: #e88e44;
     box-shadow: none;
@@ -70,8 +75,7 @@
     color: white;
     border-radius: 5px;
     /*邊框變為圓弧*/
-    width: 60px;
-    height: 40px;
+    padding: 7px 13px;
     border: none;
     background: #908f8e;
 }

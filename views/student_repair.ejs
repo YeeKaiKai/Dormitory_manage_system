@@ -77,9 +77,11 @@
                             <td><%= data[i].RContent  %></td>
                             <td><%= data[i].Freetime  %></td>
                             <td><nobr><%= data[i].RStatus  %></nobr></td>
+                            <td>
                             <% if(UID==data[i].UID) { %>
-                                <td><button class="setEditButton"><img src="/images/iconEdit.png" alt="editIcon" data-bs-toggle="modal" data-bs-target="#editModal<%= data[i].RepairNumber %>"></button></td>
+                                <button class="setEditButton"><img src="/images/iconEdit.png" alt="editIcon" data-bs-toggle="modal" data-bs-target="#editModal<%= data[i].RepairNumber %>"></button></td>
                             <% } %>
+                            </td>
                     </tr>
 
                     <div class="modal fade" id="addRepairApply" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
