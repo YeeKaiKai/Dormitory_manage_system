@@ -205,10 +205,7 @@ exports.postRepairForm = function(req, res, next) {
         }
         makeRepairForm(repairForm).then((result) => {
             console.log(result);
-            res.json({
-                result: result
-            })
-
+            res.redirect('/student/repairForm/all');
         }).catch((err) => {
             console.log(err);
             res.json({
@@ -228,7 +225,7 @@ exports.getAllRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let UID = data.UID;
-        
+
         viewAllRepairForm().then((rows) => {
             console.log(rows);
             res.render('student_repair', {data: rows, UID: UID});

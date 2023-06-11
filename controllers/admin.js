@@ -561,7 +561,7 @@ exports.getAllRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let UID = data.UID;
-        
+
         viewAllRepairForm().then((rows) => {
             console.log(rows);
             res.render('admin_repair', {data: rows, UID: UID});

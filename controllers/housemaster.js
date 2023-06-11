@@ -285,9 +285,7 @@ exports.postRepairForm = function(req, res, next) {
         }
         makeRepairForm(repairForm).then((result) => {
             console.log(result);
-            res.json({
-                result: result
-            })
+            res.redirect('/housemaster/repairForm/all');
         }).catch((err) => {
             console.log(err);
             res.json({
@@ -327,7 +325,7 @@ exports.getPersonalRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let UID = data.UID;
-        
+
         viewPersonalRepairForm(UID).then((rows) => {
             console.log(rows);
             res.render('housemaster_repair', {data: rows, UID: UID});
