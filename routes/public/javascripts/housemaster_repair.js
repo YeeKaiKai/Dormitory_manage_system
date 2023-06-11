@@ -18,7 +18,7 @@ function updateItem(pk) {
     console.log(body)
   
     fetch(url, {
-        method: "PUT",
+        method: "PATCH",
         headers: headers,
         body: JSON.stringify(body)
     }).then(response => response.json())
