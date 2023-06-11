@@ -35,6 +35,20 @@
     background: #e88e44;
 }
 
+.personalButton {
+    color: white;
+    font-size: large;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    border-color: #FF8A65;
+    height: 38px;
+    width: 140px;
+    margin-top: 3vh;
+    margin-left: 20px;
+    background: #e88e44;
+    
+}
+
 .confirmButton {
     font-size: large;
     color: white;
