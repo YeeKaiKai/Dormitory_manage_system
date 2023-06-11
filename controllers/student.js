@@ -250,10 +250,10 @@ exports.getPersonalRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let UID = data.UID;
-        
+
         viewPersonalRepariForm(UID).then((rows) => {
             console.log(rows);
-            res.render('student_repair', {data: rows});
+            res.render('student_repair', {data: rows, UID: UID});
 
         }).catch((err) => {
             res.json({

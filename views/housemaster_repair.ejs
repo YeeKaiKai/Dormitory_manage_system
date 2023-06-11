@@ -78,7 +78,7 @@
                             <td><%= data[i].Rcontent  %></td>
                             <td><%= data[i].Freetime  %></td>
                             <td><nobr><%= data[i].RStatus  %></nobr></td>
-                            <% if(UID==data[i].StuID) { %>
+                            <% if(UID==data[i].UID) { %>
                                 <td><button class="setEditButton"><img src="/images/iconEdit.png" alt="editIcon" data-bs-toggle="modal" data-bs-target="#editModal<%= data[i].RepairNumber %>"></button></td>
                             <% } %>
                     </tr>
