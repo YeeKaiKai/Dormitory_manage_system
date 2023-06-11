@@ -22,5 +22,6 @@ router.get('/violation', controller.getViolation);
 router.post('/repairForm', controller.postRepairForm);
 router.get('/repairForm/all', controller.getAllRepairForm);
 router.get('/repairForm/personal', controller.getPersonalRepairForm);
+router.patch('/repairForm', controller.patchRepairForm);
 
 module.exports = router;
