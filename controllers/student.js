@@ -196,7 +196,7 @@ exports.getAccommodateInformation = function(req, res, next) {
             StuID: req.body.UID
         }
         viewAccommodateInformation(boarder).then((rows) => {
-            res.render('student_information.js', {data: rows});
+            res.render('student_information', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err
