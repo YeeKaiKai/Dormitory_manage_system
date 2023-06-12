@@ -328,7 +328,7 @@ exports.getRoom = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let room = {
-            DName: req.body.DName,
+            DName: req.query.DName,
         }
         viewRoom(room).then((rows) => {
             res.render('admin_dormitory_room', {data: rows});
@@ -348,8 +348,8 @@ exports.getFacility = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let facility = {
-            DName: req.body.DName,
-            RoomNumber: req.body.RoomNumber
+            DName: req.query.DName,
+            RoomNumber: req.query.RoomNumber
         }
         viewFacility(facility).then((rows) => {
             res.render('admin_dormitory_room_facility', {data: rows});
