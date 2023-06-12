@@ -273,11 +273,13 @@ exports.patchRepairForm = function(req, res, next) {
         
         updateRepariForm(identity, newRepairForm).then((result) => {
             console.log(result);
-            res.json({
-                result: result
-            })
+            res.redirect('/student/repairForm/personal');
         }).catch((err) => {
             console.log(err);
+        })
+    })
+}
+
 exports.getAccommodateInformation = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
