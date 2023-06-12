@@ -38,7 +38,7 @@ module.exports = function(UID, resetUrl) {
             let message = `您好，依據您提出的忘記密碼請求，請點選以下網址 ${resetUrl} 來變更密碼，謝謝。`
             let mailOptions = {
                 from: config.EMAIL,
-                to: rows[0].SEmail,
+                to: rows[0].Email,
                 subject: "國立高雄大學學生住宿系統 - 密碼變更網址",
                 text: message
             };

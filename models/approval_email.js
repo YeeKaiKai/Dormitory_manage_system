@@ -10,9 +10,9 @@ const connect = require("./connection_db.js");
 module.exports = function(student) {
     return new Promise((resolve, reject) => {
         let sql = `
-            SELECT SEmail
-            FROM STUDENT
-            WHERE StuID = "${student.StuID}"`;
+            SELECT Email
+            FROM USER
+            WHERE UID = "${student.StuID}"`;
         connect.query(sql, (err, rows) => {
             if(err) {
                 result.status = false;
@@ -35,7 +35,7 @@ module.exports = function(student) {
             });
             let mailOptions = {
                 from: config.EMAIL,
-                to: rows[0].SEmail,
+                to: rows[0].Email,
                 subject: "宿舍申請審核通過通知",
                 text: '您好，您申請本校的住宿已通過審核，請至國立高雄大學學生住宿系統登入後查詢您的住宿棟別及房間，謝謝。'
             };
