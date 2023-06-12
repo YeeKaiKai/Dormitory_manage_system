@@ -272,9 +272,7 @@ exports.patchRepairForm = function(req, res, next) {
         
         updateRepariForm(identity, newRepairForm).then((result) => {
             console.log(result);
-            res.json({
-                result: result
-            })
+            res.redirect('/student/repairForm/personal');
         }).catch((err) => {
             console.log(err);
             res.json({
