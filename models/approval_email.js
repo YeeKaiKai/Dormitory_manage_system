@@ -37,7 +37,7 @@ module.exports = function(student) {
                 from: config.EMAIL,
                 to: rows[0].Email,
                 subject: "宿舍申請審核通過通知",
-                text: '您好，您申請本校的住宿已通過審核，請至國立高雄大學學生住宿系統登入後查詢您的住宿棟別及房間，謝謝。'
+                text: '您好，您於高雄大學學生住宿系統提出的申請已通過，請至國立高雄大學學生住宿系統登入後查詢您的住宿狀態，謝謝。'
             };
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
