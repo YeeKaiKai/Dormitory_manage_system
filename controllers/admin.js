@@ -166,9 +166,7 @@ exports.postDormitory = function(req, res, next) {
             DCapacity: req.body.DCapacity
         }
         addDormitory(dormitory).then((result) => {
-            res.json({
-                result: result
-            })
+            res.redirect('/admin/dormitory');
         }).catch((err) => {
             res.json({
                 err: err
@@ -190,9 +188,7 @@ exports.postRoom = function(req, res, next) {
             RCapacity: req.body.RCapacity
         }
         addRoom(room).then((result) => {
-            res.json({
-                result: result
-            })
+            res.render('/admin/dormitory/room')
         }).catch((err) => {
             res.json({
                 err: err
@@ -215,9 +211,7 @@ exports.postFacility = function(req, res, next) {
             FQuantity: req.body.FQuantity
         }
         addFacility(facility).then((result) => {
-            res.json({
-                result: result
-            })
+            res.render('/admin/dormitory/room/facility')
         }).catch((err) => {
             res.json({
                 err: err
