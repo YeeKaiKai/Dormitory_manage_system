@@ -1,0 +1,49 @@
+.setNav {
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
+.setTitleBlock {
+    font-size: 32px;
+    font-weight: bold;
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    /* 水平置中 */
+    justify-content: center;
+    /* 垂直置中 */
+    align-items: center;
+    background: #FFD4A5;
+}
+
+.setContentBlock {
+    font-size: 20px;
+    width: 70vw;
+    margin: 0 auto;
+    margin-top: 5vh;
+    
+}
+
+.setNoViolaWord {
+    display: flex;
+    /* 水平置中 */
+    justify-content: center;
+    /* 垂直置中 */
+    align-items: center;
+} 
+
+.infoContainer:hover{
+    background-color: #FFF3E0;
+    
+}
+
+.table th{
+    text-align: center; /* 將文字水平置中 */
+    vertical-align: middle; /* 將文字垂直置中 */
+}
+
+.table tbody tr {
+    height: 80px;
+    text-align: center; /* 將文字水平置中 */
+    vertical-align: middle; /* 將文字垂直置中 */
+}
