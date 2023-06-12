@@ -4,16 +4,16 @@ const connect = require("./connection_db.js");
 
 /**
  * send email to students after their application for dormitory is approved
- * @param {{StuID: string}} user 
+ * @param {UID: string, resetUrl: url} 
  * @returns 
  */
-module.exports = function(user, resetUrl) {
+module.exports = function(UID, resetUrl) {
     return new Promise((resolve, reject) => {
         let result = {};
         let sql = `
             SELECT Email
             FROM USER
-            WHERE UID = "${user.UID}"`;
+            WHERE UID = "${UID}"`;
         connect.query(sql, (err, rows) => {
             if(err) {
                 console.log(err);
