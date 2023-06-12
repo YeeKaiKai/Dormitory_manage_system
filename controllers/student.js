@@ -276,6 +276,10 @@ exports.patchRepairForm = function(req, res, next) {
             res.redirect('/student/repairForm/personal');
         }).catch((err) => {
             console.log(err);
+        })
+    })
+}
+
 exports.getAccommodateInformation = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
