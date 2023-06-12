@@ -4,17 +4,19 @@ const connect = require("./connection_db.js");
 
 /**
  * send email to students after their application for dormitory is approved
- * @param {{StuID: string}} student 
+ * @param {UID: string, resetUrl: url} 
  * @returns 
  */
-module.exports = function(student) {
+module.exports = function(UID, resetUrl) {
     return new Promise((resolve, reject) => {
+        let result = {};
         let sql = `
             SELECT Email
             FROM USER
-            WHERE UID = "${student.StuID}"`;
+            WHERE UID = "${UID}"`;
         connect.query(sql, (err, rows) => {
             if(err) {
+                console.log(err);
                 result.status = false;
                 result.message = "查詢Email失敗！";
                 reject(result);
@@ -33,27 +35,31 @@ module.exports = function(student) {
                     accessToken: config.access_token,
                 }
             });
+            let message = `您好，依據您提出的忘記密碼請求，請點選以下網址 ${resetUrl} 來變更密碼，謝謝。`
             let mailOptions = {
                 from: config.EMAIL,
                 to: rows[0].Email,
-                subject: "宿舍申請審核通過通知",
-                text: '您好，您申請本校的住宿已通過審核，請至國立高雄大學學生住宿系統登入後查詢您的住宿棟別及房間，謝謝。'
+                subject: "國立高雄大學學生住宿系統 - 密碼變更網址",
+                text: message
             };
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
+                    console.log(error);
                     let result = {
                         status: false,
-                        message: "發送審核通過email失敗，伺服器錯誤！"
+                        message: "發送變更密碼email失敗，伺服器錯誤！"
                     }
                     console.log(error);
                     reject(result);
-                    return
+                    return;
                 } else {
                     let result = {
                         status: false,
-                        message: "發送審核通過email成功！"
+                        message: "發送變更密碼email成功！"
                     }
                     console.log('Email sent: ' + info.response);
+                    resolve(result);
+                    return;
                 }
             })
         })
