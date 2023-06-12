@@ -24,4 +24,9 @@ router.put('/violation', controller.putViolation);
 
 router.get('/dormitory', controller.getDormitory);
 
+router.post('/repairForm', controller.postRepairForm);
+router.get('/repairForm/all', controller.getAllRepairForm);
+router.get('/repairForm/personal', controller.getPersonalRepairForm);
+router.patch('/repairForm', controller.patchRepairForm);
+
 module.exports = router;
