@@ -138,3 +138,21 @@ exports.getResetPassword = function(req, res, next) {
         });
     }
 }
+
+exports.putResetPassword = function(req, res, next) {
+    // encrypt password 
+    const enPassword = bcrypt.hashSync(req.body.UPassword, 10);
+    let user = {
+        UID: req.params.UID,
+        UPassword: enPassword,
+    };
+    updatePassword(user).then((result) => {
+        res.json({
+            result: result
+        }) 
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    });
+}
