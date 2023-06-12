@@ -11,6 +11,7 @@ const viewAnnouncement = require('../models/announcement/viewAnnouncements_model
 const viewDetailAnnouncement = require("../models/announcement/viewDetailAnnouncement_model.js");
 const resetPasswordEmail = require('../models/reset_password_email.js');
 
+var User = new Map();
 /**
  *  Receive post method to regist
  */
@@ -94,10 +95,6 @@ exports.getIntroduction = function(req, res, next) {
 
 exports.postForgotPassword = function(req, res, next) {
 
-    let user = {
-        UID: req.body.UID
-    };
-
     // 建立 token
     const resetToken = crypto.randomBytes(20).toString('hex');
 
@@ -109,12 +106,30 @@ exports.postForgotPassword = function(req, res, next) {
 
     // 設定 token 過期時間
     const resetPasswordExpire = Date.now() + 1000 * 60 * 10;
+    let UID = req.body.UID;
+    const resetUrl = `${req.protocol}://${req.get('host')}/resetPassword/${UID}/${resetToken}`;
 
-    const resetUrl = `${req.protocol}://${req.get('host')}/resetPassword/${resetToken}`;
+    User.set(UID, [resetPasswordToken, resetPasswordExpire]);
 
-    resetPasswordEmail(user, resetUrl).then((result) => {
+    resetPasswordEmail(UID, resetUrl).then((result) => {
         console.log("123");
     }).catch((result) => {
         console.log("456");
     })
+}
+
+exports.getResetPassword = function(req, res, next) {
+
+    console.log(req.params.UID);
+    const resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(req.params.resetToken)
+    .digest('hex');
+
+    // 如果使用者有更改密碼的需求，token也確實符合，token也尚未過期
+    if (User.has(req.params.UID) && resetPasswordToken === User.get(req.params.UID)[0] && Date.now() <= User.get(req.params.UID)[1]) {
+        res.render('reset_password')
+    } else {
+        console.log("error");
+    }
 }
