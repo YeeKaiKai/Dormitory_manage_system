@@ -23,6 +23,11 @@
     margin-top: 5vh;
 }
 
+.infoContainer:hover{
+    background-color: #FFF3E0;
+    
+}
+
 .submitButton {
     color: white;
     border-radius: 5px;
