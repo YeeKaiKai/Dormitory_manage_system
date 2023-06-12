@@ -1,25 +1,25 @@
 const connect = require("../connection_db.js");
 
 /**
- * View all violation by housemaster 
+ * view the boarder's own information
+ * @param {{StuID: string}} boarder
  * @returns 
  */
-module.exports = function() {
+module.exports = function(boarder) {
     let result = {};
     return new Promise((resolve, reject) => {
         let sql = `
-        SELECT *
-        FROM VIOLATION`;
+        SELECT UName, StuID, DName, RoomNumber
+        FROM BOARDER
+        LEFT JOIN USER
+        ON BOARDER.StuID = USER.UID
+        WHERE StuID = "${boarder.StuID}"`;
         connect.query(sql, (err, rows) => {
             if(err) {
                 result.status = false;
-                result.message = "瀏覽違規紀錄失敗！";
+                result.message = "瀏覽住宿生資料失敗！";
                 reject(result);
                 return;
-            }
-            for(let i = 0; i < rows.length; i++) {
-                let temp = JSON.stringify(rows[i]['DATE']);
-                rows[i]['DATE'] = temp.replace('T', ' ').replace('.000Z', '');
             }
             let data = JSON.stringify(rows);
             resolve(data);
