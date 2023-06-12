@@ -1,4 +1,5 @@
 const connect = require("../connection_db.js");
+const paymentEmail = require("../payment_notice_email.js");
 
 /**
  * Make the application by student
@@ -17,10 +18,20 @@ module.exports = function(application) {
                 reject(result);
                 return;
             }
+
+            paymentEmail(application.StuID).then((result) => {
+                result.status = true;
+                result.message = "申請成功！";
+
+            }).catch((err) => {
+                result = err;
+            })
+            
             result.status = true;
-            result.message = "申請成功！";
+            result.message = "申請成功!";
             resolve(result);
             return;
+
         })
     }) 
 }
