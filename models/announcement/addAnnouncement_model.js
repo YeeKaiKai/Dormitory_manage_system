@@ -12,15 +12,15 @@ module.exports = function(announcement) {
         switch(announcement.UType) {
             case 'ADMIN':
                 sql = `
-                INSERT INTO ANNOUNCEMENT(AnnounceTitle, AnnounceContent) 
-                VALUES("${announcement.AnnounceTitle}", "${announcement.AnnounceContent}");
+                INSERT INTO ANNOUNCEMENT(AnnounceTitle, AnnounceContent, DateTime) 
+                VALUES("${announcement.AnnounceTitle}", "${announcement.AnnounceContent}", (SELECT CONVERT_TZ(CURRENT_TIME(),'+00:00','+08:00')));
                 INSERT INTO AAN_Manage(AnnounceNumber, ASSN)
                 VALUES((SELECT MAX(AnnounceNumber) FROM ANNOUNCEMENT), "${announcement.SSN}")`;
                 break;
             case 'HOUSEMASTER':
                 sql = `
-                INSERT INTO ANNOUNCEMENT(AnnounceTitle, AnnounceContent) 
-                VALUES("${announcement.AnnounceTitle}", "${announcement.AnnounceContent}");
+                INSERT INTO ANNOUNCEMENT(AnnounceTitle, AnnounceContent, DateTime) 
+                VALUES("${announcement.AnnounceTitle}", "${announcement.AnnounceContent}", (SELECT CONVERT_TZ(CURRENT_TIME(),'+00:00','+08:00')));
                 INSERT INTO HAN_Manage(AnnounceNumber, HSSN)
                 VALUES((SELECT MAX(AnnounceNumber) FROM ANNOUNCEMENT), "${announcement.SSN}")`;
                 break;

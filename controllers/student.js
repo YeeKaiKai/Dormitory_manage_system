@@ -16,6 +16,7 @@ const makeRepairForm = require("../models/repairForm/makeRepairForm.js");
 const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
 const viewPersonalRepariForm = require("../models/repairForm/viewPersonalRepairForm.js");
 const updateRepariForm = require("../models/repairForm/updateRepariForm.js");
+const viewAccommodateInformation = require("../models/accommodation/viewAccommodateInformation_model.js");
 
 exports.postMessage = function(req, res, next) {
     let token = req.cookies.token;
@@ -78,7 +79,7 @@ exports.getMessage = function(req, res, next) {
             // res.json({
             //     result: rows
             // })
-            res.render('student_message_board', {rows: rows, UID: UID});
+            res.render('student_message_board', {data: rows, UID: UID});
         }).catch((err) => {
             res.json({
                 result: err
@@ -275,6 +276,15 @@ exports.patchRepairForm = function(req, res, next) {
             res.redirect('/student/repairForm/personal');
         }).catch((err) => {
             console.log(err);
+exports.getAccommodateInformation = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let boarder = {
+            StuID: req.body.UID
+        }
+        viewAccommodateInformation(boarder).then((rows) => {
+            res.render('student_information.js', {data: rows});
+        }).catch((err) => {
             res.json({
                 err: err
             })

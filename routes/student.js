@@ -24,4 +24,6 @@ router.get('/repairForm/all', controller.getAllRepairForm);
 router.get('/repairForm/personal', controller.getPersonalRepairForm);
 router.patch('/repairForm', controller.patchRepairForm);
 
+router.get('/information', controller.getAccommodateInformation);
+
 module.exports = router;

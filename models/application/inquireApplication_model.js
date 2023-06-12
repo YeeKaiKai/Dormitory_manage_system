@@ -39,6 +39,10 @@ module.exports = function(inquiry) {
                     return;
                 })
             } else {
+                for(let i = 0; i < rows.length; i++) {
+                    let temp = JSON.stringify(rows[i]['DATE']);
+                    rows[i]['DATE'] = temp.replace('T', ' ').replace('.000Z', '');
+                }
                 let data = JSON.stringify(rows);
                 resolve(data);
                 return;
