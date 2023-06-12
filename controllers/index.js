@@ -10,6 +10,7 @@ const config = require('../config/config.js');
 const viewAnnouncement = require('../models/announcement/viewAnnouncements_model.js');
 const viewDetailAnnouncement = require("../models/announcement/viewDetailAnnouncement_model.js");
 const resetPasswordEmail = require('../models/reset_password_email.js');
+const updatePassword = require('../models/update_password.js');
 
 var User = new Map();
 /**
@@ -110,6 +111,9 @@ exports.postForgotPassword = function(req, res, next) {
     const resetUrl = `${req.protocol}://${req.get('host')}/resetPassword/${UID}/${resetToken}`;
 
     User.set(UID, [resetPasswordToken, resetPasswordExpire]);
+    console.log(UID);
+    console.log(User.get(UID));
+    console.log(resetPasswordToken);
 
     resetPasswordEmail(UID, resetUrl).then((result) => {
         console.log("123");
@@ -120,7 +124,6 @@ exports.postForgotPassword = function(req, res, next) {
 
 exports.getResetPassword = function(req, res, next) {
 
-    console.log(req.params.UID);
     const resetPasswordToken = crypto
     .createHash('sha256')
     .update(req.params.resetToken)
@@ -128,8 +131,10 @@ exports.getResetPassword = function(req, res, next) {
 
     // 如果使用者有更改密碼的需求，token也確實符合，token也尚未過期
     if (User.has(req.params.UID) && resetPasswordToken === User.get(req.params.UID)[0] && Date.now() <= User.get(req.params.UID)[1]) {
-        res.render('reset_password')
+        res.render('reset_password');
     } else {
-        console.log("error");
+        res.json({
+            err: err
+        });
     }
 }
