@@ -1,0 +1,119 @@
+body {
+    overflow-x: hidden;
+}
+
+.setNav {
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
+.setTitleBlock {
+    font-size: 32px;
+    font-weight: bold;
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    /* 水平置中 */
+    justify-content: center;
+    /* 垂直置中 */
+    align-items: center;
+    background: #FFD4A5;
+}
+
+.setContentBlock {
+    font-size: 20px;
+    width: 70vw;
+    margin: 0 auto;
+    margin-top: 5vh;
+}
+
+.setFlex {
+    display: flex;
+}
+
+.setp {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+.addButton {
+    float: right;
+    color: white;
+    font-size: large;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    border-color: #FF8A65;
+    padding: 5px 7px;
+    background: #e88e44;
+    margin-top: 2vh;
+}
+
+.editButton {
+    background-color: transparent;
+    border: none;
+    margin-right: 1vw;
+}
+
+.deleteButton {
+    background-color: transparent;
+    border: none;
+}
+
+.selectButton {
+    color: #e88e44;
+    font-size: large;
+    border-radius: 20px;
+    /*邊框變為圓弧*/
+    border-color: #FF8A65;
+    padding: 5px 7px;
+    margin-top: 3vh;
+    background: #FFFFFF;
+}
+
+.selectButton:hover {
+    color: #FFFFFF;
+    background: #e88e44;
+}
+
+.confirmButton {
+    font-size: large;
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    padding: 7px 13px;
+    border: none;
+    background: #e88e44;
+    box-shadow: none;
+}
+
+.confirmButton:hover {
+    background-color: #e9802a;    
+}
+
+.cancelButton {
+    font-size: large;
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    padding: 7px 13px;
+    border: none;
+    background: #908f8e;
+}
+
+.cancelButton:hover {
+    background-color: #7a7a79;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-header {
+    background-color: #FFD4A5;
+}
+
+tr:hover {
+    background-color: #FFF3E0;
+}
+
