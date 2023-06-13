@@ -138,8 +138,9 @@ exports.getApplicationByAdmin = function(req, res, next) {
                 res.render('admin_apply_exc', {data: rows});
             } else if (req.params.AType === "申請退宿") {
                 res.render('admin_apply_out', {data: rows});
+            } else {
+                res.render('admin_apply', {data: rows});
             }
-            res.render('admin_apply', {data: rows});
         }).catch((err) => {
             res.json({
                 err: err
@@ -160,7 +161,8 @@ exports.putApplication = function(req, res, next) {
             StuID: req.body.StuID,
             ApplyNumber: req.body.ApplyNumber,
             DName: req.body.DName,
-            Paid: req.body.Paid
+            Paid: req.body.Paid,
+            ARoomNumber: req.body.ARoomNumber
         }
         updateApplication(application).then((result) => {
             res.json({
