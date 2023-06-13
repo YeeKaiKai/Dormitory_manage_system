@@ -9,7 +9,7 @@ module.exports = function(AType) {
     let result = {};
     return new Promise((resolve, reject) => {
         let sql = `
-        SELECT A.StuID, ApplyNumber, ApplyAcademicYear, ApplySemester, DATE, Approved, Paid, UName, DName, AType
+        SELECT A.StuID, ApplyNumber, ApplyAcademicYear, ApplySemester, DATE, Approved, Paid, UName, DName, AType, ARoomNumber
         FROM APPLICATION AS A
         LEFT JOIN STUDENT AS S ON A.StuID = S.StuID
         LEFT JOIN USER AS U ON S.StuID = U.UID
