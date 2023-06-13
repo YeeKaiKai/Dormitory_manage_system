@@ -16,6 +16,8 @@ router.get('/application', controller.getApplicationIndex);
 router.get('/application/:AType', controller.getApplicationByAdmin);
 router.put('/application', controller.putApplication);
 
+router.post('/payment_notice', controller.postPaymentNotice);
+
 router.post('/dormitory', controller.postDormitory);
 router.post('/dormitory/room', controller.postRoom);
 router.post('/dormitory/room/facility', controller.postFacility);
