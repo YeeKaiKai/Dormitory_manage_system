@@ -12,6 +12,7 @@ router.delete('/announcement', controller.deleteAnnouncement);
 router.get('/announcement', controller.getAnnouncement);
 router.put('/announcement', controller.putAnnouncement);
 
+router.get('/application', controller.getApplicationIndex);
 router.get('/application/:AType', controller.getApplicationByAdmin);
 router.put('/application', controller.putApplication);
 

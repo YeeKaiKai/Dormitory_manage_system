@@ -112,6 +112,17 @@ exports.putAnnouncement = function(req, res, next) {
     })
 }
 
+exports.getApplicationIndex = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        res.render('admin_apply');
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
 exports.getApplicationByAdmin = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
@@ -119,6 +130,13 @@ exports.getApplicationByAdmin = function(req, res, next) {
             // res.json({
             //     rows: rows
             // })
+            if (req.params.AType === "申請住宿") {
+                res.render('admin_apply_in', {data: rows});
+            } else if (req.params.AType === "申請換宿") {
+                res.render('admin_apply_exc', {data: rows});
+            } else if (req.params.AType === "申請退宿") {
+                res.render('admin_apply_out', {data: rows});
+            }
             res.render('admin_apply', {data: rows});
         }).catch((err) => {
             res.json({
