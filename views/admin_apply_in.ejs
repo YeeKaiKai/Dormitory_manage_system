@@ -42,10 +42,22 @@
 
     <main>
         <div class="setContentBlock">
+            <div class="tContainer">
+                <div>
+                    <button class="aTypeButton" onclick="location.href='/admin/application/申請住宿'" 
+                    style="background-color: #c4b2a6"; disabled="true">申請住宿</button>
+                </div>
+                <div>
+                    <button class="aTypeButton" onclick="location.href='/admin/application/申請換宿'">申請換宿</button>
+                </div>
+                <div>
+                    <button class="aTypeButton" onclick="location.href='/admin/application/申請退宿'">申請退宿</button>
+                </div>
+            </div>
             <table class="table">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col">編號</th>
+                        <!-- <th scope="col">編號</th> -->
                         <th scope="col">姓名</th>
                         <th scope="col">學號</th>
                         <th scope="col">學年</th>
@@ -60,7 +72,7 @@
                 <tbody class="applyContainer">
                 <% data=JSON.parse(data); for(var i=0; i < data.length; i++) { %>
                     <tr>
-                        <th scope="row"><%= data[i].ApplyNumber %></th>
+                        <!-- <th scope="row"><%= data[i].ApplyNumber %></th> -->
                         <td><%= data[i].UName%></td> 
                         <td><%= data[i].StuID %></td>
                         <td><%= data[i].ApplyAcademicYear %></td>

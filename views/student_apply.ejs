@@ -95,16 +95,19 @@
                     </thead>
 
                         <tbody>
+                            <% data = JSON.parse(data);%>
+                            <% for(var i = 0; i < data.length; i++) { %>
                             <tr class="infoContainer"> 
-                                <td><%= data[0].StuID%></td>
-                                <td><%= data[0].UName%></td>
+                                <td><%= data[i].StuID%></td>
+                                <td><%= data[i].UName%></td>
                                 <td>111</td>
                                 <td>第二學期</td>
-                                <td><%= data[0].AType%></td>
-                                <td><%= data[0].DName%></td>
-                                <td><%= data[0].ARoomNumber%></td>
-                                <td><%= data[0].Approved%></td>
+                                <td><%= data[i].AType%></td>
+                                <td><%= data[i].DName%></td>
+                                <td><%= data[i].ARoomNumber%></td>
+                                <td><%= data[i].Approved%></td>
                             </tr>
+                            <% } %>
                         </tbody>
                 </table>
 
