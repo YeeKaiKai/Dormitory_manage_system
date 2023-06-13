@@ -211,7 +211,7 @@ exports.postFacility = function(req, res, next) {
             FQuantity: req.body.FQuantity
         }
         addFacility(facility).then((result) => {
-            res.redirect('/admin/dormitory/room/facility' + '?DName=' + req.body.DName + '&?RoomNumber=' + req.body.RoomNumber);
+            res.redirect('/admin/dormitory/room/facility' + '?DName=' + req.body.DName + '&RoomNumber=' + req.body.RoomNumber);
         }).catch((err) => {
             res.json({
                 err: err
