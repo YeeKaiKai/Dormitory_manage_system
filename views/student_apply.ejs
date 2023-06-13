@@ -50,6 +50,7 @@
                         <option value="申請換宿">申請換宿</option>
                         <option value="申請退宿">申請退宿</option>
                     </select>
+            <% data=JSON.parse(data); %>
             <% if(data[0].SSex === "男"){ %>
                 <label for="" class="col-form-label">請選擇欲申請之宿舍</label>
                 <select class="form-select" required="required" aria-label="Default select example" name="DName">
@@ -72,7 +73,6 @@
                     <input type="submit" class="submitButton" value="確認送出">
                 </div>
 
-            <h4 class="setAppliedWord">最近一次申請您已於<%= data[0].DATE%>送出，以下是您的申請紀錄</h4>
 
             <div class="setContentBlock">
                 <table class="table">
@@ -89,7 +89,7 @@
                         </tr>
                     </thead>
                         <tbody>
-                            <% for(var i = 0; i < data.length; i++) { %>
+                             <% data; for(var i=0; i < data.length; i++) { %>
                                 <% if(data[0].DName !== undefined) {%>
                                     <tr class="infoContainer"> 
                                         <td><%= data[i].StuID%></td>
@@ -105,7 +105,6 @@
                             <% } %>
                         </tbody>
                 </table>
-
             </div>
         </form>
     </main>
