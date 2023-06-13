@@ -4,11 +4,13 @@ const connect = require("./connection_db.js");
 
 /**
  * send payment-notice email to students
- * @param {UID: string}
+ * UID is recipent ID , UType used to check if method called by admin
+ * @param {UID: string } UID
+ * @param {UType: string} UType
  * @return 
  */
 
-module.exports = function(UID) {
+module.exports = function(UID, UType) {
     return new Promise((resovle, reject) => {
         let result = {};
         let sql = `
@@ -40,8 +42,13 @@ module.exports = function(UID) {
             let mailOptions = {
                 from: config.email,
                 to: rows[0].Email,
-                subject: "宿舍繳費通知",
-                text: "您好，已經收到您的住宿申請，請盡速繳費"
+                subject: UType === "STUDENT" ? 
+                        "宿舍費用繳費通知" :
+                        "宿舍費用催繳通知",
+                text: UType === "STUDENT" ? 
+                    "您好，已經收到您的住宿申請，請盡速繳費" :
+                    "您好，請盡速繳費，否則申請將不予以受理"
+
             }
 
             transporter.sendMail(mailOptions, (err, info) => {
@@ -56,6 +63,7 @@ module.exports = function(UID) {
 
                 result.status = true;
                 result.message = "發送繳費通知成功"
+                resovle(result);
                 console.log('Email sent: ' + info.response);
             })
         })

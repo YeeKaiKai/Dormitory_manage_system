@@ -3,7 +3,7 @@ const paymentEmail = require("../payment_notice_email.js");
 
 /**
  * Make the application by student
- * @param {{StuID: string, DName: string, ApplyAcademicYear: int, ApplySemester: char}} application 
+ * @param {{StuID: string, UType: string , DName: string, ApplyAcademicYear: int, ApplySemester: char}} application 
  * @returns 
  */
 module.exports = function(application) {
@@ -19,19 +19,17 @@ module.exports = function(application) {
                 return;
             }
 
-            paymentEmail(application.StuID).then((result) => {
+            paymentEmail(application.StuID, application.UType).then((result) => {
                 result.status = true;
                 result.message = "申請成功！";
+                resolve(result);
+                return;
 
             }).catch((err) => {
                 result = err;
-            })
-            
-            result.status = true;
-            result.message = "申請成功!";
-            resolve(result);
-            return;
-
+                reject(result);
+            })  
+             
         })
     }) 
 }

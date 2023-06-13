@@ -28,6 +28,8 @@ const updateBoarder = require("../models/boarder/updateBoarder_model.js");
 
 const updateRepariForm = require("../models/repairForm/updateRepariForm.js");
 const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
+const exp = require("constants");
+const payment_notice_email = require("../models/payment_notice_email.js");
 
 exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
@@ -142,6 +144,27 @@ exports.putApplication = function(req, res, next) {
             DName: req.body.DName
         }
         updateApplication(application).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.postPaymentNotice = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let StuID = req.body.UID;
+
+        payment_notice_email(StuID, data.UType).then((result) => {
             res.json({
                 result: result
             })

@@ -120,6 +120,7 @@ exports.postApplication = function(req, res, next) {
     verify(token).then((data) => {
         let application = {
             StuID: data.UID,
+            UType: data.UType,
             DName: req.body.DName,
         }
         makeApplication(application).then((result) => {
