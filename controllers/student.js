@@ -193,7 +193,7 @@ exports.getAccommodateInformation = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let boarder = {
-            StuID: req.body.UID
+            StuID: data.UID
         }
         viewAccommodateInformation(boarder).then((rows) => {
             res.render('student_information', {data: rows});

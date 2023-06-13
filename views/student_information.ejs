@@ -51,7 +51,8 @@
                         <th scope="col">房號</th>
                     </tr>
                 </thead>
-                
+                <% data = JSON.parse(data); %>
+                <% for(var i = 0; i < data.length; i++) { %>
                     <tbody>
                         <tr> 
                             <td class="infoContainer"><%= data[0].StuID %></td>
@@ -60,6 +61,7 @@
                             <td class="infoContainer"><%= data[0].RoomNumber %></td>
                         </tr>
                     </tbody>
+                <% } %>
             </table>
 
         </div>
