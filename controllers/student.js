@@ -122,6 +122,8 @@ exports.postApplication = function(req, res, next) {
             StuID: data.UID,
             UType: data.UType,
             DName: req.body.DName,
+            ARoomNumber: req.body.ARoomNumber,
+            AType: req.body.AType
         }
         makeApplication(application).then((result) => {
             // res.json({
