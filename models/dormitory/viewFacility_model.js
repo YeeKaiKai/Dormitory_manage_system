@@ -22,8 +22,8 @@ module.exports = function(facility) {
             if(rows.length === 0) {
                 rows = [
                     {
-                    DName: room.DName,
-                    RoomNumber: room.RoomNumber
+                    DName: facility.DName,
+                    RoomNumber: facility.RoomNumber
                     }
                 ]
             }
