@@ -27,14 +27,32 @@
     margin-top: 10%;
     /* align-items: center; */
 }
+.tContainer{
+    font-size: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 80px;
+    background-color: #ffffff;
+    justify-content: space-around;
+}
 
-.typeButton{
+.aButton{
     color: white;
     border-radius: 5px;
     /*邊框變為圓弧*/
     border-color: #FF8A65;
     height: 50px;
     width: 150px;
+    background: #e88e44;
+}
+.aTypeButton{
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    border-color: transparent;
+    height: 40px;
+    width: 120px;
     background: #e88e44;
 }
 

@@ -42,17 +42,28 @@
 
     <main>
         <div class="setContentBlock">
+            <div class="tContainer">
+                <div>
+                    <button class="aTypeButton" onclick="location.href='/admin/application/申請住宿'">申請住宿</button>
+                </div>
+                <div>
+                    <button class="aTypeButton" onclick="location.href='/admin/application/申請換宿'">申請換宿</button>
+                </div>
+                <div>
+                    <button class="aTypeButton" onclick="location.href='/admin/application/申請退宿'"
+                    style="background-color: #c4b2a6"; disabled="true">申請退宿</button>
+                </div>
+            </div>
             <table class="table">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col">編號</th>
+                        <!-- <th scope="col">編號</th> -->
                         <th scope="col">姓名</th>
                         <th scope="col">學號</th>
                         <th scope="col">學年</th>
                         <th scope="col">學期</th>
                         <th scope="col">申請日期</th>
                         <th scope="col">申請宿舍</th>
-                        <th scope="col">申請房號</th>
                         <th scope="col">通過</th>
                         <th scope="col"> </th>
                     </tr>
@@ -60,18 +71,16 @@
                 <tbody class="applyContainer">
                 <% data=JSON.parse(data); for(var i=0; i < data.length; i++) { %>
                     <tr>
-                        <th scope="row"><%= data[i].ApplyNumber %></th>
+                        <!-- <th scope="row"><%= data[i].ApplyNumber %></th> -->
                         <td><%= data[i].UName%></td> 
                         <td><%= data[i].StuID %></td>
                         <td><%= data[i].ApplyAcademicYear %></td>
                         <td><%= data[i].ApplySemester %></td>
                         <td><%= data[i].DATE %></td>
                         <td><%= data[i].DName %></td>
-                        <td><%= data[i].RoomNumber %></td>
                         <td><%= data[i].Approved %></td>
                         <td>
                             <button class="setEditButton"><img src="/images/iconEdit.png" alt="editIcon" data-bs-toggle="modal" data-bs-target="#editModal<%= data[i].ApplyNumber %><%= data[i].StuID %>"></button>
-                            <!-- <button class="setEditButton"><img src="/images/iconDelete.png" alt="deleteIcon" data-bs-toggle="modal" data-bs-target="#deleteModal<%= data[i].ApplyNumber %><%= data[i].StuID %>"></button> -->
                         </td>
                     </tr>
                     <!--Edit Modal -->
@@ -85,30 +94,29 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="pass" class="col-form-label" >審核情況</label>
-                                            <select class="form-select form-select-sm" required
-                                                aria-label=".form-select-sm example" id="Approved<%= data[i].ApplyNumber %><%= data[i].StuID %>">
-                                                <% if(data[i].Approved === "已通過"){ %>
-                                                    <option value="已通過" selected>已通過</option>
-                                                    <option value="審核中">審核中</option>
-                                                    <option value="未通過">未通過</option>
-                                                <%} else if(data[i].Approved === "審核中"){%>
-                                                    <option value="已通過">已通過</option>
-                                                    <option value="審核中" selected>審核中</option>
-                                                    <option value="未通過">未通過</option>
-                                                <%} else{%>
-                                                    <option value="已通過">已通過</option>
-                                                    <option value="審核中">審核中</option>
-                                                    <option value="未通過" selected>未通過</option>
-                                                <%}%>
-                                            </select>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">取消</button>
-                                                <button type="submit" class="btn btn-primary" onclick= "updateItem_eo
-                                                ('<%= data[i].ApplyNumber %>', '<%= data[i].StuID %>', '<%= data[i].DName %>', '<%= data[i].RoomNumber %>', '<%= data[i].AType %>')">確認</button>
+                                    <div class="mb-3">
+                                        <label for="pass" class="col-form-label" >審核情況</label>
+                                        <select class="form-select form-select-sm" required
+                                            aria-label=".form-select-sm example" id="Approved<%= data[i].ApplyNumber %><%= data[i].StuID %>">
+                                            <% if(data[i].Approved === "已通過"){ %>
+                                                <option value="已通過" selected>已通過</option>
+                                                <option value="審核中">審核中</option>
+                                                <option value="未通過">未通過</option>
+                                            <%} else if(data[i].Approved === "審核中"){%>
+                                                <option value="已通過">已通過</option>
+                                                <option value="審核中" selected>審核中</option>
+                                                <option value="未通過">未通過</option>
+                                            <%} else{%>
+                                                <option value="已通過">已通過</option>
+                                                <option value="審核中">審核中</option>
+                                                <option value="未通過" selected>未通過</option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"data-bs-dismiss="modal">取消</button>
+                                                <button type="submit" class="btn btn-primary" onclick= "updateItem_out
+                                                ('<%= data[i].ApplyNumber %>', '<%= data[i].StuID %>', '<%= data[i].DName %>', '<%= data[i].AType %>')">確認</button>
                                         </div>
                                 </div>
                             </div>
