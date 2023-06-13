@@ -19,6 +19,14 @@ module.exports = function(facility) {
                 reject(result);
                 return;
             }
+            if(rows.length === 0) {
+                rows = [
+                    {
+                    DName: room.DName,
+                    RoomNumber: room.RoomNumber
+                    }
+                ]
+            }
             let data = JSON.stringify(rows);
             resolve(data);
             return;

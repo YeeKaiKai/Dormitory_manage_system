@@ -211,7 +211,7 @@ exports.postFacility = function(req, res, next) {
             FQuantity: req.body.FQuantity
         }
         addFacility(facility).then((result) => {
-            res.render('/admin/dormitory/room/facility' + '?DName=' + req.body.DName + '&?RoomNumber=' + req.body.RoomNumber);
+            res.redirect('/admin/dormitory/room/facility' + '?DName=' + req.body.DName + '&?RoomNumber=' + req.body.RoomNumber);
         }).catch((err) => {
             res.json({
                 err: err
@@ -325,6 +325,7 @@ exports.getRoom = function(req, res, next) {
             DName: req.query.DName,
         }
         viewRoom(room).then((rows) => {
+            console.log(rows);
             res.render('admin_dormitory_room', {data: rows});
         }).catch((err) => {
             res.json({

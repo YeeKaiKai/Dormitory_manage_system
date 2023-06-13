@@ -19,6 +19,13 @@ module.exports = function(room) {
                 reject(result);
                 return;
             }
+            if(rows.length === 0) {
+                rows = [
+                    {
+                    DName: room.DName
+                    }
+                ]
+            }
             let data = JSON.stringify(rows);
             resolve(data);
             return;
