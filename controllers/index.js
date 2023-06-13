@@ -94,6 +94,10 @@ exports.getIntroduction = function(req, res, next) {
     res.render('dorm_introduction');
 }
 
+exports.getForgotPassword = function(req, res, next) {
+    res.render('forgot_password');
+}
+
 exports.postForgotPassword = function(req, res, next) {
 
     // 建立 token
