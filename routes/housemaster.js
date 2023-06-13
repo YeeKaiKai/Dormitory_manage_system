@@ -23,6 +23,8 @@ router.get('/violation', controller.getViolation);
 router.put('/violation', controller.putViolation);
 
 router.get('/dormitory', controller.getDormitory);
+router.get('/dormitory/room', controller.getRoom);
+router.get('/dormitory/room/facility', controller.getFacility);
 
 router.post('/repairForm', controller.postRepairForm);
 router.get('/repairForm/all', controller.getAllRepairForm);

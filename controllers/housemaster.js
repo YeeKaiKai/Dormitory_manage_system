@@ -16,6 +16,8 @@ const viewAllViolation = require("../models/violation/viewAllViolation_model.js"
 const updateViolation = require("../models/violation/updateViolation_model.js");
 
 const viewDormitory = require("../models/dormitory/viewDormitory_model.js");
+const viewRoom = require("../models/dormitory/viewRoom_model.js");
+const viewFacility = require("../models/dormitory/viewFacility_model.js");
 const exp = require("constants");
 const makeRepairForm = require("../models/repairForm/makeRepairForm.js");
 const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
@@ -287,6 +289,7 @@ exports.getRoom = function(req, res, next) {
             })
         })
     }).catch((err) => {
+        console.log(err);
         res.json({
             err: err
         })
