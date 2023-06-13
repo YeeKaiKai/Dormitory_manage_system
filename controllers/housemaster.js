@@ -272,6 +272,48 @@ exports.getDormitory = function(req, res, next) {
     })
 }
 
+exports.getRoom = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let room = {
+            DName: req.query.DName,
+        }
+        viewRoom(room).then((rows) => {
+            console.log(rows);
+            res.render('housemaster_dormitory_room', {data: rows});
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getFacility = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let facility = {
+            DName: req.query.DName,
+            RoomNumber: req.query.RoomNumber
+        }
+        viewFacility(facility).then((rows) => {
+            res.render('housemaster_dormitory_room_facility', {data: rows});
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
 exports.postRepairForm = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
