@@ -46,9 +46,9 @@
             <label for="" class="col-form-label">請選擇申請類別</label>
                     <select class="form-select" required="required" aria-label="Default select example" name="AType">
                         <option value="" selected disabled>請選擇</option>
-                        <option value="住宿申請">申請住宿</option>
-                        <option value="換宿申請">申請換宿</option>
-                        <option value="退宿申請">申請退宿</option>
+                        <option value="申請住宿">申請住宿</option>
+                        <option value="申請換宿">申請換宿</option>
+                        <option value="申請退宿">申請退宿</option>
                     </select>
             <% if(data[0].SSex === "男"){ %>
                 <label for="" class="col-form-label">請選擇欲申請之宿舍</label>
@@ -67,8 +67,7 @@
                 </select>
             <%}%>
                 <label for="inputRoom" class="col-form-label" id="roomLabel">請輸入欲申請之房號</label>
-                    <input type="text" class="form-control" id="inputRoom" name="Room">
-                
+                    <input type="text" class="form-control" id="inputRoom" name="ARoomNumber">
                 <div class="d-flex justify-content-center">
                     <input type="submit" class="submitButton" value="確認送出">
                 </div>
@@ -103,7 +102,7 @@
                                 <td>第二學期</td>
                                 <td><%= data[0].AType%></td>
                                 <td><%= data[0].DName%></td>
-                                <td><%= data[0].RoomNumber%></td>
+                                <td><%= data[0].ARoomNumber%></td>
                                 <td><%= data[0].Approved%></td>
                             </tr>
                         </tbody>
