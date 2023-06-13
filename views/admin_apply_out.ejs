@@ -67,8 +67,7 @@
                         <td><%= data[i].ApplySemester %></td>
                         <td><%= data[i].DATE %></td>
                         <td><%= data[i].DName %></td>
-                        <!-- 改 -->
-                        <td> </td>
+                        <td><%= data[i].RoomNumber %></td>
                         <td><%= data[i].Approved %></td>
                         <td>
                             <button class="setEditButton"><img src="/images/iconEdit.png" alt="editIcon" data-bs-toggle="modal" data-bs-target="#editModal<%= data[i].ApplyNumber %><%= data[i].StuID %>"></button>
@@ -108,36 +107,14 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">取消</button>
-                                            <!-- 改 -->
-                                            <button type="submit" class="btn btn-primary" onclick= "updateItem('<%= data[i].ApplyNumber %>', '<%= data[i].StuID %>', '<%= data[i].DName %>', '<%= data[i].RoomNumber %>')">確認</button>
+                                                <button type="submit" class="btn btn-primary" onclick= "updateItem_eo
+                                                ('<%= data[i].ApplyNumber %>', '<%= data[i].StuID %>', '<%= data[i].DName %>', '<%= data[i].RoomNumber %>', '<%= data[i].AType %>')">確認</button>
                                         </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!--Delete Modal -->
-                    <div class="modal fade" id="deleteModal<%= data[i].ApplyNumber %><%= data[i].StuID %>" tabindex="-1" aria-labelledby="deleteModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">刪除</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        是否確定刪除？
-                                    </div>
-                                    <div class="modal-footer">
-                                            <button class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                            <button class="btn btn-primary" id="deleteModal<%= data[i].ApplyNumber %><%= data[i].StuID %>" onclick="deleteItem('<%= data[i].ApplyNumber %>', '<%= data[i].StuID %>')">確認</button>
-                                    </div>
-                                </div>
-                    
-                            </div>
-                        </div>
-                    </div>
                 <% } %>
                 </tbody>
             </table>
