@@ -9,13 +9,13 @@ const updateBoarder = require("../boarder/updateBoarder_model.js");
  * update the status of application by house master.
  * If approving a application of application, it will send approval email to student
  * and assign a dormitory and room automatically
- * @param {{Approved: boolean, StuID: string, ApplyNumber: string, DName: string}} application 
+ * @param {{Approved: string, Paid: string, StuID: string, ApplyNumber: string, DName: string}} application 
  * @returns 
  */
 module.exports = function(application) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`UPDATE APPLICATION SET Approved = ? WHERE StuID = ? AND ApplyNumber = ?`, [application.Approved, application.StuID, application.ApplyNumber], (err) => {
+        connect.query(`UPDATE APPLICATION SET Approved = ?, Paid = ? WHERE StuID = ? AND ApplyNumber = ?`, [application.Approved, application.Paid, application.StuID, application.ApplyNumber], (err) => {
             if (err) {
                 result.status = false;
                 result.message = "更改申請審核失敗！";
