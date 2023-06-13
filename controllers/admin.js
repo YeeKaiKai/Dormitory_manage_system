@@ -115,7 +115,7 @@ exports.putAnnouncement = function(req, res, next) {
 exports.getApplicationByAdmin = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
-        viewApplication().then((rows) => {
+        viewApplication(req.params.AType).then((rows) => {
             // res.json({
             //     rows: rows
             // })

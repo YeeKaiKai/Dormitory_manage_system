@@ -12,7 +12,7 @@ router.delete('/announcement', controller.deleteAnnouncement);
 router.get('/announcement', controller.getAnnouncement);
 router.put('/announcement', controller.putAnnouncement);
 
-router.get('/application', controller.getApplicationByAdmin);
+router.get('/application/:AType', controller.getApplicationByAdmin);
 router.put('/application', controller.putApplication);
 
 router.post('/dormitory', controller.postDormitory);
