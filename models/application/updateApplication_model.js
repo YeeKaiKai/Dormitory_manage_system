@@ -15,7 +15,20 @@ const updateBoarder = require("../boarder/updateBoarder_model.js");
 module.exports = function(application) {
     let result = {};
     return new Promise((resolve, reject) => {
-        connect.query(`UPDATE APPLICATION SET Approved = ?, Paid = ? WHERE StuID = ? AND ApplyNumber = ?`, [application.Approved, application.Paid, application.StuID, application.ApplyNumber], (err) => {
+        let AType;
+        inquireAType(application).then((rows) => {
+            AType = rows[0].AType;
+        }).catch((err) => {
+            reject(err);
+            return;
+        })
+        let sql;
+        if (AType === "申請住宿") {
+            sql = `UPDATE APPLICATION SET Approved = "${application.Approved}", Paid = "${application.Paid}" WHERE StuID = "${application.StuID}" AND ApplyNumber = "${application.ApplyNumber}"`;
+        } else {
+            sql = `UPDATE APPLICATION SET Approved = "${application.Approved}" WHERE StuID = "${application.StuID}" AND ApplyNumber = "${application.ApplyNumber}"`;
+        }
+        connect.query(sql, (err) => {
             if (err) {
                 result.status = false;
                 result.message = "更改申請審核失敗！";
@@ -23,86 +36,83 @@ module.exports = function(application) {
                 return;
             }
             if(application.Approved === "已通過") {
-                inquireAType(application).then((rows) => {
-                    let AType = rows[0].AType;
-                    if (AType === "申請住宿") {
-                        let boarder = {
-                            StuID: application.StuID,
-                            DName: application.DName
-                        };
-                        addBoarder(boarder).then((result) => {
-                            let student = {
-                                StuID: application.StuID
-                            }
-                            approvalEmail(student).then((result) => {
-                                result.status = true;
-                                result.message = "寄送email成功！";
-                                resolve(result);
-                                return;
-                            }).catch((err) => {
-                                result.status = true;
-                                result.message = "寄送Email失敗！";
-                                resolve(result);
-                                return;
-                            }) 
+                if (AType === "申請住宿") {
+                    let boarder = {
+                        StuID: application.StuID,
+                        DName: application.DName
+                    };
+                    addBoarder(boarder).then((result) => {
+                        console.log("111");
+                        let student = {
+                            StuID: application.StuID
+                        }
+                        approvalEmail(student).then((result) => {
+                            result.status = true;
+                            result.message = "寄送email成功！";
+                            resolve(result);
+                            return;
                         }).catch((err) => {
-                            result.status = false;
-                            result.message = "自動新增住宿學生失敗！";
-                            reject(result);
+                            result.status = true;
+                            result.message = "寄送Email失敗！";
+                            resolve(result);
+                            return;
+                        }) 
+                    }).catch((err) => {
+                        console.log(err);
+                        result.status = false;
+                        result.message = "自動新增住宿學生失敗！";
+                        reject(result);
+                        return;
+                    })
+                } else if (AType === "申請退宿") {
+                    let boarder = {
+                        StuID: application.StuID,
+                    };
+                    removeBoarder(boarder).then((result) => {
+                        let student = {
+                            StuID: application.StuID
+                        }
+                        approvalEmail(student).then((result) => {
+                            result.status = true;
+                            result.message = "寄送email成功！";
+                            resolve(result);
+                            return;
+                        }).catch((err) => {
+                            result.status = true;
+                            result.message = "寄送Email失敗！";
+                            resolve(result);
+                            return;
+                        }) 
+                    }).catch((err) => {
+                        result.status = false;
+                        result.message = "自動刪除住宿學生失敗！";
+                        reject(result);
+                        return;
+                    })
+                } else if (AType === "申請換宿") {
+                    console.log(application);
+                    updateBoarder(application).then((result) => {
+                        let student = {
+                            StuID: application.StuID
+                        }
+                        approvalEmail(student).then((result) => {
+                            result.status = true;
+                            result.message = "寄送email成功！";
+                            resolve(result);
+                            return;
+                        }).catch((err) => {
+                            result.status = true;
+                            result.message = "寄送Email失敗！";
+                            resolve(result);
                             return;
                         })
-                    } else if (AType === "申請退宿") {
-                        let boarder = {
-                            StuID: application.StuID,
-                        };
-                        removeBoarder(boarder).then((result) => {
-                            let student = {
-                                StuID: application.StuID
-                            }
-                            approvalEmail(student).then((result) => {
-                                result.status = true;
-                                result.message = "寄送email成功！";
-                                resolve(result);
-                                return;
-                            }).catch((err) => {
-                                result.status = true;
-                                result.message = "寄送Email失敗！";
-                                resolve(result);
-                                return;
-                            }) 
-                        }).catch((err) => {
-                            result.status = false;
-                            result.message = "自動刪除住宿學生失敗！";
-                            reject(result);
-                            return;
-                        })
-                    } else if (AType === "申請換宿") {
-                        updateBoarder(application).then((result) => {
-                            let student = {
-                                StuID: application.StuID
-                            }
-                            approvalEmail(student).then((result) => {
-                                result.status = true;
-                                result.message = "寄送email成功！";
-                                resolve(result);
-                                return;
-                            }).catch((err) => {
-                                result.status = true;
-                                result.message = "寄送Email失敗！";
-                                resolve(result);
-                                return;
-                            })
-                        }).catch((err) => {
-                            result.status = false;
-                            result.message = "自動變更住宿學生失敗！";
-                            reject(result);
-                            return;
-                        })
-                    }
-                }).catch((err) => {
-                    reject(err);
-                    return
-                })
+                    }).catch((err) => {
+                        result.status = false;
+                        result.message = "自動變更住宿學生失敗！";
+                        reject(result);
+                        return;
+                    })
+                }
             }
             result.status = true;
             result.message = "更改申請審核成功！";
