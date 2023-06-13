@@ -41,7 +41,7 @@ function updateItem_exc(pk1, pk2, pk3, pk4, pk5) {
     "StuID":pk2,
     "Approved":document.getElementById("Approved" + pk1 + pk2).value,
     "DName":pk3,
-    "RoomNumber":pk4,
+    "ARoomNumber":pk4,
     "AType":pk5
   }
   console.log(body)

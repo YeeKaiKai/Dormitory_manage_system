@@ -72,11 +72,6 @@
                     <input type="submit" class="submitButton" value="確認送出">
                 </div>
 
-            <!-- 如果已經申請過了需要顯示相對應畫面 h3,set button gone, get student apply information -->
-            <!-- <% data=JSON.parse(data);%>
-            <% if(data[0].ApplyNumber !== undefined) {%>
-                <h3 class="setAppliedWord">您已於<%= data[0].DATE%>時送出申請，以下是您的申請選擇，審核狀態為<%= data[0].Approved%></h3>
-            <%}%> -->
             <h4 class="setAppliedWord">最近一次申請您已於<%= data[0].DATE%>送出，以下是您的申請紀錄</h4>
 
             <div class="setContentBlock">
@@ -93,19 +88,20 @@
                             <th scope="col">通過</th>
                         </tr>
                     </thead>
-
                         <tbody>
                             <% for(var i = 0; i < data.length; i++) { %>
-                                <tr class="infoContainer"> 
-                                    <td><%= data[i].StuID%></td>
-                                    <td><%= data[i].UName%></td>
-                                    <td>111</td>
-                                    <td>第二學期</td>
-                                    <td><%= data[i].AType%></td>
-                                    <td><%= data[i].DName%></td>
-                                    <td><%= data[i].ARoomNumber%></td>
-                                    <td><%= data[i].Approved%></td>
-                                </tr>
+                                <% if(data[0].DName !== undefined) {%>
+                                    <tr class="infoContainer"> 
+                                        <td><%= data[i].StuID%></td>
+                                        <td><%= data[i].UName%></td>
+                                        <td>111</td>
+                                        <td>第二學期</td>
+                                        <td><%= data[i].AType%></td>
+                                        <td><%= data[i].DName%></td>
+                                        <td><%= data[i].ARoomNumber%></td>
+                                        <td><%= data[i].Approved%></td>
+                                    </tr>
+                                <%}%>
                             <% } %>
                         </tbody>
                 </table>

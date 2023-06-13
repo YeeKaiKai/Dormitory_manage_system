@@ -79,7 +79,7 @@
                         <td><%= data[i].ApplySemester %></td>
                         <td><%= data[i].DATE %></td>
                         <td><%= data[i].DName %></td>
-                        <td><%= data[i].RoomNumber %></td>
+                        <td><%= data[i].ARoomNumber %></td>
                         <td><%= data[i].Approved %></td>
                         <td>
                             <button class="setEditButton"><img src="/images/iconEdit.png" alt="editIcon" data-bs-toggle="modal" data-bs-target="#editModal<%= data[i].ApplyNumber %><%= data[i].StuID %>"></button>
@@ -119,7 +119,7 @@
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">取消</button>
                                             <button type="submit" class="btn btn-primary" onclick= "updateItem_exc
-                                             ('<%= data[i].ApplyNumber %>', '<%= data[i].StuID %>', '<%= data[i].DName%>', '<%= data[i].AType %>')">確認</button>
+                                             ('<%= data[i].ApplyNumber %>', '<%= data[i].StuID %>', '<%= data[i].DName%>', '<%= data[i].ARoomNumber%>', '<%= data[i].AType %>')">確認</button>
                                         </div>
                                 </div>
                             </div>
