@@ -7,7 +7,7 @@
     <link rel="icon" href="/images/schoolIcon.jpg" type="image/x-icon" />
     <title>管理住宿資料</title>
 
-    <link href="/stylesheets/admin_dormitory.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/admin_dormitory_room.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <style>
@@ -48,9 +48,11 @@
     </header>
 
     <main>
+        <% data=JSON.parse(data) %>
         <div class="setContentBlock">    
+            <p style="text-align: center; font-size: 40px;"><%= data[0].DName %></p>
             <div class="justify-content-between setFlex">
-                <h2>請選擇要查看的棟別</h2> 
+                <h2>請選擇要查看的房號</h2> 
                 <div >
                     <button class="addButton" data-bs-toggle="modal" data-bs-target="#addDormitory"><img src="/images/iconAdd.png" alt="iconAdd"></button>
                     <button class="editButton" data-bs-toggle="modal" data-bs-target="#editDormitory"><img src="/images/iconEdit.png" alt="editIcon"></button>
@@ -66,12 +68,14 @@
             </script>
             
             <div class="row row-cols-lg-auto">
-            <% data=JSON.parse(data) %>
             <% data; for(var i=0; i < data.length; i++) { %>
-                <form action="/admin/dormitory/room">
-                    <input type="submit" class="selectButton" name="DName" value="<%= data[i].DName %>">
-                    <script> saveValue('<%= data[i].DName %>')</script>
+                <% if(data[i].RoomNumber !== undefined) {%>
+                <form action="/admin/dormitory/room/facility">
+                    <input type="hidden" class="selectButton" name="DName" value="<%= data[i].DName %>">
+                    <input type="submit" class="selectButton" name="RoomNumber" value="<%= data[i].RoomNumber %>">
+                    <script> saveValue('<%= data[i].RoomNumber %>')</script>
                 </form>
+                <% } %>
             <% } %>
             </div>
 
@@ -79,31 +83,31 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">新增棟別</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">新增房間</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="" method='post' action='http://localhost:3000/admin/dormitory/'>
-                                    <div class="mb-3 row">
-                                        <label for="inputDName" class="col-sm-2 col-form-label">棟別名稱</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputDName" name="DName">
-                                        </div>
+                            <form class="" method='post' action='http://localhost:3000/admin/dormitory/room/'>
+                                <div class="mb-3 row">
+                                    <label for="inputDName" class="col-sm-2 col-form-label">棟別名稱</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="" value="<%= data[0].DName %>" id="inputDName" name="DName" readonly>
                                     </div>
-                                    <div class="mb-3 row">
-                                        <label for="inputFee" class="col-sm-2 col-form-label">住宿費用</label>
-                                        <div class="col-sm-10">
-                                            <!-- /[^\d]/g,'' 為正規表達式-->
-                                            <input type="text" oninput="value=value.replace(/[^\d]/g,'')" class="form-control" id="inputFee" name="Fee">
-                                        </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="inputRoomNumber" class="col-sm-2 col-form-label">房間號碼</label>
+                                    <div class="col-sm-10">
+                                        <!-- /[^\d]/g,'' 為正規表達式-->
+                                        <input type="text" oninput="value=value.replace(/[^\d]/g,'')" class="form-control" id="inputRoomNumber" name="RoomNumber">
                                     </div>
-                                    <div class="mb-3 row">
-                                        <label for="inputDCapacity" class="col-sm-2 col-form-label">容納人數</label>
-                                        <div class="col-sm-10">
-                                            <!-- /[^\d]/g,'' 為正規表達式-->
-                                            <input type="text" oninput="value=value.replace(/[^\d]/g,'')" class="form-control" id="inputDCapacity" name="DCapacity">
-                                        </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="inputDCapacity" class="col-sm-2 col-form-label">容納人數</label>
+                                    <div class="col-sm-10">
+                                        <!-- /[^\d]/g,'' 為正規表達式-->
+                                        <input type="text" oninput="value=value.replace(/[^\d]/g,'')" class="form-control" id="inputRCapacity" name="RCapacity">
                                     </div>
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="cancelButton" data-bs-dismiss="modal">取消</button>
                                     <input type="submit" class="confirmButton" value="確認">
@@ -119,19 +123,19 @@
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">編輯棟別</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">編輯房號</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <% data; for(var i=0; i < data.length; i++) { %>
                             <div class="mb-3">
-                                <label for="<%= data[i].DName %>" class="col-form-label"><%= data[i].DName %>改名為</label>
-                                <input type="text" class="form-control" id="<%= data[i].DName %>" value="<%= data[i].DName %>">
+                                <label for="<%= data[i].RoomNumber %>" class="col-form-label"><%= data[i].RoomNumber %>改為</label>
+                                <input type="text" class="form-control" id="<%= data[i].RoomNumber %>" value="<%= data[i].RoomNumber %>" oninput="value=value.replace(/[^\d]/g,'')">
                             </div>
                             <% } %>
                             <div class="modal-footer">
                                 <button type="button" class="cancelButton" data-bs-dismiss="modal">取消</button>
-                                <button type="submit" class="confirmButton" onclick= updateItem(arr)>確認</button>
+                                <button type="submit" class="confirmButton" onclick= updateItem(arr,'<%= data[0].DName %>')>確認</button>
                             </div>
                         </div>
                     </div>
@@ -139,20 +143,19 @@
             </div>
 
             <!--Delete Modal -->
-            
             <div class="modal fade" id="deleteDormitory" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel">請選擇要刪除的棟別</h5>
+                            <h5 class="modal-title" id="deleteModalLabel">請選擇要刪除的房間</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <% data; for(var i=0; i < data.length; i++) { %>
                             <div class="modal-body">
-                                <input class="form-check-input" type="checkbox" value="<%= data[i].DName %>" id="delete<%= data[i].DName %>">
-                                <label class="form-check-label" for="delete<%= data[i].DName %>">
-                                    <%= data[i].DName %>
+                                <input class="form-check-input" type="checkbox" value="<%= data[i].RoomNumber %>" id="delete<%= data[i].RoomNumber %>">
+                                <label class="form-check-label" for="delete<%= data[i].RoomNumber %>">
+                                    <%= data[i].RoomNumber %>
                                 </label>
                             </div>
                             <% } %>
@@ -178,7 +181,7 @@
                             </div>
                             <div class="modal-footer">
                                     <button class="cancelButton" data-bs-dismiss="modal">取消</button>
-                                    <button class="confirmButton" onclick= deleteItem() >確認</button>
+                                    <button class="confirmButton" onclick= deleteItem('<%= data[0].DName %>') >確認</button>
                             </div>
                         </div>
                     </div>
@@ -189,7 +192,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
-    <script src="/javascripts/admin_dormitory.js"></script>
+    <script src="/javascripts/admin_dormitory_room.js"></script>
 </body>
 
 </html>

@@ -31,22 +31,31 @@ body {
     display: flex;
 }
 
+.setp {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
 .addButton {
-    background-color: transparent;
-    border: none;
-    margin-top: 1vh;
-    margin-right: 1vw;
+    float: right;
+    color: white;
+    font-size: large;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    border-color: #FF8A65;
+    padding: 5px 7px;
+    background: #e88e44;
+    margin-top: 2vh;
 }
 
 .editButton {
     background-color: transparent;
     border: none;
-    margin-top: 1vh;
     margin-right: 1vw;
 }
 
 .deleteButton {
-    margin-top: 1vh;
     background-color: transparent;
     border: none;
 }
@@ -103,3 +112,8 @@ body {
 .modal-header {
     background-color: #FFD4A5;
 }
+
+tr:hover {
+    background-color: #FFF3E0;
+}
+

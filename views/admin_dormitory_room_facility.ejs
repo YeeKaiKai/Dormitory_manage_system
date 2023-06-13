@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/schoolIcon.jpg" type="image/x-icon" />
+    <title>管理住宿資料</title>
+
+    <link href="/stylesheets/admin_dormitory_room_facility.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <style>
+            @media screen and (min-width: 676px) {
+                .modal-dialog {
+                max-width: 650px; /* New width for default modal */
+                }
+            }
+        </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg setNav justify-content-between">
+            <a class="navbar-brand fs-4" href="/">
+                <img src="/images/schoolLogo.png" alt="" width="40" height="40" class="d-inline-block">
+                國立高雄大學學生住宿系統
+            </a>
+            <ul class="navbar-nav fs-5">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/boarder">管理住宿學生</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/application">管理住宿申請</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/dormitory">管理宿舍資料</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/repairForm/all">管理報修申請</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/announcement">管理公告</a>
+                </li>
+            </ul>
+        </nav>
+        <p class="setTitleBlock">管理宿舍資料</p>
+    </header>
+
+    <main>
+        <% data=JSON.parse(data) %>
+        <div class="setContentBlock">
+            <div class="justify-content-center ">
+                <p class="setp"><%= data[0].DName %>&nbsp;<%= data[0].RoomNumber %><button class="addButton" data-bs-toggle="modal" data-bs-target="#addFacility">新增設備</button></p>   
+            </div>
+                <table class="table">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col"><nobr>設備</nobr></th>
+                            <th scope="col"><nobr>數量</nobr></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% data; for(var i=0; i < data.length; i++) { %>
+                        <tr>
+                            <td><nobr><%= data[i].FName %></nobr></td>
+                            <td><nobr><%= data[i].FQuantity  %></nobr></td>
+                            <td>
+                                <div style="text-align: right;">
+                                    <button class="editButton"><img src="/images/iconEdit.png" alt="editIcon"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editModal<%= data[i].FName %>"></button>
+                                    <button class="deleteButton"><img src="/images/iconDelete.png" alt="deleteIcon"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal<%= data[i].FName %>"></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!--Edit Modal -->
+                        <div class="modal fade" id="editModal<%= data[i].FName %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">編輯</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3 row">
+                                            <label for="<%= data[i].FName %>" class="col-sm-2 col-form-label">設備</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" value='<%= data[i].FName %>' class="form-control" id="<%= data[i].FName %>">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="FQuantity<%= data[i].FName %>" class="col-sm-2 col-form-label">數量</label>
+                                            <div class="col-sm-10">
+                                            <!-- /[^\d]/g,'' 為正規表達式-->
+                                            <input type="text" value='<%= data[i].FQuantity %>' id="FQuantity<%= data[i].FName %>" oninput="value=value.replace(/[^\d]/g,'')" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                            <button type="submit" class="confirmButton" onclick= updateItem('<%= data[0].DName %>','<%= data[0].RoomNumber %>','<%= data[i].FName %>')>確認</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Delete Modal -->
+                        <div class="modal fade" id="deleteModal<%= data[i].FName %>" tabindex="-1" aria-labelledby="deleteModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">刪除</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            是否確定刪除？
+                                        </div>
+                                        <div class="modal-footer">
+                                                <button class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                                <button class="confirmButton" id="deleteButton<%= data[i].FName %>" onclick= deleteItem('<%= data[i].FName %>') >確認</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                    </tbody>
+                </table>
+        </div>
+
+        <div class="modal fade" id="addFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">新增設備</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="" method='post' action='http://localhost:3000/admin/dormitory/room/facility/'>
+                            <div class="mb-3 row">
+                                <label for="inputDName" class="col-sm-2 col-form-label">棟別名稱</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" value="<%= data[0].DName %>" id="inputDName" name="DName" readonly>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputRoomNumber" class="col-sm-2 col-form-label">房間號碼</label>
+                                <div class="col-sm-10">
+                                    <!-- /[^\d]/g,'' 為正規表達式-->
+                                    <input type="text" value="<%= data[0].RoomNumber %>" class="form-control" id="inputRoomNumber" name="RoomNumber" readonly>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputFName" class="col-sm-2 col-form-label">設備</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputFName" name="FName">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputFQuantity" class="col-sm-2 col-form-label">數量</label>
+                                <div class="col-sm-10">
+                                    <!-- /[^\d]/g,'' 為正規表達式-->
+                                    <input type="text" oninput="value=value.replace(/[^\d]/g,'')" class="form-control" id="inputFQuantity" name="FQuantity">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                <input type="submit" class="confirmButton" value="確認">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script src="/javascripts/admin_dormitory_room_facility.js"></script>
+</body>
+
+</html>

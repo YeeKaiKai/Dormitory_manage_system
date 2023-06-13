@@ -1,6 +1,10 @@
-global_url = "http://localhost:3000/admin/dormitory/"
+global_url = "http://localhost:3000/admin/dormitory/room/"
 
 var needDelete = []
+function returnDeleteArr() {
+  return needDelete;
+}
+
 function setDelete(arr){
   for(let i = 0;i < arr.length; i++){
     let checkBox=document.getElementById("delete" + arr[i])
@@ -12,7 +16,7 @@ function setDelete(arr){
 }
 
 // delete
-function deleteItem() {
+function deleteItem(dname) {
   for(let i = 0;i < needDelete.length; i++){
     const url = global_url
     let headers = {
@@ -20,7 +24,8 @@ function deleteItem() {
       "Accept": "application/json",
     }
     let body = {
-      "DName": needDelete[i]
+      "RoomNumber": needDelete[i],
+      "DName": dname
     }
     console.log(body)
 
@@ -36,7 +41,7 @@ function deleteItem() {
 }
 
   // update
-function updateItem(arr) {
+function updateItem(arr,dname) {
   for(let i = 0;i < arr.length; i++){
     const url = global_url
     let headers = {
@@ -44,8 +49,9 @@ function updateItem(arr) {
       "Accept": "application/json"
     }
     let body = {
-      "DName": arr[i],
-      "newDName": document.getElementById(arr[i]).value,
+      "RoomNumber": arr[i],
+      "newRoomNumber": document.getElementById(arr[i]).value,
+      "DName": dname,
     }
     console.log(body)
 

@@ -210,9 +210,7 @@ exports.postDormitory = function(req, res, next) {
             DCapacity: req.body.DCapacity
         }
         addDormitory(dormitory).then((result) => {
-            res.json({
-                result: result
-            })
+            res.redirect('/admin/dormitory');
         }).catch((err) => {
             res.json({
                 err: err
@@ -234,9 +232,7 @@ exports.postRoom = function(req, res, next) {
             RCapacity: req.body.RCapacity
         }
         addRoom(room).then((result) => {
-            res.json({
-                result: result
-            })
+            res.redirect('/admin/dormitory/room?DName=' + req.body.DName);
         }).catch((err) => {
             res.json({
                 err: err
@@ -259,9 +255,7 @@ exports.postFacility = function(req, res, next) {
             FQuantity: req.body.FQuantity
         }
         addFacility(facility).then((result) => {
-            res.json({
-                result: result
-            })
+            res.redirect('/admin/dormitory/room/facility' + '?DName=' + req.body.DName + '&RoomNumber=' + req.body.RoomNumber);
         }).catch((err) => {
             res.json({
                 err: err
@@ -372,9 +366,10 @@ exports.getRoom = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let room = {
-            DName: req.body.DName,
+            DName: req.query.DName,
         }
         viewRoom(room).then((rows) => {
+            console.log(rows);
             res.render('admin_dormitory_room', {data: rows});
         }).catch((err) => {
             res.json({
@@ -392,8 +387,8 @@ exports.getFacility = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let facility = {
-            DName: req.body.DName,
-            RoomNumber: req.body.RoomNumber
+            DName: req.query.DName,
+            RoomNumber: req.query.RoomNumber
         }
         viewFacility(facility).then((rows) => {
             res.render('admin_dormitory_room_facility', {data: rows});
