@@ -41,6 +41,25 @@
     </header>
 
     <main>
+        <!-- 改：如果是"住宿申請"，不可輸入房號 -->
+        <script>
+            var typeSelect = document.querySelector('select[name="AType"]');
+        
+            var roomLabel = document.querySelector('label[for="inputRoom"]');
+            var roomInput = document.querySelector('input[name="Room"]');
+        
+            // 監聽申請類別的變動事件
+            typeSelect.addEventListener('change', function() {
+                if (typeSelect.value === '換宿申請' || typeSelect.value === '退宿申請') {
+                    roomLabel.style.display = 'block';
+                    roomInput.style.display = 'block';
+                } else {
+                    roomLabel.style.display = 'none';
+                    roomInput.style.display = 'none';
+                }
+            });
+        </script>
+
         <form class="setContentBlock" method='post' action='http://localhost:3000/student/application/'> 
             <label for="" class="col-form-label">請選擇申請類別</label>
                     <select class="form-select" required="required" aria-label="Default select example" name="AType">
@@ -48,51 +67,33 @@
                         <option value="換宿申請">申請換宿</option>
                         <option value="退宿申請">申請退宿</option>
                     </select>
-            <!-- 未申請分男女 -->
-            <% if(data[0].ApplyNumber === undefined) {%>
-                <% if(data[0].SSex === "男"){ %>
-                    <label for="" class="col-form-label">請選擇欲申請之宿舍</label>
-                    <select class="form-select" required="required" aria-label="Default select example" name="DName">
-                        <option value="學一宿舍OA">學一宿舍OA</option>
-                        <option value="學二宿舍OE">學二宿舍OE</option>
-                        <option value="綜合大樓">綜合大樓</option>
-                    </select>
-                <%} else {%>
-                    <label for="" class="col-form-label">請選擇欲申請之棟別</label>
-                    <select class="form-select" required="required" aria-label="Default select example" name="DName">
-                        <option value="學一宿舍OB">學一宿舍OB</option>
-                        <option value="學二宿舍OF">學二宿舍OF</option>
-                    </select>
-                <%}%>
-
-                <!-- 尚未解決：如果是"住宿申請"，不可輸入房號 -->
+            <% if(data[0].SSex === "男"){ %>
+                <label for="" class="col-form-label">請選擇欲申請之宿舍</label>
+                <select class="form-select" required="required" aria-label="Default select example" name="DName">
+                    <option value="學一宿舍OA">學一宿舍OA</option>
+                    <option value="學二宿舍OE">學二宿舍OE</option>
+                    <option value="綜合大樓">綜合大樓</option>
+                </select>
+            <%} else {%>
+                <label for="" class="col-form-label">請選擇欲申請之宿舍</label>
+                <select class="form-select" required="required" aria-label="Default select example" name="DName">
+                    <option value="學一宿舍OB">學一宿舍OB</option>
+                    <option value="學二宿舍OF">學二宿舍OF</option>
+                </select>
+            <%}%>
                 <label for="inputRoom" class="col-form-label" id="roomLabel">請輸入欲申請之房號</label>
                     <input type="text" class="form-control" id="inputRoom" name="Room">
                 
                 <div class="d-flex justify-content-center">
                     <input type="submit" class="submitButton" value="確認送出">
                 </div>
-                <!-- <%} else {%>
-
-                <div class="d-flex justify-content-center">
-                    <input type="submit" class="submitButton" value="確認送出">
-                </div>
-            <%} else {%>
-                <div class="mb-3 row">
-                    <label for="ApplyDorm" class="col-sm-2 col-form-label">欲申請之宿舍</label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="ApplyDorm" name="DName"
-                            value="<%= data[0].DName%>">
-                    </div>
-                </div>
-           <%}%> -->
 
             <!-- 如果已經申請過了需要顯示相對應畫面 h3,set button gone, get student apply information -->
             <!-- <% data=JSON.parse(data);%>
             <% if(data[0].ApplyNumber !== undefined) {%>
                 <h3 class="setAppliedWord">您已於<%= data[0].DATE%>時送出申請，以下是您的申請選擇，審核狀態為<%= data[0].Approved%></h3>
             <%}%> -->
-            <h4 class="setAppliedWord">最近一次申請您已於2023/06/06 20:00送出，以下是您的申請選擇，審核狀態為</h4>
+            <h4 class="setAppliedWord">最近一次申請您已於<%= data[0].DATE%>送出，以下是您的申請選擇，審核狀態為</h4>
 
             <div class="setContentBlock">
                 <table class="table">
@@ -113,22 +114,23 @@
                             <tr class="infoContainer"> 
                                 <td>A123</td>
                                 <td>林同學</td>
-                                <td>111</td>
-                                <td>二</td>
+                                <td>112</td>
+                                <td>第二學期</td>
                                 <td>申請退宿</td>
                                 <td>學一宿舍OB</td>
                                 <td>101</td>
                                 <td>是</td>
                             </tr>
                             <tr class="infoContainer"> 
-                                <td>A456</td>
-                                <td>陳同學</td>
-                                <td>112</td>
-                                <td>一</td>
-                                <td>申請住宿</td>
-                                <td>學二宿舍OF</td>
+                                <td><%= data[0].StuID%></td>
+                                <td><%= data[0].UName%></td>
+                                <td>111</td>
+                                <td>第二學期</td>
+                                <td><%= data[0].AType%></td>
+                                <td><%= data[0].DName%></td>
+                                <!-- 改 房號 -->
                                 <td></td>
-                                <td></td>
+                                <td><%= data[0].Approved%></td>
                             </tr>
                         </tbody>
                 </table>
