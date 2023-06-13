@@ -24,17 +24,23 @@ module.exports = function(application) {
                 return;
             }
 
-            paymentEmail(application.StuID, application.UType).then((result) => {
-                result.status = true;
-                result.message = "申請成功！";
-                resolve(result);
-                return;
+            if(application.AType === "申請住宿"){
+                paymentEmail(application.StuID, application.UType).then((result) => {
+                    result.status = true;
+                    result.message = "申請成功！";
+                    resolve(result);
+                    return;
+    
+                }).catch((err) => {
+                    result = err;
+                    reject(result);
+                })  
+            }
 
-            }).catch((err) => {
-                result = err;
-                reject(result);
-            })  
-             
+            result.status = true;
+            result.message = "申請成功!";
+            resolve(result);
+            return;
         })
     }) 
 }
