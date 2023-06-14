@@ -14,6 +14,7 @@ module.exports = function(boarder) {
         LEFT JOIN USER
         ON BOARDER.StuID = USER.UID
         WHERE StuID = "${boarder.StuID}"`;
+        console.log(sql);
         connect.query(sql, (err, rows) => {
             if(err) {
                 result.status = false;
