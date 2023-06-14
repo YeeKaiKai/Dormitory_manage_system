@@ -137,9 +137,6 @@ exports.getResetPassword = function(req, res, next) {
     if (User.has(req.params.UID) && resetPasswordToken === User.get(req.params.UID)[0] && Date.now() <= User.get(req.params.UID)[1]) {
         res.render('reset_password');
     } else {
-        res.json({
-            err: err
-        });
     }
 }
 
@@ -151,9 +148,7 @@ exports.putResetPassword = function(req, res, next) {
         UPassword: enPassword,
     };
     updatePassword(user).then((result) => {
-        res.json({
-            result: result
-        }) 
+        res.redirect('/');
     }).catch((err) => {
         res.json({
             err: err
