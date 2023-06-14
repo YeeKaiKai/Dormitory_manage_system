@@ -65,10 +65,12 @@
                     </thead>
                     <tbody>
                     <% data; for(var i=0; i < data.length; i++) { %>
+                        <% if(data[i].FName !== undefined) {%>
                         <tr>
                             <td><nobr><%= data[i].FName %></nobr></td>
                             <td><nobr><%= data[i].FQuantity  %></nobr></td>
                         </tr>
+                        <% } %>
                     <% } %>
                     </tbody>
                 </table>
