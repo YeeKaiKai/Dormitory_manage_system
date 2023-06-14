@@ -29,7 +29,7 @@
                     <a class="nav-link" href="/admin/dormitory">管理宿舍資料</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/repairForm">管理報修申請</a>
+                    <a class="nav-link" href="/admin/repairForm/all">管理報修申請</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/announcement">管理公告</a>
@@ -41,124 +41,23 @@
     </header>
 
     <main>
-        <div class="setContentBlock">
-            <table class="table">
-                <thead class="table-light">
-                    <tr>
-                        <th scope="col">編號</th>
-                        <th scope="col">姓名</th>
-                        <th scope="col">學號</th>
-                        <th scope="col">學年</th>
-                        <th scope="col">學期</th>
-                        <th scope="col">申請日期</th>
-                        <th scope="col">申請宿舍</th>
-                        <th scope="col">通過</th>
-                        <th scope="col">繳費情況</th>
-                        <th scope="col"> </th>
-                    </tr>
-                </thead>
-                <tbody class="applyContainer">
-                <% data=JSON.parse(data); for(var i=0; i < data.length; i++) { %>
-                    <tr>
-                        <th scope="row"><%= data[i].ApplyNumber %></th>
-                        <td><%= data[i].UName%></td> 
-                        <td><%= data[i].StuID %></td>
-                        <td><%= data[i].ApplyAcademicYear %></td>
-                        <td><%= data[i].ApplySemester %></td>
-                        <td><%= data[i].DATE %></td>
-                        <td><%= data[i].DName %></td>
-                        <td><%= data[i].Approved %></td>
-                        <td><%= data[i].Paid %></td>
-                        <td>
-                            <button class="setEditButton"><img src="/images/iconEdit.png" alt="editIcon" data-bs-toggle="modal" data-bs-target="#editModal<%= data[i].ApplyNumber %><%= data[i].StuID %>"></button>
-                            <!-- <button class="setEditButton"><img src="/images/iconDelete.png" alt="deleteIcon" data-bs-toggle="modal" data-bs-target="#deleteModal<%= data[i].ApplyNumber %><%= data[i].StuID %>"></button> -->
-                        </td>
-                    </tr>
-                    <!--Edit Modal -->
-                    <div class="modal fade" id="editModal<%= data[i].ApplyNumber %><%= data[i].StuID %>" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">編輯</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="pass" class="col-form-label" >審核情況</label>
-                                            <select class="form-select form-select-sm" required
-                                                aria-label=".form-select-sm example" id="Approved<%= data[i].ApplyNumber %><%= data[i].StuID %>">
-                                                <% if(data[i].Approved === "已通過"){ %>
-                                                    <option value="已通過" selected>已通過</option>
-                                                    <option value="審核中">審核中</option>
-                                                    <option value="未通過">未通過</option>
-                                                <%} else if(data[i].Approved === "審核中"){%>
-                                                    <option value="已通過">已通過</option>
-                                                    <option value="審核中" selected>審核中</option>
-                                                    <option value="未通過">未通過</option>
-                                                <%} else{%>
-                                                    <option value="已通過">已通過</option>
-                                                    <option value="審核中">審核中</option>
-                                                    <option value="未通過" selected>未通過</option>
-                                                <%}%>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="name" class="col-form-label">繳費情況</label>
-                                            <select class="form-select form-select-sm" required
-                                                aria-label=".form-select-sm example" id="Paid<%= data[i].ApplyNumber %><%= data[i].StuID %>">
-                                                <% if(data[i].Paid === "已付款"){ %>
-                                                    <option value="已付款" selected>已付款</option>
-                                                    <option value="未付款">未付款</option>
-                                                <%} else{%>
-                                                    <option value="已付款">已付款</option>
-                                                    <option value="未付款" selected>未付款</option>
-                                                <%}%>
-                                            </select>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">取消</button>
-                                            <button type="submit" class="btn btn-primary" onclick= "updateItem('<%= data[i].ApplyNumber %>', '<%= data[i].StuID %>', '<%= data[i].DName %>')">確認</button>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Delete Modal -->
-                    <div class="modal fade" id="deleteModal<%= data[i].ApplyNumber %><%= data[i].StuID %>" tabindex="-1" aria-labelledby="deleteModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">刪除</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        是否確定刪除？
-                                    </div>
-                                    <div class="modal-footer">
-                                            <button class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                            <button class="btn btn-primary" id="deleteModal<%= data[i].ApplyNumber %><%= data[i].StuID %>" onclick= deleteItem(<%= data[i].ApplyNumber%>, <%= data[i].StuID %>)>確認</button>
-                                    </div>
-                                </div>
-                    
-                            </div>
-                        </div>
-                    </div>
-                <% } %>
-                </tbody>
-            </table>
+        <div class="container">
+            <div>
+                <button class="aButton" onclick="location.href='/admin/application/申請住宿'">申請住宿</button>
+            </div>
+            <div>
+                <button class="aButton" onclick="location.href='/admin/application/申請換宿'">申請換宿</button>
+            </div>
+            <div>
+                <button class="aButton" onclick="location.href='/admin/application/申請退宿'">申請退宿</button>
+            </div>
+           
         </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
-    <script src="/javascripts/admin_apply.js"></script>
 </body>
 
 </html>

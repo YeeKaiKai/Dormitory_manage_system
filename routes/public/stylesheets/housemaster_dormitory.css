@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .setNav {
     max-width: 70vw;
     margin: 0 auto;
@@ -23,12 +27,79 @@
     margin-top: 5vh;
 }
 
-tr:hover {
-    background-color: #FFF3E0;
+.setFlex {
+    display: flex;
 }
 
-.setEditButton {
+.addButton {
     background-color: transparent;
-    border: 0;
+    border: none;
+    margin-top: 1vh;
+    margin-right: 1vw;
 }
 
+.editButton {
+    background-color: transparent;
+    border: none;
+    margin-top: 1vh;
+    margin-right: 1vw;
+}
+
+.deleteButton {
+    margin-top: 1vh;
+    background-color: transparent;
+    border: none;
+}
+
+.selectButton {
+    color: #e88e44;
+    font-size: large;
+    border-radius: 20px;
+    /*邊框變為圓弧*/
+    border-color: #FF8A65;
+    padding: 5px 7px;
+    margin-top: 3vh;
+    background: #FFFFFF;
+}
+
+.selectButton:hover {
+    color: #FFFFFF;
+    background: #e88e44;
+}
+
+.confirmButton {
+    font-size: large;
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    padding: 7px 13px;
+    border: none;
+    background: #e88e44;
+    box-shadow: none;
+}
+
+.confirmButton:hover {
+    background-color: #e9802a;    
+}
+
+.cancelButton {
+    font-size: large;
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    padding: 7px 13px;
+    border: none;
+    background: #908f8e;
+}
+
+.cancelButton:hover {
+    background-color: #7a7a79;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-header {
+    background-color: #FFD4A5;
+}

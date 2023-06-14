@@ -3,7 +3,7 @@ const check = require("../../service/check.js");
 
 /**
  * update the room which the boarder lives in
- * @param {{DName: string, RoomNumber: string, StuID: string}} boarder 
+ * @param {{DName: string, ARoomNumber: string, StuID: string}} boarder 
  * @returns 
  */
 module.exports = function(boarder) {
@@ -13,12 +13,12 @@ module.exports = function(boarder) {
         if(check.checkNull(boarder.DName) === false) {
             sql = `
             UPDATE BOARDER SET
-            DName = "${boarder.DName}", RoomNumber = "${boarder.RoomNumber}"
+            DName = "${boarder.DName}", RoomNumber = "${boarder.ARoomNumber}"
             WHERE StuID = "${boarder.StuID}"`;
         } else {
             sql = `
             UPDATE BOARDER SET
-            RoomNumber = "${boarder.RoomNumber}"
+            RoomNumber = "${boarder.ARoomNumber}"
             WHERE StuID = "${boarder.StuID}"`;
         }
         connect.query(sql, (err) => {

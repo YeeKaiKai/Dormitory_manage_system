@@ -33,7 +33,7 @@
                     <a class="nav-link" href="/housemaster/dormitory">管理宿舍資料</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/housemaster/repairForm">報修申請</a>
+                    <a class="nav-link" href="/housemaster/repairForm/all">報修申請</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/housemaster/announcement">管理公告</a>
@@ -131,9 +131,9 @@
                                                 id="vio-content<%= data[i].VNumber %><%= data[i].StuID %>"></textarea>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
+                                            <button type="button" class="cancelButton"
                                                 data-bs-dismiss="modal">取消</button>
-                                            <button type="submit" class="btn btn-primary"
+                                            <button type="submit" class="confirmButton"
                                                 onclick="updateItem('<%=data[i].VNumber %>', '<%= data[i].StuID %>')">確認</button>
                                         </div>
                                     </div>
@@ -154,8 +154,8 @@
                                             是否確定刪除？
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                            <button class="btn btn-primary"
+                                            <button class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                            <button class="confirmButton"
                                                 id="deleteButton<%= data[i].VNumber %><%= data[i].StuID %>"
                                                 onclick="deleteItem('<%=data[i].VNumber %>', '<%= data[i].StuID %>')" >確認 </button>
                                         </div>

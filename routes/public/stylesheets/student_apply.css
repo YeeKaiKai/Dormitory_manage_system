@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .setNav {
     max-width: 70vw;
     margin: 0 auto;
@@ -25,7 +29,6 @@
 
 .infoContainer:hover{
     background-color: #FFF3E0;
-    
 }
 
 .submitButton {

@@ -12,7 +12,11 @@ const viewAnnouncement = require("../models/announcement/viewAnnouncements_model
 
 const viewViolation = require("../models/violation/viewViolation_model.js");
 
-const viewAccommodateInformation = require("../models/accommodation/viewAccommodateInformation_model.js")
+const makeRepairForm = require("../models/repairForm/makeRepairForm.js");
+const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
+const viewPersonalRepariForm = require("../models/repairForm/viewPersonalRepairForm.js");
+const updateRepariForm = require("../models/repairForm/updateRepariForm.js");
+const viewAccommodateInformation = require("../models/accommodation/viewAccommodateInformation_model.js");
 
 exports.postMessage = function(req, res, next) {
     let token = req.cookies.token;
@@ -116,7 +120,10 @@ exports.postApplication = function(req, res, next) {
     verify(token).then((data) => {
         let application = {
             StuID: data.UID,
+            UType: data.UType,
             DName: req.body.DName,
+            ARoomNumber: req.body.ARoomNumber,
+            AType: req.body.AType
         }
         makeApplication(application).then((result) => {
             // res.json({
@@ -189,6 +196,93 @@ exports.getViolation = function(req, res, next) {
     })
 }
 
+exports.postRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let repairForm = {
+            UID: data.UID,
+            DName: req.body.DName,
+            RoomNumber: req.body.RoomNumber,
+            FName: req.body.FName,
+            Freetime: req.body.Freetime,
+            RContent: req.body.RContent
+        }
+        makeRepairForm(repairForm).then((result) => {
+            console.log(result);
+            res.redirect('/student/repairForm/all');
+        }).catch((err) => {
+            console.log(err);
+            res.json({
+                err: err
+            })
+        })
+
+    }).catch((err) => {
+        console.log(err);
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getAllRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let UID = data.UID;
+
+        viewAllRepairForm().then((rows) => {
+            console.log(rows);
+            res.render('student_repair', {data: rows, UID: UID});
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getPersonalRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let UID = data.UID;
+
+        viewPersonalRepariForm(UID).then((rows) => {
+            console.log(rows);
+            res.render('student_repair', {data: rows, UID: UID});
+
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        }) 
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.patchRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+
+    verify(token).then((data) => {
+        let identity = data;
+        let newRepairForm = req.body;
+        
+        updateRepariForm(identity, newRepairForm).then((result) => {
+            console.log(result);
+            res.redirect('/student/repairForm/personal');
+        }).catch((err) => {
+            console.log(err);
+        })
+    })
+}
+
 exports.getAccommodateInformation = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
@@ -203,6 +297,7 @@ exports.getAccommodateInformation = function(req, res, next) {
             })
         })
     }).catch((err) => {
+        console.log(err);
         res.json({
             err: err
         })

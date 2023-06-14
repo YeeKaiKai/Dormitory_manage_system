@@ -1,3 +1,44 @@
+body {
+    overflow-x: hidden;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-header {
+    background-color: #FFD4A5;
+}
+
+.confirmButton {
+    font-size: large;
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    padding: 7px 13px;
+    border: none;
+    background: #e88e44;
+    box-shadow: none;
+}
+
+.confirmButton:hover {
+    background-color: #e9802a;    
+}
+
+.cancelButton {
+    font-size: large;
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    padding: 7px 13px;
+    border: none;
+    background: #908f8e;
+}
+
+.cancelButton:hover {
+    background-color: #7a7a79;
+}
+
 .setNav {
     max-width: 70vw;
     margin: 0 auto;
@@ -14,6 +55,46 @@
     /* 垂直置中 */
     align-items: center;
     background: #FFD4A5;
+}
+
+.container {
+    font-size: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 700px;
+    background-color: #ffffff;
+    justify-content: space-around;
+    margin-top: 10%;
+    /* align-items: center; */
+}
+.tContainer{
+    font-size: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 80px;
+    background-color: #ffffff;
+    justify-content: space-around;
+}
+
+.aButton{
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    border-color: #FF8A65;
+    height: 50px;
+    width: 150px;
+    background: #e88e44;
+}
+.aTypeButton{
+    color: white;
+    border-radius: 5px;
+    /*邊框變為圓弧*/
+    border-color: transparent;
+    height: 40px;
+    width: 120px;
+    background: #e88e44;
 }
 
 .setContentBlock {

@@ -27,7 +27,7 @@
                     <a class="nav-link" href="/student/information">住宿資訊</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/student/repairForm">報修申請</a>
+                    <a class="nav-link" href="/student/repairForm/all">報修申請</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/student/messageBoard">留言板</a>
@@ -40,59 +40,39 @@
         <p class="setTitleBlock">住宿申請</p>
     </header>
 
-    
     <main>
         <form class="setContentBlock" method='post' action='http://localhost:3000/student/application/'> 
+            
             <label for="" class="col-form-label">請選擇申請類別</label>
-                    <select class="form-select" required="required" aria-label="Default select example" name="Type">
-                        <option value="住宿申請">申請住宿</option>
-                        <option value="換宿申請">申請換宿</option>
-                        <option value="退宿申請">申請退宿</option>
+                    <select class="form-select" required="required" aria-label="Default select example" name="AType">
+                        <option value="" selected disabled>請選擇</option>
+                        <option value="申請住宿">申請住宿</option>
+                        <option value="申請換宿">申請換宿</option>
+                        <option value="申請退宿">申請退宿</option>
                     </select>
-            <!-- 未申請分男女 -->
-            <% if(data[0].ApplyNumber === undefined) {%>
-                <% if(data[0].SSex === "男"){ %>
-                    <label for="" class="col-form-label">請選擇欲申請之宿舍</label>
-                    <select class="form-select" required="required" aria-label="Default select example" name="DName">
-                        <option value="學一宿舍OA">學一宿舍OA</option>
-                        <option value="學二宿舍OE">學二宿舍OE</option>
-                        <option value="綜合大樓">綜合大樓</option>
-                    </select>
-                <%} else {%>
-                    <label for="" class="col-form-label">請選擇欲申請之棟別</label>
-                    <select class="form-select" required="required" aria-label="Default select example" name="DName">
-                        <option value="學一宿舍OB">學一宿舍OB</option>
-                        <option value="學二宿舍OF">學二宿舍OF</option>
-                    </select>
-                <%}%>
-
-                <!-- 尚未解決：如果是"住宿申請"，不可輸入房號 -->
+            <% data=JSON.parse(data); %>
+            <% if(data[0].SSex === "男"){ %>
+                <label for="" class="col-form-label">請選擇欲申請之宿舍</label>
+                <select class="form-select" required="required" aria-label="Default select example" name="DName">
+                    <option value="" selected disabled>請選擇</option>
+                    <option value="學一宿舍OA">學一宿舍OA</option>
+                    <option value="學二宿舍OE">學二宿舍OE</option>
+                    <option value="綜合大樓">綜合大樓</option>
+                </select>
+            <%} else {%>
+                <label for="" class="col-form-label">請選擇欲申請之宿舍</label>
+                <select class="form-select" required="required" aria-label="Default select example" name="DName">
+                    <option value="" selected disabled>請選擇</option>
+                    <option value="學一宿舍OB">學一宿舍OB</option>
+                    <option value="學二宿舍OF">學二宿舍OF</option>
+                </select>
+            <%}%>
                 <label for="inputRoom" class="col-form-label" id="roomLabel">請輸入欲申請之房號</label>
-                    <input type="text" class="form-control" id="inputRoom" name="Room">
-                
+                    <input type="text" class="form-control" id="inputRoom" name="ARoomNumber">
                 <div class="d-flex justify-content-center">
                     <input type="submit" class="submitButton" value="確認送出">
                 </div>
 
-                
-                
-            <!-- <%} else {%>
-                <div class="mb-3 row">
-                    <label for="ApplyDorm" class="col-sm-2 col-form-label">欲申請之宿舍</label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="ApplyDorm" name="DName"
-                            value="<%= data[0].DName%>">
-                    </div>
-                </div>
-            <%}%> -->
-
-            <!-- 如果已經申請過了需要顯示相對應畫面 h3,set button gone, get student apply information -->
-            <!-- <% data=JSON.parse(data);%>
-            <% if(data[0].ApplyNumber !== undefined) {%>
-                <h3 class="setAppliedWord">您已於<%= data[0].DATE%>時送出申請，以下是您的申請選擇，審核狀態為<%= data[0].Approved%></h3>
-            <%}%> -->
-            <h4 class="setAppliedWord">最近一次申請您已於2023/06/06 20:00送出，以下是您的申請選擇，審核狀態為</h4>
-            
             <div class="setContentBlock">
                 <table class="table">
                     <thead class="table-light">
@@ -107,7 +87,7 @@
                             <th scope="col">通過</th>
                         </tr>
                     </thead>
-                    
+
                         <tbody>
                             <tr class="infoContainer"> 
                                 <td>A123</td>
@@ -132,14 +112,31 @@
                         </tbody>
                 </table>
     
+                        <tbody>
+                             <% data; for(var i=0; i < data.length; i++) { %>
+                                <% if(data[0].DName !== undefined) {%>
+                                    <tr class="infoContainer"> 
+                                        <td><%= data[i].StuID%></td>
+                                        <td><%= data[i].UName%></td>
+                                        <td>111</td>
+                                        <td>第二學期</td>
+                                        <td><%= data[i].AType%></td>
+                                        <td><%= data[i].DName%></td>
+                                        <td><%= data[i].ARoomNumber%></td>
+                                        <td><%= data[i].Approved%></td>
+                                    </tr>
+                                <%}%>
+                            <% } %>
+                        </tbody>
+                </table>
             </div>
         </form>
     </main>
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+    <script src="/javascripts/student_apply.js"></script>
 </body>
 
 </html>

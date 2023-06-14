@@ -16,6 +16,13 @@ const viewAllViolation = require("../models/violation/viewAllViolation_model.js"
 const updateViolation = require("../models/violation/updateViolation_model.js");
 
 const viewDormitory = require("../models/dormitory/viewDormitory_model.js");
+const viewRoom = require("../models/dormitory/viewRoom_model.js");
+const viewFacility = require("../models/dormitory/viewFacility_model.js");
+const exp = require("constants");
+const makeRepairForm = require("../models/repairForm/makeRepairForm.js");
+const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
+const viewPersonalRepairForm = require("../models/repairForm/viewPersonalRepairForm.js");
+const updateRepariForm = require("../models/repairForm/updateRepariForm.js");
 
 exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
@@ -261,6 +268,145 @@ exports.getDormitory = function(req, res, next) {
             })
         })
     }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getRoom = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let room = {
+            DName: req.query.DName,
+        }
+        viewRoom(room).then((rows) => {
+            console.log(rows);
+            res.render('housemaster_dormitory_room', {data: rows});
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        console.log(err);
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getFacility = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let facility = {
+            DName: req.query.DName,
+            RoomNumber: req.query.RoomNumber
+        }
+        viewFacility(facility).then((rows) => {
+            res.render('housemaster_dormitory_room_facility', {data: rows});
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.postRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let repairForm = {
+            UID: data.UID,
+            DName: req.body.DName,
+            RoomNumber: req.body.RoomNumber,
+            FName: req.body.FName,
+            Freetime: req.body.Freetime,
+            RContent: req.body.RContent
+        }
+        makeRepairForm(repairForm).then((result) => {
+            console.log(result);
+            res.redirect('/housemaster/repairForm/all');
+        }).catch((err) => {
+            console.log(err);
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        console.log(err);
+        res.json({
+            err: err
+        })
+    }) 
+}
+
+exports.getAllRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let UID = data.UID;
+
+        viewAllRepairForm().then((rows) => {
+            console.log(rows);
+            res.render('housemaster_repair', {data: rows, UID: UID});
+
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getPersonalRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let UID = data.UID;
+
+        viewPersonalRepairForm(UID).then((rows) => {
+            console.log(rows);
+            res.render('housemaster_repair', {data: rows, UID: UID});
+
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.patchRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+
+    verify(token).then((data) => {
+        let identity = data;
+        let newRepairForm = req.body;
+
+        updateRepariForm(identity, newRepairForm).then((result) => {
+            console.log(result);
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            console.log(err);
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        console.log(err);
         res.json({
             err: err
         })

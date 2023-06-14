@@ -4,7 +4,7 @@ const connect = require("./connection_db.js");
 
 /**
  * User Regist
- * @param {{UName: string, UID: string, UPassword: string, UType: string}} UserData 
+ * @param {{UName: string, UID: string, UPassword: string, UType: string, Email: string}} UserData 
  * @returns 
  */
 

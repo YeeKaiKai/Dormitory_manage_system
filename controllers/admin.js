@@ -26,6 +26,11 @@ const removeBoarder = require("../models/boarder/removeBoarder_model.js");
 const viewBoarder = require("../models/boarder/viewBoarder_model.js");
 const updateBoarder = require("../models/boarder/updateBoarder_model.js");
 
+const updateRepariForm = require("../models/repairForm/updateRepariForm.js");
+const viewAllRepairForm = require("../models/repairForm/viewAllRepairForm.js");
+const exp = require("constants");
+const payment_notice_email = require("../models/payment_notice_email.js");
+
 exports.postAnnouncement = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
@@ -109,14 +114,33 @@ exports.putAnnouncement = function(req, res, next) {
     })
 }
 
+exports.getApplicationIndex = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        res.render('admin_apply');
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
 exports.getApplicationByAdmin = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
-        viewApplication().then((rows) => {
+        viewApplication(req.params.AType).then((rows) => {
             // res.json({
             //     rows: rows
             // })
-            res.render('admin_apply', {data: rows});
+            if (req.params.AType === "申請住宿") {
+                res.render('admin_apply_in', {data: rows});
+            } else if (req.params.AType === "申請換宿") {
+                res.render('admin_apply_exc', {data: rows});
+            } else if (req.params.AType === "申請退宿") {
+                res.render('admin_apply_out', {data: rows});
+            } else {
+                res.render('admin_apply', {data: rows});
+            }
         }).catch((err) => {
             res.json({
                 err: err
@@ -136,9 +160,32 @@ exports.putApplication = function(req, res, next) {
             Approved: req.body.Approved,
             StuID: req.body.StuID,
             ApplyNumber: req.body.ApplyNumber,
-            DName: req.body.DName
+            DName: req.body.DName,
+            Paid: req.body.Paid,
+            ARoomNumber: req.body.ARoomNumber
         }
         updateApplication(application).then((result) => {
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.postPaymentNotice = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let StuID = req.body.UID;
+
+        payment_notice_email(StuID, data.UType).then((result) => {
             res.json({
                 result: result
             })
@@ -163,9 +210,7 @@ exports.postDormitory = function(req, res, next) {
             DCapacity: req.body.DCapacity
         }
         addDormitory(dormitory).then((result) => {
-            res.json({
-                result: result
-            })
+            res.redirect('/admin/dormitory');
         }).catch((err) => {
             res.json({
                 err: err
@@ -187,9 +232,7 @@ exports.postRoom = function(req, res, next) {
             RCapacity: req.body.RCapacity
         }
         addRoom(room).then((result) => {
-            res.json({
-                result: result
-            })
+            res.redirect('/admin/dormitory/room?DName=' + req.body.DName);
         }).catch((err) => {
             res.json({
                 err: err
@@ -212,9 +255,7 @@ exports.postFacility = function(req, res, next) {
             FQuantity: req.body.FQuantity
         }
         addFacility(facility).then((result) => {
-            res.json({
-                result: result
-            })
+            res.redirect('/admin/dormitory/room/facility' + '?DName=' + req.body.DName + '&RoomNumber=' + req.body.RoomNumber);
         }).catch((err) => {
             res.json({
                 err: err
@@ -325,9 +366,10 @@ exports.getRoom = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let room = {
-            DName: req.body.DName,
+            DName: req.query.DName,
         }
         viewRoom(room).then((rows) => {
+            console.log(rows);
             res.render('admin_dormitory_room', {data: rows});
         }).catch((err) => {
             res.json({
@@ -345,8 +387,8 @@ exports.getFacility = function(req, res, next) {
     let token = req.cookies.token;
     verify(token).then((data) => {
         let facility = {
-            DName: req.body.DName,
-            RoomNumber: req.body.RoomNumber
+            DName: req.query.DName,
+            RoomNumber: req.query.RoomNumber
         }
         viewFacility(facility).then((rows) => {
             res.render('admin_dormitory_room_facility', {data: rows});
@@ -510,7 +552,7 @@ exports.putBoarder = function(req, res, next) {
     verify(token).then((data) => {
         let boarder = {
             DName: req.body.DName,
-            RoomNumber: req.body.RoomNumber,
+            ARoomNumber: req.body.RoomNumber,
             StuID: req.body.StuID
         }
         updateBoarder(boarder).then((result) => {
@@ -522,6 +564,54 @@ exports.putBoarder = function(req, res, next) {
                 err: err
             })
         })
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.patchRepairForm = function(req, res, next){
+    let token = req.cookies.token;
+
+    verify(token).then((data) => {
+        let identity = data;
+        let newRepairForm = req.body;
+
+        updateRepariForm(identity, newRepairForm).then((result) => {
+            console.log(result);
+            res.json({
+                result: result
+            })
+        }).catch((err) => {
+            console.log(err);
+            res.json({
+                err: err
+            })
+        })
+
+    }).catch((err) => {
+        res.json({
+            err: err
+        })
+    })
+}
+
+exports.getAllRepairForm = function(req, res, next) {
+    let token = req.cookies.token;
+    verify(token).then((data) => {
+        let UID = data.UID;
+
+        viewAllRepairForm().then((rows) => {
+            console.log(rows);
+            res.render('admin_repair', {data: rows, UID: UID});
+
+        }).catch((err) => {
+            res.json({
+                err: err
+            })
+        }) 
+
     }).catch((err) => {
         res.json({
             err: err

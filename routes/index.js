@@ -14,6 +14,10 @@ router.get('/login', function(req, res, next) {
 
 router.post('/register', controller.postRegist);
 router.post('/login', controller.postLogin);
+router.post('/forgotPassword', controller.postForgotPassword);
+router.get('/forgotPassword', controller.getForgotPassword);
+router.get('/resetPassword/:UID/:resetToken', controller.getResetPassword);
+router.post('/resetPassword/:UID/:resetToken', controller.putResetPassword);
 router.get('/announcement', controller.getAnnouncement);
 router.get('/announcement/detail', controller.getDetailAnnouncement);
 router.get('/introduction', controller.getIntroduction);

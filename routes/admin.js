@@ -12,8 +12,11 @@ router.delete('/announcement', controller.deleteAnnouncement);
 router.get('/announcement', controller.getAnnouncement);
 router.put('/announcement', controller.putAnnouncement);
 
-router.get('/application', controller.getApplicationByAdmin);
+router.get('/application', controller.getApplicationIndex);
+router.get('/application/:AType', controller.getApplicationByAdmin);
 router.put('/application', controller.putApplication);
+
+router.post('/payment_notice', controller.postPaymentNotice);
 
 router.post('/dormitory', controller.postDormitory);
 router.post('/dormitory/room', controller.postRoom);
@@ -32,5 +35,8 @@ router.post('/boarder', controller.postBoarder);
 router.delete('/boarder', controller.deleteBoarder);
 router.get('/boarder', controller.getBoarder);
 router.put('/boarder', controller.putBoarder);
+
+router.patch('/repairForm', controller.patchRepairForm);
+router.get('/repairForm/all', controller.getAllRepairForm);
 
 module.exports = router;

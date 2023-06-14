@@ -33,7 +33,7 @@
                     <a class="nav-link" href="/housemaster/dormitory">管理宿舍資料</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/housemaster/repairForm">報修申請</a>
+                    <a class="nav-link" href="/housemaster/repairForm/all">報修申請</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/housemaster/announcement">管理公告</a>
@@ -66,7 +66,7 @@
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">編輯</h5>
+                                    <h5 class="modal-title" id="deleteModalLabel">刪除</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -74,8 +74,8 @@
                                         是否確定刪除？
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                        <button class="btn btn-primary" id="deleteButton<%= data[i].MNumber %>"
+                                        <button class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                        <button class="confirmButton" id="deleteButton<%= data[i].MNumber %>"
                                             onclick=deleteItem(<%=data[i].MNumber %>) >確認</button>
                                     </div>
                                 </div>

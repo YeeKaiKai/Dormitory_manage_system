@@ -27,7 +27,7 @@
                     <a class="nav-link" href="/student/information">住宿資訊</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/student/repairForm">報修申請</a>
+                    <a class="nav-link" href="/student/repairForm/all">報修申請</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/student/messageBoard">留言板</a>
@@ -94,8 +94,8 @@
                                             <input type="text" class="form-control" value='<%= data[i].MContent %>' id="MContent<%= data[i].MNumber %>" >
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                            <button type="submit" class="btn btn-primary" onclick= updateItem(<%= data[i].MNumber %>)>確認</button>
+                                            <button type="button" class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                            <button type="submit" class="confirmButton" onclick= updateItem(<%= data[i].MNumber %>)>確認</button>
                                         </div>
                                 </div>
                     
@@ -117,8 +117,8 @@
                                         是否確定刪除？
                                     </div>
                                     <div class="modal-footer">
-                                            <button class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                            <button class="btn btn-primary" id="deleteButton<%= data[i].MNumber %>" onclick= deleteItem(<%= data[i].MNumber %>) >確認</button>
+                                            <button class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                            <button class="confirmButton" id="deleteButton<%= data[i].MNumber %>" onclick= deleteItem(<%= data[i].MNumber %>) >確認</button>
                                     </div>
                                 </div>
                     
