@@ -2,7 +2,7 @@ global_url = "http://localhost:3000/admin/dormitory/room/facility/"
 
 
 // delete
-function deleteItem(pk) {
+function deleteItem(dname, roomNumber, pk) {
   const url = global_url
   let headers = {
     "Content-Type": "application/json",
@@ -10,6 +10,8 @@ function deleteItem(pk) {
   }
   let body = {
     "FName": pk,
+    "RoomNumber": roomNumber,
+    "DName": dname
   }
   console.log(body)
 
