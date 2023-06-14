@@ -10,7 +10,7 @@ module.exports = function(inquiry) {
     return new Promise((resolve, reject) => {
         console.log(inquiry.StuID);
         connect.query('\
-        SELECT A.StuID, ApplyNumber, ApplyAcademicYear, ApplySemester, `DATE`, Approved, Paid, UName, DName, AType, ARoomNumber\
+        SELECT A.StuID, ApplyNumber, ApplyAcademicYear, ApplySemester, `DATE`, Approved, Paid, UName, DName, AType, ARoomNumber, SSex\
         FROM APPLICATION AS A\
         LEFT JOIN STUDENT AS S ON A.StuID = S.StuID\
         LEFT JOIN USER AS U ON S.StuID = U.UID\
