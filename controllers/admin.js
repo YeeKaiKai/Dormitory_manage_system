@@ -552,7 +552,7 @@ exports.putBoarder = function(req, res, next) {
     verify(token).then((data) => {
         let boarder = {
             DName: req.body.DName,
-            RoomNumber: req.body.RoomNumber,
+            ARoomNumber: req.body.RoomNumber,
             StuID: req.body.StuID
         }
         updateBoarder(boarder).then((result) => {
