@@ -63,71 +63,73 @@
                     </thead>
                     <tbody>
                     <% data; for(var i=0; i < data.length; i++) { %>
-                        <tr>
-                            <td><nobr><%= data[i].FName %></nobr></td>
-                            <td><nobr><%= data[i].FQuantity  %></nobr></td>
-                            <td>
-                                <div style="text-align: right;">
-                                    <button class="editButton"><img src="/images/iconEdit.png" alt="editIcon"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#editModal<%= data[i].FName %>"></button>
-                                    <button class="deleteButton"><img src="/images/iconDelete.png" alt="deleteIcon"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal<%= data[i].FName %>"></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!--Edit Modal -->
-                        <div class="modal fade" id="editModal<%= data[i].FName %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">編輯</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <% if(data[i].FName !== undefined) {%>
+                            <tr>
+                                <td><nobr><%= data[i].FName %></nobr></td>
+                                <td><nobr><%= data[i].FQuantity  %></nobr></td>
+                                <td>
+                                    <div style="text-align: right;">
+                                        <button class="editButton"><img src="/images/iconEdit.png" alt="editIcon"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editModal<%= data[i].FName %>"></button>
+                                        <button class="deleteButton"><img src="/images/iconDelete.png" alt="deleteIcon"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal<%= data[i].FName %>"></button>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3 row">
-                                            <label for="<%= data[i].FName %>" class="col-sm-2 col-form-label">設備</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" value='<%= data[i].FName %>' class="form-control" id="<%= data[i].FName %>">
-                                            </div>
+                                </td>
+                            </tr>
+                            <!--Edit Modal -->
+                            <div class="modal fade" id="editModal<%= data[i].FName %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">編輯</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="mb-3 row">
-                                            <label for="FQuantity<%= data[i].FName %>" class="col-sm-2 col-form-label">數量</label>
-                                            <div class="col-sm-10">
-                                            <!-- /[^\d]/g,'' 為正規表達式-->
-                                            <input type="text" value='<%= data[i].FQuantity %>' id="FQuantity<%= data[i].FName %>" oninput="value=value.replace(/[^\d]/g,'')" class="form-control">
+                                        <div class="modal-body">
+                                            <div class="mb-3 row">
+                                                <label for="<%= data[i].FName %>" class="col-sm-2 col-form-label">設備</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" value='<%= data[i].FName %>' class="form-control" id="<%= data[i].FName %>">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="cancelButton" data-bs-dismiss="modal">取消</button>
-                                            <button type="submit" class="confirmButton" onclick= updateItem('<%= data[0].DName %>','<%= data[0].RoomNumber %>','<%= data[i].FName %>')>確認</button>
+                                            <div class="mb-3 row">
+                                                <label for="FQuantity<%= data[i].FName %>" class="col-sm-2 col-form-label">數量</label>
+                                                <div class="col-sm-10">
+                                                <!-- /[^\d]/g,'' 為正規表達式-->
+                                                <input type="text" value='<%= data[i].FQuantity %>' id="FQuantity<%= data[i].FName %>" oninput="value=value.replace(/[^\d]/g,'')" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                                <button type="submit" class="confirmButton" onclick= updateItem('<%= data[0].DName %>','<%= data[0].RoomNumber %>','<%= data[i].FName %>')>確認</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--Delete Modal -->
-                        <div class="modal fade" id="deleteModal<%= data[i].FName %>" tabindex="-1" aria-labelledby="deleteModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">刪除</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            是否確定刪除？
+                            <!--Delete Modal -->
+                            <div class="modal fade" id="deleteModal<%= data[i].FName %>" tabindex="-1" aria-labelledby="deleteModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">刪除</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-footer">
-                                                <button class="cancelButton" data-bs-dismiss="modal">取消</button>
-                                                <button class="confirmButton" id="deleteButton<%= data[i].FName %>" onclick= deleteItem('<%= data[0].DName %>','<%= data[0].RoomNumber %>','<%= data[i].FName %>') >確認</button>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                是否確定刪除？
+                                            </div>
+                                            <div class="modal-footer">
+                                                    <button class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                                    <button class="confirmButton" id="deleteButton<%= data[i].FName %>" onclick= deleteItem('<%= data[0].DName %>','<%= data[0].RoomNumber %>','<%= data[i].FName %>') >確認</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        <% } %>
                     <% } %>
                     </tbody>
                 </table>
