@@ -23,7 +23,8 @@ exports.postRegist = function(req, res, next) {
         UID: req.body.UID,
         UPassword: enPassword,
         UName: req.body.UName,
-        UType: req.body.UType
+        UType: req.body.UType,
+        Email: req.body.Email
     }; // need to communicate with front end, and the name should be the same with db column name
     regist(userData).then((result) => {
         res.json({
