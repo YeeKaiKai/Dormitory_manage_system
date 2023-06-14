@@ -107,8 +107,8 @@
                                                     <textarea class="form-control" id="post-content<%= data.AnnounceNumber %>"><%= data.AnnounceContent %></textarea>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                                    <button type="submit" class="btn btn-primary" onclick= updateItem(<%= data.AnnounceNumber %>)>確認</button>
+                                                    <button type="button" class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                                    <button type="submit" class="confirmButton" onclick= updateItem(<%= data.AnnounceNumber %>)>確認</button>
                                                 </div>
                                         </div>
                                     </div>
@@ -129,8 +129,8 @@
                                                 是否確定刪除？
                                             </div>
                                             <div class="modal-footer">
-                                                    <button class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                                    <button class="btn btn-primary" id="deleteButton<%= data.AnnounceNumber %>" onclick= deleteItem(<%= data.AnnounceNumber %>) >確認</button>
+                                                    <button class="cancelButton" data-bs-dismiss="modal">取消</button>
+                                                    <button class="confirmButton" id="deleteButton<%= data.AnnounceNumber %>" onclick= deleteItem(<%= data.AnnounceNumber %>) >確認</button>
                                             </div>
                                         </div>
                                     </div>

@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .setTitleBlock {
     font-size: 32px;
     font-weight: bold;
